@@ -25,15 +25,54 @@ export default function Navbar({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [navTheme, setNavTheme] = useState<"dark" | "light">("dark");
   const lastScrollYRef = useRef(0);
+  const servicesMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close mega menu on outside click or escape key
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        servicesMenuRef.current &&
+        !servicesMenuRef.current.contains(e.target as Node)
+      ) {
+        setIsServicesOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsServicesOpen(false);
+      }
+    };
+    if (isServicesOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isServicesOpen]);
+
+  // Automatically close submenus on route change
+  useEffect(() => {
+    setIsServicesOpen(false);
+    setIsMobileMenuOpen(false);
+    setIsMobileServicesOpen(false);
+  }, [pathname]);
 
   // Detect theme of section under navbar to dynamically adapt transparent navbar colors
   useEffect(() => {
     const updateTheme = () => {
+      const lower = pathname?.toLowerCase() || "";
       let detected: "dark" | "light" =
-        pathname?.toLowerCase() === "/about" || pathname?.toLowerCase() === "/contact"
+        lower === "/about" ||
+          lower === "/contact" ||
+          lower.startsWith("/services") ||
+          lower.includes("portfolio") ||
+          lower.includes("protfolio")
           ? "light"
           : "dark";
 
@@ -143,13 +182,17 @@ export default function Navbar({
     ? "border-[#171816]/70 text-[#171816] hover:border-[#BE9B59] hover:text-[#BE9B59] hover:bg-[#BE9B59]/10"
     : "border-white/80 text-white hover:border-[#BE9B59] hover:text-[#BE9B59] hover:bg-[#BE9B59]/10";
 
-  const isAboutActive = pathname?.toLowerCase() === "/about" || activeSection === "about";
-  const isContactActive = pathname?.toLowerCase() === "/contact" || activeSection === "contact";
+  const lowerPath = pathname?.toLowerCase() || "";
+  const isAboutActive = lowerPath === "/about" || activeSection === "about";
+  const isServicesActive = lowerPath.startsWith("/services");
+  const isPortfolioActive = lowerPath.includes("portfolio") || lowerPath.includes("protfolio");
+  const isContactActive = lowerPath === "/contact" || activeSection === "contact";
   const isConsultationActive =
-    pathname?.toLowerCase() === "/consultation" ||
-    pathname?.toLowerCase() === "/book-a-consultation";
+    lowerPath === "/consultation" || lowerPath === "/book-a-consultation";
   const isHomeActive =
     !isAboutActive &&
+    !isServicesActive &&
+    !isPortfolioActive &&
     !isContactActive &&
     !isConsultationActive &&
     (pathname === "/" || activeSection === "home");
@@ -196,68 +239,146 @@ export default function Navbar({
             )}
           </Link>
 
-          {/* Services with subtle dropdown indicator */}
+          {/* Services with Luxury Architectural Mega Menu */}
           <div
+            ref={servicesMenuRef}
             className="relative"
             onMouseEnter={() => setIsServicesOpen(true)}
             onMouseLeave={() => setIsServicesOpen(false)}
           >
-            <button
-              type="button"
-              className={`${textColor} hover:text-[#BE9B59] transition-colors duration-200 flex items-center gap-1.5 py-1 focus:outline-none cursor-pointer`}
-              aria-expanded={isServicesOpen}
-              aria-haspopup="true"
-            >
-              <span>Services</span>
-              <svg
-                className={`w-3 h-3 text-[#BE9B59] transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""
+            <div className="flex items-center gap-1.5 py-1">
+              <Link
+                href="/services"
+                onClick={() => setIsServicesOpen(false)}
+                className={`transition-colors duration-200 relative group ${isServicesActive
+                  ? "text-[#BE9B59]"
+                  : `${textColor} hover:text-[#BE9B59]`
                   }`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-                aria-hidden="true"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+                Services
+                {isServicesActive && (
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#BE9B59] rounded-full" />
+                )}
+              </Link>
+              <button
+                type="button"
+                onClick={() => setIsServicesOpen((prev) => !prev)}
+                className={`${textColor} hover:text-[#BE9B59] transition-colors focus:outline-none cursor-pointer p-0.5`}
+                aria-expanded={isServicesOpen}
+                aria-haspopup="true"
+                aria-label="Toggle Services Mega Menu"
+              >
+                <svg
+                  className={`w-3 h-3 text-[#BE9B59] transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""
+                    }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
 
-            {/* Dropdown Menu */}
+            {/* Minimal & Refined Services Menu */}
             {isServicesOpen && (
               <div
-                className="absolute top-full left-0 mt-3 w-56 bg-[#171816]/95 backdrop-blur-md border border-white/10 rounded-sm py-2 shadow-2xl animate-fade-in"
+                className="absolute top-full -left-6 pt-3 w-[520px] lg:w-[580px] max-w-[calc(100vw-2rem)] z-50 animate-fade-in"
                 role="menu"
+                aria-label="Services Menu"
               >
-                <Link
-                  href="/#interior-architecture"
-                  className="block px-5 py-2.5 text-[11px] tracking-[0.16em] uppercase text-[#F5F0E7]/80 hover:text-[#BE9B59] hover:bg-white/5 transition-colors"
-                  role="menuitem"
-                >
-                  Interior Architecture
-                </Link>
-                <Link
-                  href="/#luxury-renovation"
-                  className="block px-5 py-2.5 text-[11px] tracking-[0.16em] uppercase text-[#F5F0E7]/80 hover:text-[#BE9B59] hover:bg-white/5 transition-colors"
-                  role="menuitem"
-                >
-                  Luxury Renovation
-                </Link>
-                <Link
-                  href="/#bespoke-joinery"
-                  className="block px-5 py-2.5 text-[11px] tracking-[0.16em] uppercase text-[#F5F0E7]/80 hover:text-[#BE9B59] hover:bg-white/5 transition-colors"
-                  role="menuitem"
-                >
-                  Bespoke Joinery & Fit-Out
-                </Link>
+                {/* Invisible hover bridge to eliminate any mouseleave gap */}
+                <div className="absolute top-0 left-0 right-0 h-3.5 bg-transparent" />
+
+                <div className="bg-[#141513]/98 backdrop-blur-2xl border border-white/10 rounded-xl p-5 shadow-[0_20px_50px_rgba(0,0,0,0.7)] text-left">
+                  {/* Clean 2-Column Grid of 6 Services */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+                    {[
+                      {
+                        slug: "complete-turnkey-fit-out",
+                        id: "01",
+                        title: "Complete Turnkey Fit-Out",
+                      },
+                      {
+                        slug: "mep-works",
+                        id: "04",
+                        title: "MEP Works — HVAC, Electrical & Plumbing",
+                      },
+                      {
+                        slug: "villa-apartment-renovations",
+                        id: "02",
+                        title: "Villa & Apartment Renovations",
+                      },
+                      {
+                        slug: "authority-approval-coordination",
+                        id: "05",
+                        title: "Authority Approval Coordination",
+                      },
+                      {
+                        slug: "office-commercial-interiors",
+                        id: "03",
+                        title: "Office & Commercial Interiors",
+                      },
+                      {
+                        slug: "project-management-execution",
+                        id: "06",
+                        title: "Project Management & Execution",
+                      },
+                    ].map((item) => (
+                      <Link
+                        key={item.slug}
+                        href={`/services/${item.slug}`}
+                        onClick={() => setIsServicesOpen(false)}
+                        className="group flex items-baseline gap-2.5 py-2.5 px-2.5 rounded-lg hover:bg-white/[0.05] transition-colors duration-200"
+                        role="menuitem"
+                      >
+                        <span className="font-sans text-[11px] text-[#BE9B59] font-medium tracking-wider flex-shrink-0">
+                          {item.id}
+                        </span>
+                        <span className="font-editorial text-[16px] text-[#F5F0E7] group-hover:text-[#BE9B59] transition-colors font-light leading-snug">
+                          {item.title}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Minimal Bottom Bar */}
+                  <div className="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between">
+                    <Link
+                      href="/services"
+                      onClick={() => setIsServicesOpen(false)}
+                      className="text-xs uppercase tracking-[0.2em] font-sans font-medium text-[#BE9B59] hover:text-[#d3b06e] transition-colors inline-flex items-center gap-1.5"
+                    >
+                      <span>All Services Overview</span>
+                      <span className="text-sm">&rarr;</span>
+                    </Link>
+
+                    <Link
+                      href="/consultation"
+                      onClick={() => setIsServicesOpen(false)}
+                      className="text-[11px] font-sans uppercase tracking-[0.18em] text-[#F5F0E7]/60 hover:text-[#BE9B59] transition-colors"
+                    >
+                      Book Consultation &rarr;
+                    </Link>
+                  </div>
+                </div>
               </div>
             )}
           </div>
 
           <Link
-            href="/Protfolio"
-            className={`${textColor} hover:text-[#BE9B59] transition-colors duration-200 py-1`}
+            href="/portfolio"
+            className={`transition-colors duration-200 relative group py-1 ${isPortfolioActive
+              ? "text-[#BE9B59]"
+              : `${textColor} hover:text-[#BE9B59]`
+              }`}
           >
             Portfolio
+            {isPortfolioActive && (
+              <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#BE9B59] rounded-full" />
+            )}
           </Link>
         </div>
 
@@ -410,17 +531,95 @@ export default function Navbar({
             >
               About Us
             </Link>
+            {/* Mobile Services Accordion */}
+            <div className="border-b border-white/5 py-1">
+              <div className="flex items-center justify-between">
+                <Link
+                  href="/services"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`${isServicesActive ? "text-[#BE9B59]" : "text-[#F5F0E7]/90"
+                    } hover:text-[#BE9B59] py-1 transition-colors`}
+                >
+                  Services
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileServicesOpen((prev) => !prev)}
+                  className="p-1 text-[#BE9B59] focus:outline-none"
+                  aria-label="Toggle sub-services menu"
+                >
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 ${isMobileServicesOpen ? "rotate-180" : ""
+                      }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+
+              {isMobileServicesOpen && (
+                <div className="mt-2 pl-3 border-l border-[#BE9B59]/30 flex flex-col space-y-2.5 py-2">
+                  <Link
+                    href="/services"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs uppercase tracking-[0.2em] text-[#BE9B59] font-medium"
+                  >
+                    &rarr; All Services Overview
+                  </Link>
+                  <Link
+                    href="/services/complete-turnkey-fit-out"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs uppercase tracking-[0.16em] text-[#F5F0E7]/75 hover:text-[#BE9B59]"
+                  >
+                    01 Complete Turnkey Fit-Out
+                  </Link>
+                  <Link
+                    href="/services/villa-apartment-renovations"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs uppercase tracking-[0.16em] text-[#F5F0E7]/75 hover:text-[#BE9B59]"
+                  >
+                    02 Villa &amp; Apartment Renovations
+                  </Link>
+                  <Link
+                    href="/services/office-commercial-interiors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs uppercase tracking-[0.16em] text-[#F5F0E7]/75 hover:text-[#BE9B59]"
+                  >
+                    03 Office &amp; Commercial Interiors
+                  </Link>
+                  <Link
+                    href="/services/mep-works"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs uppercase tracking-[0.16em] text-[#F5F0E7]/75 hover:text-[#BE9B59]"
+                  >
+                    04 MEP Works — Electrical, HVAC &amp; Plumbing
+                  </Link>
+                  <Link
+                    href="/services/authority-approval-coordination"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs uppercase tracking-[0.16em] text-[#F5F0E7]/75 hover:text-[#BE9B59]"
+                  >
+                    05 Authority Approval Coordination
+                  </Link>
+                  <Link
+                    href="/services/project-management-execution"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-xs uppercase tracking-[0.16em] text-[#F5F0E7]/75 hover:text-[#BE9B59]"
+                  >
+                    06 Project Management &amp; Execution
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link
-              href="/#services"
+              href="/portfolio"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-[#F5F0E7]/90 hover:text-[#BE9B59] py-2 border-b border-white/5 transition-colors"
-            >
-              Services
-            </Link>
-            <Link
-              href="/#portfolio"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-[#F5F0E7]/90 hover:text-[#BE9B59] py-2 border-b border-white/5 transition-colors"
+              className={`${isPortfolioActive ? "text-[#BE9B59]" : "text-[#F5F0E7]/90"
+                } hover:text-[#BE9B59] py-2 border-b border-white/5 transition-colors`}
             >
               Portfolio
             </Link>

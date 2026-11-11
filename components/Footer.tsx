@@ -148,42 +148,58 @@ export default function Footer() {
               <ul className="space-y-3.5 text-sm font-sans text-white/70">
                 <li>
                   <Link
-                    href="/#interior-architecture"
+                    href="/services/complete-turnkey-fit-out"
                     className="hover:text-[#BE9B59] transition-colors inline-block"
                   >
-                    Interior Architecture
+                    Complete Turnkey Fit-Out
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/#luxury-renovation"
+                    href="/services/villa-apartment-renovations"
                     className="hover:text-[#BE9B59] transition-colors inline-block"
                   >
-                    Villa & Penthouse Renovation
+                    Villa &amp; Apartment Renovations
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/#bespoke-joinery"
+                    href="/services/office-commercial-interiors"
                     className="hover:text-[#BE9B59] transition-colors inline-block"
                   >
-                    Bespoke Joinery & Millwork
+                    Office &amp; Commercial Interiors
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/#services"
+                    href="/services/mep-works"
                     className="hover:text-[#BE9B59] transition-colors inline-block"
                   >
-                    Turnkey Project Stewardship
+                    MEP Works (HVAC, Electrical, Plumbing)
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/#services"
+                    href="/services/authority-approval-coordination"
                     className="hover:text-[#BE9B59] transition-colors inline-block"
                   >
-                    Art & Furniture Curation
+                    Authority Approval Coordination
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/services/project-management-execution"
+                    className="hover:text-[#BE9B59] transition-colors inline-block"
+                  >
+                    Project Management &amp; Execution
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/services"
+                    className="text-[#BE9B59] hover:text-[#d3b06e] transition-colors inline-block pt-1 font-medium"
+                  >
+                    &rarr; All 6 Practice Disciplines
                   </Link>
                 </li>
               </ul>
@@ -206,7 +222,7 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/#portfolio" className="hover:text-[#BE9B59] transition-colors inline-block">
+                  <Link href="/portfolio" className="hover:text-[#BE9B59] transition-colors inline-block">
                     Selected Works
                   </Link>
                 </li>
@@ -281,7 +297,7 @@ export default function Footer() {
           {/* Bottom Bar: Copyright, Socials, Back to Top */}
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs font-sans text-white/45">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-center sm:text-left">
-              <span>&copy; {new Date().getFullYear()} RichMan Interiors FZ-LLC.</span>
+              <span>&copy; 2026 RichMan Interiors FZ-LLC.</span>
               <span className="hidden sm:inline text-white/20">•</span>
               <span className="hover:text-white/70 transition-colors cursor-pointer">
                 Privacy & Data Policy

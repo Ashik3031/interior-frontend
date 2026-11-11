@@ -14,6 +14,25 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/Protfolio",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/protfolio",
+        destination: "/portfolio",
+        permanent: true,
+      },
+      {
+        source: "/Services",
+        destination: "/services",
+        permanent: true,
+      },
+    ];
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

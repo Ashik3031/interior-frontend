@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Apartments from "@/components/proftfolio";
+import Apartments from "@/components/Appartments";
 
 export const metadata: Metadata = {
     title: "Apartments — ERA Residence Estepona",

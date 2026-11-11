@@ -16,53 +16,63 @@ interface ServiceItem {
 const SERVICES_DATA: ServiceItem[] = [
   {
     id: "01",
-    title: "Interior Design",
+    title: "Complete Turnkey Fit-Out",
     description:
-      "Bespoke interior concepts thoughtfully designed to reflect your lifestyle, vision, and aspirations.",
-    cta: "BEGIN YOUR DESIGN JOURNEY",
+      "Full-spectrum architectural delivery from shell and core to white-glove handover under one unified atelier roof.",
+    cta: "EXPLORE TURNKEY FIT-OUT",
     image:
-      "https://res.cloudinary.com/dugtxybef/image/upload/v1791961973/pexels-rashed-hossain-1520582336-38033547_tdf40v.jpg",
-    href: "#consultation",
+      "https://res.cloudinary.com/dugtxybef/image/upload/v1791982249/pexels-david-vinicius-562259225-28652353_ynv2xo.jpg",
+    href: "/services/complete-turnkey-fit-out",
   },
   {
     id: "02",
-    title: "Residential Fit-Out",
+    title: "Villa & Apartment Renovations",
     description:
-      "Transform your home with refined finishes, carefully selected materials, and exceptional attention to detail.",
-    cta: "TRANSFORM YOUR SPACE",
+      "Transforming mature villas and luxury penthouses into contemporary, light-filled architectural sanctuaries.",
+    cta: "REIMAGINE YOUR RESIDENCE",
     image:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791961970/pexels-dwi2793-34961443_bkwpcx.jpg",
-    href: "#consultation",
+    href: "/services/villa-apartment-renovations",
   },
   {
     id: "03",
-    title: "Commercial Fit-Out",
+    title: "Office & Commercial Interiors",
     description:
-      "Create distinctive commercial environments that combine functionality, sophistication, and brand identity.",
-    cta: "EXPLORE COMMERCIAL DESIGN",
+      "Inspiring corporate headquarters, private family offices, and commercial spaces with STC-55+ acoustic isolation.",
+    cta: "DISCOVER COMMERCIAL DESIGN",
     image:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791961973/pexels-rashed-hossain-1520582336-38033547_tdf40v.jpg",
-    href: "#consultation",
+    href: "/services/office-commercial-interiors",
   },
   {
     id: "04",
-    title: "Bespoke Joinery & Furniture",
+    title: "MEP Works — Electrical, HVAC & Plumbing",
     description:
-      "Custom-crafted furniture and joinery designed to bring character, precision, and individuality to every space.",
-    cta: "DISCOVER BESPOKE CRAFT",
+      "Whisper-quiet VRF/chilled air conditioning, frameless slot diffusers, DALI smart lighting, and precision plumbing.",
+    cta: "VIEW MEP CAPABILITIES",
     image:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791961975/pexels-jonathanborba-9976128_iqwrsv.jpg",
-    href: "#consultation",
+    href: "/services/mep-works",
   },
   {
     id: "05",
-    title: "Renovation",
+    title: "Authority Approval Coordination",
     description:
-      "Reimagine existing spaces through considered design, material selection, and quality-focused execution.",
-    cta: "REIMAGINE YOUR SPACE",
+      "Direct expediting and fast-track permits across Dubai Municipality, Civil Defence (DCD), Emaar, Nakheel, and Trakhees.",
+    cta: "STATUTORY APPROVALS",
     image:
-      "https://res.cloudinary.com/dugtxybef/image/upload/v1791962094/pexels-fatih-guney-337108406-18699433_pesxoq.jpg",
-    href: "#consultation",
+      "https://res.cloudinary.com/dugtxybef/image/upload/v1791982249/pexels-david-vinicius-562259225-28652353_ynv2xo.jpg",
+    href: "/services/authority-approval-coordination",
+  },
+  {
+    id: "06",
+    title: "Project Management & Execution",
+    description:
+      "Continuous on-site superintendence, critical path milestone scheduling, and zero-tolerance QA/QC inspection regimes.",
+    cta: "PROJECT EXECUTION",
+    image:
+      "https://res.cloudinary.com/dugtxybef/image/upload/v1791961975/pexels-jonathanborba-9976128_iqwrsv.jpg",
+    href: "/services/project-management-execution",
   },
 ];
 
