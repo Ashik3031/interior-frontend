@@ -501,7 +501,7 @@ export default function LiveChatConcierge() {
               onClick={handleOpenChat}
               className="font-sans text-xs font-semibold text-[#171816] hover:text-[#BE9B59] transition-colors whitespace-nowrap cursor-pointer text-left"
             >
-              Chat With Us Now
+              Chat With Us Now!
             </button>
 
             <button
