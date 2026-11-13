@@ -70,7 +70,7 @@ const LOCATIONS_OPTIONS = [
 ];
 
 const FORMAT_OPTIONS = [
-  "At our Al Quoz Atelier",
+  "At our office",
   "On-Site at your Property",
   "Online Video Consultation",
 ];
@@ -563,7 +563,7 @@ export default function LiveChatConcierge() {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="font-serif text-base font-medium tracking-wide text-deep-charcoal">
-                    Atelier Concierge
+                    Conversation
                   </h3>
                   <span className="rounded bg-[#BE9B59]/15 px-1.5 py-0.5 font-sans text-[10px] font-semibold text-[#8B6B2B] uppercase tracking-wider">
                     Live
@@ -638,8 +638,8 @@ export default function LiveChatConcierge() {
                 {/* Bubble */}
                 <div
                   className={`max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-xs ${msg.sender === "user"
-                      ? "bg-[#BE9B59] text-[#171816] font-medium rounded-tr-sm"
-                      : "bg-[#F7F5F0] border border-deep-charcoal/10 text-deep-charcoal rounded-tl-sm"
+                    ? "bg-[#BE9B59] text-[#171816] font-medium rounded-tr-sm"
+                    : "bg-[#F7F5F0] border border-deep-charcoal/10 text-deep-charcoal rounded-tl-sm"
                     }`}
                 >
                   <p className="whitespace-pre-line">{msg.text}</p>
@@ -662,10 +662,10 @@ export default function LiveChatConcierge() {
                               disabled={!d.open}
                               onClick={() => setSelectedDayIso(d.iso)}
                               className={`flex flex-col items-center justify-center shrink-0 w-12 py-1.5 rounded-lg border text-center transition-all ${!d.open
-                                  ? "border-deep-charcoal/10 text-deep-charcoal/30 bg-black/[0.02] cursor-not-allowed"
-                                  : isSelected
-                                    ? "border-deep-charcoal bg-deep-charcoal text-[#F5F0E7] font-semibold shadow-xs"
-                                    : "border-deep-charcoal/20 bg-white text-deep-charcoal hover:border-[#BE9B59] hover:text-[#BE9B59] shadow-xs"
+                                ? "border-deep-charcoal/10 text-deep-charcoal/30 bg-black/[0.02] cursor-not-allowed"
+                                : isSelected
+                                  ? "border-deep-charcoal bg-deep-charcoal text-[#F5F0E7] font-semibold shadow-xs"
+                                  : "border-deep-charcoal/20 bg-white text-deep-charcoal hover:border-[#BE9B59] hover:text-[#BE9B59] shadow-xs"
                                 }`}
                             >
                               <span className="text-[10px] uppercase">{d.weekday}</span>
@@ -698,8 +698,8 @@ export default function LiveChatConcierge() {
                                     processAnswer(formattedSlot);
                                   }}
                                   className={`rounded-md py-1.5 px-2 text-xs font-mono transition-all text-center ${taken
-                                      ? "border border-deep-charcoal/10 text-deep-charcoal/30 line-through bg-black/[0.02] cursor-not-allowed"
-                                      : "border border-deep-charcoal/15 bg-white text-deep-charcoal hover:border-[#BE9B59] hover:bg-[#BE9B59] hover:text-[#171816] active:scale-95 shadow-xs"
+                                    ? "border border-deep-charcoal/10 text-deep-charcoal/30 line-through bg-black/[0.02] cursor-not-allowed"
+                                    : "border border-deep-charcoal/15 bg-white text-deep-charcoal hover:border-[#BE9B59] hover:bg-[#BE9B59] hover:text-[#171816] active:scale-95 shadow-xs"
                                     }`}
                                 >
                                   {fmt12(t)}
@@ -773,7 +773,7 @@ export default function LiveChatConcierge() {
                           href={`tel:${PHONE_NUMBER}`}
                           className="flex items-center justify-center gap-2 rounded-lg border border-deep-charcoal/20 bg-white px-4 py-2 text-xs font-semibold text-deep-charcoal hover:bg-black/5 transition-colors shadow-xs"
                         >
-                          <span>Call Atelier Direct ({PHONE_NUMBER})</span>
+                          <span>Call Directly ({PHONE_NUMBER})</span>
                         </a>
                       </div>
                     </div>
@@ -785,21 +785,34 @@ export default function LiveChatConcierge() {
                   {msg.timestamp}
                 </span>
 
-                {/* Option Pills (Show on bot's latest message if available) */}
-                {msg.sender === "bot" && msg.options && (
-                  <div className="mt-3 flex flex-wrap gap-1.5 max-w-[95%]">
-                    {msg.options.map((opt) => (
-                      <button
-                        key={opt}
-                        type="button"
-                        onClick={() => processAnswer(opt)}
-                        className="rounded-full border border-deep-charcoal/20 bg-white px-3 py-1.5 text-xs text-deep-charcoal hover:border-[#BE9B59] hover:bg-[#BE9B59] hover:text-[#171816] hover:font-medium transition-all duration-200 active:scale-95 text-left shadow-xs cursor-pointer"
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                {/* Option Buttons (Stacked down by down to avoid wrapping conflicts) */}
+                {msg.sender === "bot" &&
+                  msg.options &&
+                  msg.id ===
+                  [...messages].reverse().find((m) => m.sender === "bot")?.id &&
+                  currentStep !== "confirmed" && (
+                    <div className="mt-2.5 flex flex-col gap-1.5 w-full max-w-[92%]">
+                      {msg.options.map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => processAnswer(opt)}
+                          className="flex items-center justify-between w-full rounded-xl border border-deep-charcoal/15 bg-white px-3.5 py-2.5 text-xs font-medium text-deep-charcoal hover:border-[#BE9B59] hover:bg-[#FAF8F5] hover:text-[#171816] transition-all duration-200 active:scale-[0.99] text-left shadow-xs cursor-pointer group"
+                        >
+                          <span className="leading-snug">{opt}</span>
+                          <svg
+                            className="w-3.5 h-3.5 text-deep-charcoal/30 group-hover:text-[#BE9B59] transition-colors shrink-0 ml-2"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                  )}
               </div>
             ))}
 

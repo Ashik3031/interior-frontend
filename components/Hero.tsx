@@ -126,7 +126,7 @@ export default function Hero() {
       <div className="relative z-20 w-full max-w-5xl mx-auto px-6 sm:px-8 text-center flex flex-col items-center justify-center">
         {/* Eyebrow */}
         <div className="animate-fade-up">
-          <p className="hero-eyebrow text-[#D9C9B3] uppercase tracking-[0.28em] font-medium mb-3 md:mb-5 drop-shadow-sm">
+          <p className="hero-eyebrow text-[#E4D7C5] uppercase tracking-[0.28em] font-semibold mb-3 md:mb-5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
             {HERO_SLIDES[currentSlide].eyebrow}
           </p>
         </div>
@@ -140,7 +140,7 @@ export default function Hero() {
 
         {/* Supporting Description */}
         <div className="animate-fade-up-delay-2">
-          <p className="hero-description text-[#F5F0E7]/90 font-light max-w-xl md:max-w-2xl mx-auto mt-4 md:mt-6 drop-shadow-sm">
+          <p className="hero-description text-[#F5F0E7] font-medium max-w-xl md:max-w-2xl mx-auto mt-4 md:mt-6 drop-shadow-[0_1px_4px_rgba(0,0,0,0.75)]">
             {HERO_SLIDES[currentSlide].description}
           </p>
         </div>
