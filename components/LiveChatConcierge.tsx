@@ -501,7 +501,7 @@ export default function LiveChatConcierge() {
               onClick={handleOpenChat}
               className="font-sans text-xs font-semibold text-[#171816] hover:text-[#BE9B59] transition-colors whitespace-nowrap cursor-pointer text-left"
             >
-              Book your free consultation now
+              Chat With Us Now
             </button>
 
             <button
@@ -570,7 +570,7 @@ export default function LiveChatConcierge() {
                   </span>
                 </div>
                 <p className="font-sans text-xs text-deep-charcoal/60">
-                  Book Free Consultation
+                  Chat With Us
                 </p>
               </div>
             </div>
