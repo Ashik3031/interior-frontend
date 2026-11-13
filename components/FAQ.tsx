@@ -28,9 +28,9 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     id: "bespoke",
     no: "03",
-    question: "Can we commission bespoke furniture and imported materials?",
+    question: "What should I look for when choosing an interior design company?",
     answer:
-      "Yes, and it is a large part of our work. We work with stone quarries in Carrara and Verona, Parisian fabric ateliers and master cabinetmakers. Each piece is designed for your home rather than chosen from a catalogue.",
+      "Look for a company with a strong portfolio, experience in projects similar to yours, clear design processes and good project management. It is also important to understand how the team handles material selection, execution, communication and quality control.",
   },
   {
     id: "consultation",
@@ -42,9 +42,9 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     id: "international",
     no: "05",
-    question: "Do you take on projects outside the region?",
+    question: "Can we commission bespoke furniture and imported materials?",
     answer:
-      "Yes. We regularly design villas, chalets and penthouses across Europe, the Middle East and North America. Our procurement network and digital documentation let us work from anywhere.",
+      "Yes. We design custom furniture and source imported materials to complement each project. Working with skilled artisans and trusted international suppliers, we create pieces that reflect each client's style and give every space its own character.",
   },
 ];
 
@@ -58,9 +58,9 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      data-theme="dark"
+      data-theme="light"
       aria-labelledby="faq-heading"
-      className="relative bg-deep-charcoal px-6 py-24 text-warm-ivory sm:px-10 lg:px-16 lg:py-40"
+      className="relative bg-[#FAF8F5] px-6 py-24 text-deep-charcoal sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
     >
       <div className="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-12 lg:gap-12">
         {/* ---------------- Title column (sticks while the list scrolls) ---------------- */}
@@ -68,20 +68,20 @@ export default function FAQ() {
           <div className="lg:sticky lg:top-32">
             <h2
               id="faq-heading"
-              className="font-serif text-6xl font-light leading-none tracking-tight sm:text-7xl lg:text-8xl"
+              className="font-serif text-6xl font-light leading-none tracking-tight text-deep-charcoal sm:text-7xl lg:text-8xl"
             >
               Questions
-              <sup className="ml-2 align-super font-sans text-[.22em] tracking-normal text-warm-ivory/50">
+              <sup className="ml-2 align-super font-sans text-[.22em] tracking-normal text-deep-charcoal/45">
                 ({String(FAQ_ITEMS.length).padStart(2, "0")})
               </sup>
             </h2>
 
-            <p className="mt-8 max-w-xs font-sans text-base leading-relaxed text-warm-ivory/60">
+            <p className="mt-8 max-w-xs font-sans text-base leading-relaxed text-deep-charcoal/70">
               Straight answers about timelines, process and working with us.
             </p>
 
             <div className="mt-12 hidden lg:block">
-              <p className="font-sans text-sm text-warm-ivory/50">
+              <p className="font-sans text-sm text-deep-charcoal/60">
                 Still have a question?
               </p>
               <ContactLink />
@@ -91,11 +91,11 @@ export default function FAQ() {
 
         {/* ---------------- Questions ---------------- */}
         <div className="lg:col-span-8">
-          <ul className="border-b border-warm-ivory/15">
+          <ul className="border-b border-deep-charcoal/15">
             {FAQ_ITEMS.map((item) => {
               const isOpen = openId === item.id;
               return (
-                <li key={item.id} className="border-t border-warm-ivory/15">
+                <li key={item.id} className="border-t border-deep-charcoal/15">
                   <h3>
                     <button
                       type="button"
@@ -106,7 +106,7 @@ export default function FAQ() {
                       className="group grid w-full cursor-pointer grid-cols-[3rem_1fr_auto] items-baseline gap-x-4 py-7 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold sm:grid-cols-[4rem_1fr_auto] sm:py-9"
                     >
                       <span
-                        className={`font-sans text-sm tabular-nums transition-colors duration-300 ${isOpen ? "text-champagne-gold" : "text-warm-ivory/40"
+                        className={`font-sans text-sm tabular-nums transition-colors duration-300 ${isOpen ? "text-champagne-gold font-medium" : "text-deep-charcoal/40"
                           }`}
                       >
                         ({item.no})
@@ -114,8 +114,8 @@ export default function FAQ() {
 
                       <span
                         className={`font-serif text-xl font-light leading-snug transition-colors duration-300 sm:text-2xl lg:text-[1.75rem] ${isOpen
-                            ? "text-warm-ivory"
-                            : "text-warm-ivory/60 group-hover:text-warm-ivory"
+                          ? "text-deep-charcoal"
+                          : "text-deep-charcoal/65 group-hover:text-deep-charcoal"
                           }`}
                       >
                         {item.question}
@@ -144,7 +144,7 @@ export default function FAQ() {
                   >
                     <div className="overflow-hidden">
                       <div className="grid grid-cols-[3rem_1fr] gap-x-4 sm:grid-cols-[4rem_1fr]">
-                        <p className="col-start-2 max-w-xl pb-8 pr-8 font-sans text-base leading-relaxed text-warm-ivory/70 sm:pb-10">
+                        <p className="col-start-2 max-w-xl pb-8 pr-8 font-sans text-base leading-relaxed text-deep-charcoal/75 sm:pb-10">
                           {item.answer}
                         </p>
                       </div>
@@ -157,7 +157,7 @@ export default function FAQ() {
 
           {/* Contact link for small screens (the title column hides it) */}
           <div className="mt-12 lg:hidden">
-            <p className="font-sans text-sm text-warm-ivory/50">
+            <p className="font-sans text-sm text-deep-charcoal/60">
               Still have a question?
             </p>
             <ContactLink />
@@ -172,7 +172,7 @@ function ContactLink() {
   return (
     <a
       href="#contact"
-      className="group mt-3 inline-flex items-center gap-3 border-b border-champagne-gold pb-1 font-sans text-sm text-warm-ivory transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+      className="group mt-3 inline-flex items-center gap-3 border-b border-champagne-gold pb-1 font-sans text-sm text-deep-charcoal transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
     >
       Talk to us
       <svg

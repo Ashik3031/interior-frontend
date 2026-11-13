@@ -22,6 +22,10 @@ const prefersReduced = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Hero background image (Unsplash link - replace later with portfolio photography)
+const PORTFOLIO_HERO_BG =
+  "https://res.cloudinary.com/dugtxybef/image/upload/v1794487057/pexels-s3t-koncepts-1636465088-28853362_gdbmsa.jpg";
+
 const CATEGORIES = [
   "All Works",
   "Private Villas",
@@ -644,19 +648,35 @@ export default function PortfolioPage() {
 
       {/* ============ 1. Hero ============ */}
       <section
-        data-theme="light"
+        data-theme="dark"
         aria-labelledby="portfolio-heading"
-        className="px-6 pb-12 pt-36 sm:px-10 lg:px-16 lg:pb-16 lg:pt-44"
+        className="relative isolate overflow-hidden px-6 pb-12 pt-36 sm:px-10 lg:px-16 lg:pb-16 lg:pt-44 text-warm-ivory"
       >
-        <div className="mx-auto max-w-[1600px]">
-          <p className="pf-fade flex items-center gap-2.5 font-sans text-sm text-deep-charcoal/70">
+        {/* Background Hero Image */}
+        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+          <Image
+            src={PORTFOLIO_HERO_BG}
+            alt="RichMan Interiors Architectural Portfolio Dubai"
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          {/* Dark Luxury Overlay matching Home Page Hero */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-[1600px]">
+          <p className="pf-fade flex items-center gap-2.5 font-sans text-sm text-warm-ivory/80">
             <span className="h-2 w-2 rounded-full bg-champagne-gold" />
             Portfolio
           </p>
 
           <h1
             id="portfolio-heading"
-            className="mt-8 font-serif text-[clamp(56px,11vw,190px)] font-light uppercase leading-[0.92] tracking-tight"
+            className="mt-8 font-serif text-[clamp(56px,11vw,190px)] font-light uppercase leading-[0.92] tracking-tight text-warm-ivory"
           >
             <span className="block overflow-hidden pb-[0.06em]">
               <span className="pf-line block">Selected</span>
@@ -664,14 +684,14 @@ export default function PortfolioPage() {
             <span className="block overflow-hidden pb-[0.06em] lg:ml-[8vw]">
               <span className="pf-line block">
                 work
-                <sup className="ml-3 align-super font-sans text-[.16em] font-normal tracking-normal tabular-nums text-deep-charcoal/50">
+                <sup className="ml-3 align-super font-sans text-[.16em] font-normal tracking-normal tabular-nums text-champagne-gold">
                   ({pad(shownCount)})
                 </sup>
               </span>
             </span>
           </h1>
 
-          <p className="pf-fade mt-10 max-w-lg font-sans text-base leading-relaxed text-deep-charcoal/70 lg:mt-14 lg:text-lg">
+          <p className="pf-fade mt-10 max-w-lg font-sans text-base leading-relaxed text-warm-ivory/85 lg:mt-14 lg:text-lg">
             Villas, penthouses and renovations designed and delivered across Dubai
             and Abu Dhabi, from the first sketch to the final styling.
           </p>
@@ -717,8 +737,8 @@ export default function PortfolioPage() {
                     aria-pressed={selected}
                     onClick={() => setSelectedCategory(cat)}
                     className={`whitespace-nowrap py-5 font-sans text-sm transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-champagne-gold ${selected
-                        ? "text-deep-charcoal"
-                        : "text-deep-charcoal/50 hover:text-deep-charcoal"
+                      ? "text-deep-charcoal"
+                      : "text-deep-charcoal/50 hover:text-deep-charcoal"
                       }`}
                   >
                     {cat}

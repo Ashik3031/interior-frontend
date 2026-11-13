@@ -1,816 +1,1320 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image";
 import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ServiceData, SERVICES } from "@/data/servicesData";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const useIsoLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+const prefersReduced = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const hasFinePointer = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(pointer: fine)").matches;
+
+const pad = (n: number) => String(n).padStart(2, "0");
+
+/* ------------------------------------------------------------------ */
+/*  Content that is not in the data file                               */
+/*  Dummy copy. TODO: replace with real details before publishing.     */
+/* ------------------------------------------------------------------ */
+
+// Fallback hero background image (Unsplash link - replace later with service photography)
+const SERVICE_HERO_FALLBACK_BG =
+  "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=85";
+
+const FEATURES = [
+  "Single-contract turnkey",
+  "In-house joinery workshop",
+  "Dubai approvals handled for you",
+];
+
+const PROTOCOL = [
+  "Drawings supplied in Revit and AutoCAD formats",
+  "Developer and authority approvals coordinated",
+  "Site checked by 3D laser scan before the build",
+];
+
+// Shown beside each material; matched by position, repeats if there are more materials.
+const MATERIAL_SPECS = [
+  {
+    finish: "Honed to 800 grit, silk-velvet touch",
+    rating: "Sound-damping rating 0.42",
+    use: "Living rooms and master bath feature slabs",
+    care: "Sealed in-house with a fluoropolymer seal",
+  },
+  {
+    finish: "Deep-wire brushed, fumed matte",
+    rating: "Class A acoustic wall slats",
+    use: "Private libraries and walk-in dressing rooms",
+    care: "Zero-VOC natural hardwax oil, hand rubbed",
+  },
+  {
+    finish: "Hand-scratched satin champagne patina",
+    rating: "Mechanical anti-rattle gaskets",
+    use: "Pivot-door trim, reveals and pocket pulls",
+    care: "Baked clear nano protective topcoat",
+  },
+];
+
+const SWATCHES = [
+  "linear-gradient(135deg,#f4f1ea 0%,#e2ddd2 45%,#c9b99a 100%)",
+  "linear-gradient(135deg,#b08f66 0%,#7a5a3a 100%)",
+  "linear-gradient(135deg,#e8d9a8 0%,#b99a55 55%,#8a6d33 100%)",
+];
+
+// Matched by position to service.processSteps.
+const PHASES = [
+  {
+    duration: "Weeks 1–3",
+    milestone: "Laser 3D survey and preliminary filing with Dubai authorities",
+    approvals: "Initial Emaar, Nakheel and Civil Defence clearance checks",
+  },
+  {
+    duration: "Weeks 4–7",
+    milestone: "Virtual reality walkthrough and final material board",
+    approvals: "Your sign-off on stone cuts, timber veneers and MEP schemes",
+  },
+  {
+    duration: "Weeks 8–18",
+    milestone: "Factory dry-fit, then precise assembly on site",
+    approvals: "Interim Civil Defence site safety inspection",
+  },
+  {
+    duration: "Weeks 19–22",
+    milestone: "Styling, acoustic tuning and key handover",
+    approvals: "Building Completion Certificate and 10-year workshop warranty",
+  },
+];
+
+const GALLERY_LAYOUT = [
+  { col: "lg:col-span-7", ratio: "aspect-[4/3]", offset: "" },
+  { col: "lg:col-span-5", ratio: "aspect-[4/5]", offset: "lg:mt-32" },
+  { col: "lg:col-span-5 lg:col-start-2", ratio: "aspect-[4/5]", offset: "" },
+  { col: "lg:col-span-6 lg:col-start-7", ratio: "aspect-[4/3]", offset: "lg:mt-24" },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Small pieces                                                       */
+/* ------------------------------------------------------------------ */
+
+function Label({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
+  return (
+    <p
+      className={`flex items-center gap-2.5 font-sans text-sm ${light ? "text-warm-ivory/70" : "text-deep-charcoal/70"
+        }`}
+    >
+      <span className="h-2 w-2 rounded-full bg-champagne-gold" />
+      {children}
+    </p>
+  );
+}
+
+function Arrow({ className = "h-3 w-6" }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 60 20"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+    >
+      <path d="M0 10h56M47 1l9 9-9 9" />
+    </svg>
+  );
+}
+
+function CursorBubble({ active, label }: { active: boolean; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!hasFinePointer()) return;
+    const el = ref.current;
+    if (!el) return;
+
+    gsap.set(el, { xPercent: -50, yPercent: -50 });
+    const xTo = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3" });
+    const yTo = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3" });
+    const move = (e: MouseEvent) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      aria-hidden
+      className="pointer-events-none fixed left-0 top-0 z-[55] hidden [@media(pointer:fine)]:block"
+    >
+      <div
+        className={`flex h-24 w-24 items-center justify-center rounded-full bg-deep-charcoal font-sans text-sm font-medium text-warm-ivory transition-[opacity,transform] duration-300 ${active ? "scale-100 opacity-100" : "scale-50 opacity-0"
+          }`}
+      >
+        {label}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Gallery card                                                       */
+/* ------------------------------------------------------------------ */
+
+function GalleryCard({
+  image,
+  index,
+  onOpen,
+  onHover,
+}: {
+  image: ServiceData["gallery"][number];
+  index: number;
+  onOpen: () => void;
+  onHover: (on: boolean) => void;
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const layout = GALLERY_LAYOUT[index % GALLERY_LAYOUT.length];
+
+  // Curtain reveal, rising caption and a slow drift of the photo inside its frame.
+  useIsoLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || prefersReduced()) return;
+
+    const ctx = gsap.context(() => {
+      const frame = el.querySelector(".gc-frame");
+      const img = el.querySelector(".gc-img");
+      const text = el.querySelectorAll(".gc-text > *");
+
+      gsap.set(img, { scale: 1.15 });
+      gsap.fromTo(
+        frame,
+        { clipPath: "inset(0% 0% 100% 0%)" },
+        {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        }
+      );
+      gsap.from(text, {
+        y: 20,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.08,
+        scrollTrigger: { trigger: el, start: "top 80%", once: true },
+      });
+      gsap.fromTo(
+        img,
+        { yPercent: -6 },
+        {
+          yPercent: 6,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <figure
+      ref={ref}
+      onClick={onOpen}
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
+      className={`group cursor-pointer ${layout.col} ${layout.offset}`}
+    >
+      <div
+        className={`gc-frame relative overflow-hidden rounded-[4px] bg-sand-beige ${layout.ratio}`}
+      >
+        <div className="gc-img absolute inset-0 will-change-transform">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes="(min-width:1024px) 55vw, 100vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        </div>
+      </div>
+
+      <figcaption className="gc-text mt-5 flex items-start justify-between gap-6">
+        <span className="max-w-md font-sans text-base leading-relaxed text-deep-charcoal/70">
+          {/* Keyboard entry point; its click bubbles up to the figure. */}
+          <button
+            type="button"
+            onClick={onOpen}
+            aria-label={`Open photo ${index + 1}: ${image.caption}`}
+            className="text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold cursor-pointer"
+          >
+            {image.caption}
+          </button>
+        </span>
+        <span className="shrink-0 font-sans text-sm tabular-nums text-deep-charcoal/45">
+          ({pad(index + 1)})
+        </span>
+      </figcaption>
+    </figure>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Lightbox                                                           */
+/* ------------------------------------------------------------------ */
+
+function Lightbox({
+  images,
+  index,
+  onClose,
+  onPrev,
+  onNext,
+}: {
+  images: ServiceData["gallery"];
+  index: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const image = images[index];
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    return () => {
+      document.body.style.overflow = "";
+      previouslyFocused?.focus?.();
+    };
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      else if (e.key === "ArrowRight") onNext();
+      else if (e.key === "ArrowLeft") onPrev();
+      else if (e.key === "Tab") {
+        const f = panelRef.current?.querySelectorAll<HTMLElement>(
+          "a[href], button:not([disabled])"
+        );
+        if (!f || f.length === 0) return;
+        const first = f[0];
+        const last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, onNext, onPrev]);
+
+  if (!image) return null;
+
+  return (
+    <div
+      onClick={onClose}
+      className="modal-overlay fixed inset-0 z-[60] flex items-center justify-center bg-deep-charcoal/95 p-4 backdrop-blur-sm sm:p-8"
+    >
+      <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Photo viewer"
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-6xl text-warm-ivory"
+      >
+        <div className="mb-4 flex items-center justify-between">
+          <p className="font-sans text-sm tabular-nums text-warm-ivory/60">
+            ({pad(index + 1)} / {pad(images.length)})
+          </p>
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            className="inline-flex items-center gap-3 font-sans text-sm transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+          >
+            Close
+            <svg aria-hidden viewBox="0 0 14 14" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M1 1l12 12M13 1L1 13" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        <div key={index} className="lb-in relative h-[62vh] w-full sm:h-[70vh]">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes="(min-width:1280px) 72rem, 100vw"
+            className="object-contain"
+          />
+        </div>
+
+        <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-xl font-sans text-base text-warm-ivory/80">{image.caption}</p>
+          <div className="flex items-center gap-8 font-sans text-sm">
+            <button
+              type="button"
+              onClick={onPrev}
+              className="group inline-flex items-center gap-2 transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+            >
+              <span aria-hidden className="transition-transform duration-500 group-hover:-translate-x-1.5">
+                &larr;
+              </span>
+              Previous
+            </button>
+            <button
+              type="button"
+              onClick={onNext}
+              className="group inline-flex items-center gap-2 transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+            >
+              Next
+              <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1.5">
+                &rarr;
+              </span>
+            </button>
+            <Link
+              href="/portfolio"
+              onClick={onClose}
+              className="border-b border-champagne-gold pb-0.5 transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+            >
+              See the portfolio
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Page                                                               */
+/* ------------------------------------------------------------------ */
 
 interface Props {
   service: ServiceData;
 }
 
 export default function ServiceDetailPage({ service }: Props) {
-  // Find current index to determine next service
+  const rootRef = useRef<HTMLElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const delRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
   const currentIndex = SERVICES.findIndex((s) => s.slug === service.slug);
-  const nextService =
-    SERVICES[(currentIndex + 1) % SERVICES.length] || SERVICES[0];
+  const nextService = SERVICES[(currentIndex + 1) % SERVICES.length] || SERVICES[0];
 
-  // Interactive States
-  const [activeMaterialIndex, setActiveMaterialIndex] = useState(0);
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const [expandedDeliverable, setExpandedDeliverable] = useState<number | null>(null);
-  const [lightboxImage, setLightboxImage] = useState<{ src: string; caption: string; alt: string } | null>(null);
-  const [scrollY, setScrollY] = useState(0);
-  const [showFloatingBar, setShowFloatingBar] = useState(false);
+  const [activeDel, setActiveDel] = useState(0);
+  const [activeMaterial, setActiveMaterial] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [hovering, setHovering] = useState(false);
+  const [showFloating, setShowFloating] = useState(false);
 
-  // Scroll detection for parallax and floating bar
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const currentY = window.scrollY;
-          setScrollY(currentY);
-          setShowFloatingBar(currentY > 600);
-          ticking = false;
-        });
-        ticking = true;
+  const words = service.title.split(" ");
+  const material = service.materials[activeMaterial];
+  const spec = MATERIAL_SPECS[activeMaterial % MATERIAL_SPECS.length];
+  const swatch = SWATCHES[activeMaterial % SWATCHES.length];
+  const step = service.processSteps[activeStep];
+  const phase =
+    step && (step.timing || step.milestone || step.approvals)
+      ? {
+        duration: step.timing || PHASES[activeStep % PHASES.length]?.duration,
+        milestone: step.milestone || PHASES[activeStep % PHASES.length]?.milestone,
+        approvals: step.approvals || PHASES[activeStep % PHASES.length]?.approvals,
       }
-    };
+      : PHASES[activeStep % PHASES.length];
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Intersection Observer for scroll animations
-  const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
-
+  // Start fresh when moving between services.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute("data-anim-id");
-            if (id) {
-              setVisibleSections((prev) => ({ ...prev, [id]: true }));
-            }
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    const elements = document.querySelectorAll("[data-anim-id]");
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
+    setActiveDel(0);
+    setActiveMaterial(0);
+    setActiveStep(0);
+    setLightboxIdx(null);
   }, [service.slug]);
 
-  // Curated technical specs for each material specimen
-  const materialSpecs = [
-    {
-      finish: "800-Grit Diamond Honed / Silk Velvet",
-      acoustic: "Reverberation Damping Rating 0.42",
-      application: "Palatial Living Rooms & Master Bath Feature Slabs",
-      stewardship: "In-House Micro-Penetrating Fluoropolymer Seal",
-    },
-    {
-      finish: "Custom Deep-Wire Brushed & Fumed Matte",
-      acoustic: "Class A Architectural Acoustic Wall Slats",
-      application: "Private Executive Library & Walk-in Dressing Suites",
-      stewardship: "Zero-VOC Natural Hardwax Oil Hand Rub",
-    },
-    {
-      finish: "Hand-Scratched Satin Champagne Patina",
-      acoustic: "Precision Mechanical Anti-Rattle Gaskets",
-      application: "Frameless Pivot Door Trim, Reveals & Pocket Pulls",
-      stewardship: "Clear Nanotech Baked Protective Topcoat",
-    },
-  ];
+  /* ----- Show the floating action pill once the hero has scrolled away ----- */
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    const io = new IntersectionObserver(([entry]) => setShowFloating(!entry.isIntersecting));
+    io.observe(hero);
+    return () => io.disconnect();
+  }, [service.slug]);
 
-  // Specific milestone timelines for each execution phase
-  const phaseTimelines = [
-    {
-      duration: "Weeks 1–3",
-      milestone: "Laser 3D Spatial Audit & Dubai Authority Preliminary Filing",
-      approvals: "Initial Emaar / Nakheel / DCD master clearance checks",
-    },
-    {
-      duration: "Weeks 4–7",
-      milestone: "8K Virtual Reality Simulation & Full Material Board Lock",
-      approvals: "Client sign-off on stone cuts, timber veneers & MEP schemes",
-    },
-    {
-      duration: "Weeks 8–18",
-      milestone: "Factory Millwork Dry-Fit & On-Site Precision Assembly",
-      approvals: "Dubai Civil Defence (DCD) interim site safety inspection",
-    },
-    {
-      duration: "Weeks 19–22",
-      milestone: "White-Glove Staging, Acoustic Tuning & Turnkey Key Handover",
-      approvals: "Final Building Completion Certificate (BCC) & 10-Yr Atelier Warranty",
-    },
-  ];
+  /* ----- On desktop, the deliverable crossing the middle of the screen becomes active ----- */
+  useEffect(() => {
+    if (!window.matchMedia("(min-width: 1024px)").matches) return;
+    const els = delRefs.current.filter(Boolean) as HTMLLIElement[];
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActiveDel(Number((e.target as HTMLElement).dataset.index));
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [service.slug]);
+
+  /* ----- Force scroll to top on mount / slug navigation ----- */
+  useIsoLayoutEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      window.scrollTo(0, 0);
+      ScrollTrigger.clearScrollMemory();
+    }
+  }, [service.slug]);
+
+  /* ----- Page-level scroll animation ----- */
+  useIsoLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+      ScrollTrigger.clearScrollMemory();
+    }
+
+    const mm = gsap.matchMedia();
+    const ctx = gsap.context(() => {
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        // Hero: title words rise, the rest fades in
+        gsap.from(".dt-word", {
+          yPercent: 110,
+          duration: 1.2,
+          ease: "power3.out",
+          stagger: 0.1,
+          delay: 0.1,
+        });
+        gsap.from(".dt-fade", {
+          opacity: 0,
+          y: 16,
+          duration: 1,
+          ease: "power2.out",
+          stagger: 0.1,
+          delay: 0.5,
+        });
+
+        // Reading progress along the top edge
+        gsap.fromTo(
+          ".dt-progress",
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            ease: "none",
+            scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: true },
+          }
+        );
+
+        // Photo band opens from a framed strip to full width
+        const side = window.matchMedia("(min-width: 1024px)").matches ? 24 : 8;
+        const bandTrigger = {
+          trigger: ".band-frame",
+          start: "top 88%",
+          end: "center 45%",
+          scrub: true,
+        };
+        gsap.fromTo(
+          ".band-frame",
+          { clipPath: `inset(0% ${side}% 0% ${side}% round 4px)` },
+          { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none", scrollTrigger: bandTrigger }
+        );
+        gsap.fromTo(
+          ".band-img",
+          { scale: 1.25 },
+          { scale: 1, ease: "none", scrollTrigger: bandTrigger }
+        );
+
+        // Line beside the deliverables fills as you read
+        gsap.fromTo(
+          ".del-fill",
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".del-list",
+              start: "top 60%",
+              end: "bottom 60%",
+              scrub: true,
+            },
+          }
+        );
+
+        // Material rows and phase tabs rise once
+        gsap.from(".mat-row", {
+          opacity: 0,
+          y: 24,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: { trigger: ".mat-list", start: "top 85%", once: true },
+        });
+        gsap.from(".pr-tab", {
+          opacity: 0,
+          y: 24,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: { trigger: ".pr-tabs", start: "top 88%", once: true },
+        });
+
+        // Next-service photo drifts
+        gsap.fromTo(
+          ".nx-img",
+          { yPercent: -8 },
+          {
+            yPercent: 8,
+            ease: "none",
+            scrollTrigger: { trigger: ".nx-band", start: "top bottom", end: "bottom top", scrub: true },
+          }
+        );
+      });
+    }, root);
+
+    let cancelled = false;
+    document.fonts?.ready.then(() => {
+      if (!cancelled) ScrollTrigger.refresh();
+    });
+
+    return () => {
+      cancelled = true;
+      mm.revert();
+      ctx.revert();
+    };
+  }, [service.slug]);
+
+  /* ----- Lightbox navigation ----- */
+  const total = service.gallery.length;
+  const closeLightbox = useCallback(() => {
+    setLightboxIdx(null);
+    setHovering(false);
+  }, []);
+  const prevImage = useCallback(() => {
+    setLightboxIdx((i) => (i === null ? i : (i - 1 + total) % total));
+  }, [total]);
+  const nextImage = useCallback(() => {
+    setLightboxIdx((i) => (i === null ? i : (i + 1) % total));
+  }, [total]);
+
+  /* ----- Phase tabs: arrow keys move between phases ----- */
+  const onTabKey = (e: React.KeyboardEvent, i: number) => {
+    const n = service.processSteps.length;
+    let target = i;
+    if (e.key === "ArrowRight") target = (i + 1) % n;
+    else if (e.key === "ArrowLeft") target = (i - 1 + n) % n;
+    else return;
+    e.preventDefault();
+    setActiveStep(target);
+    tabRefs.current[target]?.focus();
+  };
 
   return (
-    <main className="bg-[#FAF8F5] text-[#171816] selection:bg-[#BE9B59] selection:text-[#171816] relative">
-      {/* 1. BREADCRUMBS & EDITORIAL HERO */}
-      <section
-        data-theme="light"
-        className="relative pt-36 sm:pt-40 md:pt-44 pb-16 lg:pb-24 border-b border-[#171816]/10 overflow-hidden"
-      >
-        {/* Subtle architectural grid pattern in background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#17181608_1px,transparent_1px),linear-gradient(to_bottom,#17181608_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+    <main
+      ref={rootRef}
+      className="relative bg-warm-ivory text-deep-charcoal selection:bg-champagne-gold selection:text-deep-charcoal"
+    >
+      <style>{`
+        @keyframes chipIn { from { opacity: 0; transform: translateY(8px); } }
+        @keyframes overlayIn { from { opacity: 0; } }
+        @keyframes lbIn { from { opacity: 0; transform: scale(.985); } }
+        @media (prefers-reduced-motion: no-preference) {
+          .chip-in { animation: chipIn .5s cubic-bezier(.22,1,.36,1) both; }
+          .modal-overlay { animation: overlayIn .3s ease both; }
+          .lb-in { animation: lbIn .5s cubic-bezier(.22,1,.36,1) both; }
+        }
+      `}</style>
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-          {/* Breadcrumb Navigation */}
+      {/* Reading progress */}
+      <div
+        aria-hidden
+        className="dt-progress pointer-events-none fixed inset-x-0 top-0 z-[70] h-0.5 origin-left scale-x-0 bg-champagne-gold"
+      />
+
+      <CursorBubble active={hovering && lightboxIdx === null} label="Zoom" />
+
+      {/* ============ 1. Hero ============ */}
+      <section
+        ref={heroRef}
+        data-theme="dark"
+        aria-labelledby="service-heading"
+        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 text-warm-ivory"
+      >
+        {/* Background Hero Image */}
+        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+          <Image
+            src={service.heroImage || SERVICE_HERO_FALLBACK_BG}
+            alt={service.title}
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          {/* Dark Luxury Overlay matching Home Page Hero */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+        </div>
+
+        <div className="mx-auto max-w-[1600px]">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-xs font-sans text-[#171816]/50 uppercase tracking-[0.2em] mb-6 animate-fade-in"
+            className="dt-fade flex items-center gap-2 font-sans text-sm text-warm-ivory/60"
           >
-            <Link href="/" className="hover:text-[#BE9B59] transition-colors">
+            <Link href="/" className="transition-colors hover:text-champagne-gold">
               Home
             </Link>
-            <span>/</span>
-            <Link href="/services" className="hover:text-[#BE9B59] transition-colors">
+            <span aria-hidden>/</span>
+            <Link href="/services" className="transition-colors hover:text-champagne-gold">
               Services
             </Link>
-            <span>/</span>
-            <span className="text-[#BE9B59] font-medium">{service.title}</span>
+            <span aria-hidden>/</span>
+            <span className="text-warm-ivory">{service.title}</span>
           </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-8">
-              {/* Discipline Eyebrow Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#BE9B59]/15 border border-[#BE9B59]/30 text-[#8f7134] text-[11px] font-sans font-semibold tracking-wider uppercase mb-5 animate-fade-up">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#BE9B59] animate-pulse" />
-                <span>DISCIPLINE {service.id} · {service.eyebrow}</span>
-              </div>
+          <div className="dt-fade mt-10">
+            <Label light>
+              Service {service.id} · {service.eyebrow}
+            </Label>
+          </div>
 
-              <h1 className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-light text-[#171816] tracking-tight leading-[1.05] mb-6 animate-fade-up-delay-1">
-                {service.title}
-              </h1>
+          <h1
+            id="service-heading"
+            className="mt-6 font-serif text-[clamp(44px,8vw,140px)] font-light uppercase leading-[0.95] tracking-tight text-warm-ivory"
+          >
+            {words.map((w, i) => (
+              <span
+                key={`${w}-${i}`}
+                className="mr-[0.22em] inline-block overflow-hidden pb-[0.1em] align-bottom"
+              >
+                <span className="dt-word inline-block">{w}</span>
+              </span>
+            ))}
+          </h1>
 
-              <div className="relative pl-6 border-l-2 border-[#BE9B59] mb-6 animate-fade-up-delay-2">
-                <p className="font-editorial text-2xl sm:text-3xl text-[#171816]/90 font-light italic leading-snug">
-                  &ldquo;{service.leadParagraph}&rdquo;
-                </p>
-              </div>
+          <div className="mt-14 grid gap-12 lg:mt-24 lg:grid-cols-12">
+            <p className="dt-fade font-serif text-2xl font-light leading-snug sm:text-3xl text-warm-ivory lg:col-span-7 lg:text-4xl">
+              {service.leadParagraph}
+            </p>
 
-              <p className="font-sans text-base sm:text-lg text-[#171816]/75 font-light leading-relaxed max-w-3xl animate-fade-up-delay-3">
+            <div className="lg:col-span-4 lg:col-start-9">
+              <p className="dt-fade font-sans text-base leading-relaxed text-warm-ivory/80">
                 {service.description}
               </p>
 
-              {/* Fast Feature Tags */}
-              <div className="mt-8 flex flex-wrap gap-2.5 pt-6 border-t border-[#171816]/10">
-                <span className="px-3 py-1 rounded-full bg-white border border-[#171816]/10 text-xs font-sans text-[#171816]/70">
-                  ✦ Single-Contract Turnkey
-                </span>
-                <span className="px-3 py-1 rounded-full bg-white border border-[#171816]/10 text-xs font-sans text-[#171816]/70">
-                  ✦ In-House Joinery Atelier
-                </span>
-                <span className="px-3 py-1 rounded-full bg-white border border-[#171816]/10 text-xs font-sans text-[#171816]/70">
-                  ✦ Dubai Statutory Clearance Guaranteed
-                </span>
-              </div>
-            </div>
-
-            {/* Quick Metrics & Booking Box with Glassmorphism Elevation */}
-            <div className="lg:col-span-4 bg-white rounded-[20px] p-8 border border-[#171816]/10 shadow-[0_25px_60px_rgba(23,24,22,0.07)] hover:border-[#BE9B59]/40 transition-all duration-300">
-              <div className="flex items-center justify-between pb-4 border-b border-[#171816]/10 mb-6">
-                <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-[#BE9B59] font-semibold">
-                  PRACTICE CAPABILITIES
-                </span>
-                <span className="font-editorial text-sm text-[#171816]/40">
-                  ATELIER STANDARDS
-                </span>
-              </div>
-
-              <div className="space-y-4 pb-6 border-b border-[#171816]/10">
-                {service.stats.map((stat) => (
-                  <div key={stat.label} className="flex justify-between items-baseline text-xs font-sans group">
-                    <span className="text-[#171816]/65 group-hover:text-[#171816] transition-colors">
-                      {stat.label}
-                    </span>
-                    <span className="font-editorial text-lg text-[#171816] font-medium text-right group-hover:text-[#BE9B59] transition-colors">
-                      {stat.value}
-                    </span>
-                  </div>
+              <ul className="dt-fade mt-8 space-y-2 border-t border-white/15 pt-6 font-sans text-sm text-warm-ivory/85">
+                {(service.features || FEATURES).map((f) => (
+                  <li key={f} className="flex items-center gap-3">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-champagne-gold" />
+                    {f}
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              <div className="pt-6 flex flex-col gap-3">
+              <div className="dt-fade mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
                 <Link
                   href="/consultation"
-                  className="w-full py-3.5 rounded-full bg-[#171816] hover:bg-[#BE9B59] hover:text-[#171816] text-[#F5F0E7] text-xs font-sans uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-md flex items-center justify-center gap-2 group"
+                  className="inline-flex items-center gap-3 rounded-full bg-champagne-gold px-8 py-4 font-sans text-sm font-medium text-deep-charcoal transition-colors duration-300 hover:bg-warm-ivory hover:text-deep-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
                 >
-                  <span>Commission This Service</span>
-                  <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                  Book a consultation
+                  <Arrow />
                 </Link>
-
                 <Link
                   href="/services"
-                  className="w-full py-2.5 text-center text-[11px] font-sans uppercase tracking-[0.18em] text-[#171816]/60 hover:text-[#BE9B59] transition-colors"
+                  className="border-b border-champagne-gold pb-1 font-sans text-sm font-medium text-warm-ivory transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
                 >
-                  &larr; View All 6 Disciplines
+                  All services
                 </Link>
-
-                <span className="block text-center text-[10px] font-sans text-[#171816]/50">
-                  Complimentary 45-min Principal Architect Review
-                </span>
               </div>
+            </div>
+          </div>
+
+          {/* Stats */}
+          <dl className="dt-fade mt-16 grid grid-cols-2 border-t border-white/15 sm:grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] lg:mt-24">
+            {service.stats.map((s) => (
+              <div key={s.label} className="py-6 pr-6">
+                <dt className="font-sans text-sm text-warm-ivory/60">{s.label}</dt>
+                <dd className="mt-2 font-serif text-2xl font-light text-warm-ivory sm:text-3xl">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* ============ 2. Photo band that opens to full width ============ */}
+      <section data-theme="light" aria-label="Featured project" className="bg-warm-ivory pb-6">
+        <div className="band-frame relative h-[60vh] w-full overflow-hidden sm:h-[70vh] lg:h-[88vh]">
+          <div className="band-img absolute inset-0 will-change-transform">
+            <Image
+              src={service.heroImage}
+              alt={`${service.title} by RichMan Interiors`}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-deep-charcoal/10 to-transparent" />
+          <div className="absolute bottom-6 left-6 max-w-2xl text-white sm:bottom-10 sm:left-10 lg:bottom-14 lg:left-16">
+            <p className="font-sans text-sm text-white/75">Featured project</p>
+            <p className="mt-2 font-serif text-3xl font-light uppercase leading-[1.02] tracking-tight sm:text-5xl">
+              {service.featuredProject.title}
+            </p>
+            <p className="mt-3 flex flex-wrap items-center gap-x-3 font-sans text-sm text-white/80">
+              <span>{service.featuredProject.location}</span>
+              <span aria-hidden>·</span>
+              <span>{service.featuredProject.area}</span>
+              <span aria-hidden>·</span>
+              <span className="text-champagne-gold">{service.featuredProject.scope}</span>
+            </p>
+            <div className="mt-5">
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/40 px-5 py-2.5 font-sans text-xs uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors hover:border-champagne-gold hover:text-champagne-gold"
+              >
+                <span>View in Portfolio</span>
+                <span aria-hidden="true">&rarr;</span>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. CINEMATIC FULL-BLEED PHOTOGRAPHIC SHOWCASE WITH PARALLAX */}
-      <section className="relative w-full h-[52vh] sm:h-[62vh] lg:h-[75vh] overflow-hidden bg-[#171816]">
-        <div
-          className="relative w-full h-[120%] -top-[10%] transition-transform duration-100 ease-out will-change-transform"
-          style={{
-            transform: `translateY(${Math.min(scrollY * 0.1, 80)}px) scale(1.02)`,
-          }}
-        >
-          <Image
-            src={service.heroImage}
-            alt={`${service.title} architectural commission by RichMan Interiors`}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center brightness-95"
-          />
-        </div>
-
-        {/* Gradient overlays for cinematic depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/30 pointer-events-none" />
-
-        {/* Floating featured commission badge */}
-        <div className="absolute bottom-8 left-8 sm:bottom-12 sm:left-12 max-w-xl text-white z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#BE9B59]" />
-            <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-[#BE9B59] font-semibold">
-              FEATURED DISCIPLINE SHOWCASE
-            </span>
-          </div>
-
-          <h2 className="font-editorial text-2xl sm:text-3xl lg:text-4xl font-light text-white leading-snug">
-            {service.featuredProject.title}
-          </h2>
-
-          <p className="font-sans text-xs sm:text-sm text-white/80 mt-1.5 flex items-center gap-2">
-            <span>{service.featuredProject.location}</span>
-            <span>·</span>
-            <span>{service.featuredProject.area}</span>
-            <span>·</span>
-            <span className="text-[#BE9B59] font-medium">{service.featuredProject.scope}</span>
-          </p>
-        </div>
-
-        {/* Architectural corner crosshairs */}
-        <div className="absolute top-6 left-6 text-white/40 text-xs font-mono pointer-events-none">
-          + 25°12'04"N 55°16'38"E [DXB]
-        </div>
-        <div className="absolute top-6 right-6 text-white/40 text-xs font-mono pointer-events-none">
-          RICHMAN ATELIER ARCHIVE // 0{service.id}
-        </div>
-      </section>
-
-      {/* 3. DELIVERABLES & TECHNICAL SCOPE WITH STAGGERED SCROLL REVEAL */}
+      {/* ============ 3. Deliverables (the line fills as you scroll) ============ */}
       <section
         data-theme="light"
-        data-anim-id="deliverables"
-        className="py-20 lg:py-28 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12"
+        aria-labelledby="deliverables-heading"
+        className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
       >
-        <div
-          className={`max-w-3xl mb-16 transition-all duration-700 ${visibleSections.deliverables
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-8"
-            }`}
-        >
-          <div className="flex items-center gap-2.5 mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#BE9B59]" />
-            <span className="text-[#BE9B59] uppercase tracking-[0.28em] text-xs font-sans font-semibold">
-              SCOPE OF STEWARDSHIP
-            </span>
-          </div>
-          <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-light text-[#171816] tracking-tight">
-            Detailed Atelier Deliverables
-          </h2>
-          <p className="font-sans text-sm sm:text-base text-[#171816]/70 font-light mt-3 leading-relaxed">
-            Every drawing package, material selection, and site coordination milestone is defined with millimeter tolerance and zero ambiguity.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {service.deliverables.map((item, idx) => {
-            const isExpanded = expandedDeliverable === idx;
-            return (
-              <div
-                key={item.title}
-                style={{ transitionDelay: `${idx * 100}ms` }}
-                className={`group relative bg-white rounded-[16px] p-8 border border-[#171816]/10 hover:border-[#BE9B59]/70 hover:shadow-[0_20px_50px_rgba(190,155,89,0.12)] transition-all duration-500 flex flex-col justify-between ${visibleSections.deliverables
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-                  }`}
+        <div className="mx-auto grid max-w-[1600px] gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-32">
+              <Label>What is included</Label>
+              <h2
+                id="deliverables-heading"
+                className="mt-6 font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl"
               >
-                {/* Architectural corner drafting marks */}
-                <div className="absolute top-2.5 left-2.5 w-2 h-2 border-t border-l border-[#BE9B59]/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute top-2.5 right-2.5 w-2 h-2 border-t border-r border-[#BE9B59]/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute bottom-2.5 left-2.5 w-2 h-2 border-b border-l border-[#BE9B59]/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute bottom-2.5 right-2.5 w-2 h-2 border-b border-r border-[#BE9B59]/40 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                <div>
-                  <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#171816]/10">
-                    <span className="font-editorial text-2xl text-[#BE9B59] font-light group-hover:translate-x-0.5 transition-transform">
-                      0{idx + 1}
-                    </span>
-                    <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#171816]/40">
-                      MILESTONE 0{idx + 1}
-                    </span>
-                  </div>
-
-                  <h3 className="font-editorial text-xl sm:text-2xl text-[#171816] mb-3 leading-snug group-hover:text-[#BE9B59] transition-colors">
-                    {item.title}
-                  </h3>
-
-                  <p className="font-sans text-xs sm:text-sm text-[#171816]/70 leading-relaxed font-light mb-4">
-                    {item.description}
-                  </p>
-                </div>
-
-                {/* Interactive Technical Submittals Drawer */}
-                <div className="pt-4 border-t border-[#171816]/10">
-                  <button
-                    type="button"
-                    onClick={() => setExpandedDeliverable(isExpanded ? null : idx)}
-                    className="inline-flex items-center gap-1.5 text-[11px] font-sans uppercase tracking-[0.16em] text-[#BE9B59] font-semibold hover:text-[#8f7134] transition-colors cursor-pointer"
-                  >
-                    <span>{isExpanded ? "Hide Technical Protocol" : "View Technical Protocol"}</span>
-                    <span className={`text-xs transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}>
-                      ▼
-                    </span>
-                  </button>
-
-                  {isExpanded && (
-                    <div className="mt-3 p-3.5 bg-[#FAF8F5] rounded-lg border border-[#BE9B59]/20 text-[11px] font-sans text-[#171816]/80 space-y-1.5 animate-fade-in">
-                      <div className="flex items-center gap-1.5 font-medium text-[#171816]">
-                        <span className="text-[#BE9B59]">✓</span>
-                        <span>CAD &amp; BIM Format: Autodesk Revit 2024 / AutoCAD DWG</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[#BE9B59]">✓</span>
-                        <span>Dubai Compliance: Full Emaar/Nakheel NOC Coordination</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[#BE9B59]">✓</span>
-                        <span>Site Verification: 3D Laser Scanning Verification Before Build</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 4. INTERACTIVE MATERIAL SPECIMEN LABORATORY (DARK CONTRAST) */}
-      <section
-        data-theme="dark"
-        data-anim-id="materials"
-        className="bg-[#171816] text-[#F5F0E7] py-24 sm:py-32 relative overflow-hidden"
-      >
-        {/* Ambient atmospheric glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_center,_rgba(190,155,89,0.09)_0%,_transparent_70%)] blur-3xl pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-          <div
-            className={`max-w-3xl mb-16 transition-all duration-700 ${visibleSections.materials
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
-              }`}
-          >
-            <div className="flex items-center gap-2.5 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#BE9B59] animate-pulse" />
-              <span className="text-[#BE9B59] uppercase tracking-[0.28em] text-xs font-sans font-semibold">
-                TACTILE LABORATORY &amp; PROVENANCE
-              </span>
+                Every deliverable, defined
+              </h2>
+              <p className="mt-6 max-w-sm font-sans text-base leading-relaxed text-deep-charcoal/65">
+                {service.deliverablesSummary ||
+                  "Drawings, material choices and site milestones are agreed in detail before work begins, so there is no ambiguity later."}
+              </p>
             </div>
-            <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-light text-[#F5F0E7] tracking-tight leading-tight mb-4">
-              Curated Material Specimens
-            </h2>
-            <p className="font-sans text-sm sm:text-base text-[#F5F0E7]/65 font-light leading-relaxed">
-              We travel directly to European quarries and master mills to inspect and harvest authentic, durable natural materials with zero synthetic veneers.
-            </p>
           </div>
 
-          {/* Interactive Specimen Selector Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            {/* Left Selector List */}
-            <div className="lg:col-span-5 flex flex-col space-y-3">
-              <span className="text-[10px] font-sans uppercase tracking-[0.22em] text-[#BE9B59] font-semibold mb-1 block">
-                SELECT SPECIMEN TO INSPECT
-              </span>
+          <div className="relative lg:col-span-8 lg:pl-14">
+            <div
+              aria-hidden
+              className="absolute left-0 top-0 hidden h-full w-px bg-deep-charcoal/15 lg:block"
+            >
+              <div className="del-fill h-full w-full origin-top scale-y-0 bg-champagne-gold" />
+            </div>
 
-              {service.materials.map((mat, idx) => {
-                const isActive = activeMaterialIndex === idx;
+            <ol className="del-list">
+              {service.deliverables.map((d, i) => {
+                const on = activeDel === i;
                 return (
-                  <button
-                    key={mat.name}
-                    type="button"
-                    onClick={() => setActiveMaterialIndex(idx)}
-                    className={`text-left p-5 rounded-xl border transition-all duration-300 flex items-start justify-between cursor-pointer ${isActive
-                      ? "bg-white/[0.08] border-[#BE9B59] shadow-[0_10px_30px_rgba(190,155,89,0.15)]"
-                      : "bg-white/[0.02] border-white/10 hover:border-white/25 hover:bg-white/[0.04]"
-                      }`}
+                  <li
+                    key={d.title}
+                    ref={(el) => {
+                      delRefs.current[i] = el;
+                    }}
+                    data-index={i}
+                    className="border-t border-deep-charcoal/15 py-12 last:border-b lg:flex lg:min-h-[52vh] lg:flex-col lg:justify-center lg:py-0"
                   >
-                    <div>
-                      <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-[#BE9B59] block mb-1">
-                        SPECIMEN 0{idx + 1} · {mat.origin}
-                      </span>
-                      <h3 className="font-editorial text-xl sm:text-2xl text-white font-light">
-                        {mat.name}
-                      </h3>
-                      <p className="font-sans text-xs text-white/60 font-light mt-1 line-clamp-2">
-                        {mat.description}
-                      </p>
-                    </div>
-
-                    <span
-                      className={`text-lg transition-transform duration-300 ${isActive ? "text-[#BE9B59] translate-x-1" : "text-white/20"
+                    <p
+                      className={`font-sans text-sm tabular-nums transition-colors duration-500 ${on ? "text-champagne-gold" : "text-champagne-gold lg:text-deep-charcoal/35"
                         }`}
                     >
-                      &rarr;
-                    </span>
-                  </button>
+                      ({pad(i + 1)})
+                    </p>
+                    <h3
+                      className={`mt-4 font-serif text-4xl font-light uppercase leading-[1] tracking-tight transition-colors duration-500 sm:text-5xl lg:text-6xl ${on ? "text-deep-charcoal" : "text-deep-charcoal lg:text-deep-charcoal/30"
+                        }`}
+                    >
+                      {d.title}
+                    </h3>
+                    <p
+                      className={`mt-6 max-w-lg font-sans text-base leading-relaxed transition-colors duration-500 ${on ? "text-deep-charcoal/75" : "text-deep-charcoal/75 lg:text-deep-charcoal/30"
+                        }`}
+                    >
+                      {d.description}
+                    </p>
+                    <ul
+                      className={`mt-8 max-w-lg space-y-2 border-t border-deep-charcoal/15 pt-5 font-sans text-sm transition-colors duration-500 ${on ? "text-deep-charcoal/80" : "text-deep-charcoal/80 lg:text-deep-charcoal/25"
+                        }`}
+                    >
+                      {(d.points || PROTOCOL).map((p) => (
+                        <li key={p} className="flex items-center gap-3">
+                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-champagne-gold" />
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
                 );
               })}
-            </div>
+            </ol>
 
-            {/* Right Detailed Dossier Panel */}
-            <div className="lg:col-span-7 bg-white/[0.03] border border-[#BE9B59]/30 rounded-2xl p-8 sm:p-10 flex flex-col justify-between backdrop-blur-md relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-[radial-gradient(ellipse_at_center,_rgba(190,155,89,0.12)_0%,_transparent_70%)] pointer-events-none" />
-
-              <div>
-                <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
-                  <div>
-                    <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-[#BE9B59] font-semibold block">
-                      ARCHITECTURAL DOSSIER
-                    </span>
-                    <h3 className="font-editorial text-2xl sm:text-3xl text-white font-light mt-1">
-                      {service.materials[activeMaterialIndex]?.name}
-                    </h3>
-                  </div>
-
-                  <span className="px-3 py-1 rounded-full bg-[#BE9B59]/20 border border-[#BE9B59]/40 text-[#BE9B59] text-[10px] font-sans uppercase tracking-[0.2em]">
-                    Provenance: {service.materials[activeMaterialIndex]?.origin}
-                  </span>
-                </div>
-
-                <p className="font-sans text-sm text-white/80 font-light leading-relaxed mb-8">
-                  {service.materials[activeMaterialIndex]?.description}
-                </p>
-
-                {/* 4 Technical Specification Metrics */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
-                  <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/5">
-                    <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#BE9B59] block mb-1">
-                      Surface Finish Profile
-                    </span>
-                    <span className="font-sans text-xs text-white/90">
-                      {materialSpecs[activeMaterialIndex]?.finish}
-                    </span>
-                  </div>
-
-                  <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/5">
-                    <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#BE9B59] block mb-1">
-                      Acoustic &amp; Thermal Rating
-                    </span>
-                    <span className="font-sans text-xs text-white/90">
-                      {materialSpecs[activeMaterialIndex]?.acoustic}
-                    </span>
-                  </div>
-
-                  <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/5">
-                    <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#BE9B59] block mb-1">
-                      Recommended Application
-                    </span>
-                    <span className="font-sans text-xs text-white/90">
-                      {materialSpecs[activeMaterialIndex]?.application}
-                    </span>
-                  </div>
-
-                  <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/5">
-                    <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#BE9B59] block mb-1">
-                      Atelier Stewardship Protocol
-                    </span>
-                    <span className="font-sans text-xs text-white/90">
-                      {materialSpecs[activeMaterialIndex]?.stewardship}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Callout inside Dossier */}
-              <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <span className="text-xs font-sans text-white/60">
-                  Physical sample presentation available during studio consultation.
-                </span>
-
-                <Link
-                  href="/consultation"
-                  className="px-6 py-2.5 rounded-full bg-[#BE9B59] hover:bg-[#d3b06e] text-[#171816] text-xs font-sans uppercase tracking-[0.2em] font-semibold transition-colors whitespace-nowrap shadow-md"
-                >
-                  Request Sample Box &rarr;
-                </Link>
-              </div>
+            <div className="mt-12 flex flex-wrap items-center gap-6 pt-8 border-t border-deep-charcoal/15">
+              <Link
+                href="/consultation"
+                className="inline-flex items-center gap-3 rounded-full bg-deep-charcoal px-8 py-4 font-sans text-sm font-medium text-warm-ivory transition-colors duration-300 hover:bg-champagne-gold hover:text-deep-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+              >
+                <span>Commission this scope</span>
+                <Arrow />
+              </Link>
+              <Link
+                href="/contact"
+                className="border-b border-deep-charcoal/40 pb-1 font-sans text-sm font-medium text-deep-charcoal hover:border-champagne-gold hover:text-champagne-gold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+              >
+                Inquire with Client Director &rarr;
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5. INTERACTIVE 4-PHASE EXECUTION ROADMAP */}
-      <section
-        data-theme="light"
-        data-anim-id="roadmap"
-        className="py-20 lg:py-28 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12"
+      {/* ============ 4. Materials (dark selector) ============ */}
+      {/* <section
+        data-theme="dark"
+        aria-labelledby="materials-heading"
+        className="bg-deep-charcoal px-6 py-24 text-warm-ivory sm:px-10 lg:px-16 lg:py-40"
       >
-        <div
-          className={`text-center max-w-2xl mx-auto mb-16 transition-all duration-700 ${visibleSections.roadmap
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-8"
-            }`}
-        >
-          <div className="inline-flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#BE9B59]" />
-            <span className="text-[#BE9B59] uppercase tracking-[0.28em] text-xs font-sans font-semibold">
-              METHODICAL STEWARDSHIP
-            </span>
-          </div>
-          <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-light text-[#171816] tracking-tight">
-            How We Execute This Discipline
+        <div className="mx-auto max-w-[1600px]">
+          <Label light>Materials</Label>
+          <h2
+            id="materials-heading"
+            className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+          >
+            Chosen to be touched
           </h2>
-          <p className="font-sans text-sm sm:text-base text-[#171816]/70 font-light mt-3">
-            Click any milestone phase below to reveal timelines, mandatory Dubai authority sign-offs, and quality gates.
+          <p className="mt-8 max-w-xl font-sans text-base leading-relaxed text-warm-ivory/65">
+            We visit European quarries and master mills ourselves and choose
+            natural materials, never synthetic veneers. Select a specimen to read
+            its story.
           </p>
-        </div>
 
-        {/* Phase Stepper Navigator */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {service.processSteps.map((step, idx) => {
-            const isSelected = activeStepIndex === idx;
-            return (
-              <div
-                key={step.number}
-                onClick={() => setActiveStepIndex(idx)}
-                style={{ transitionDelay: `${idx * 120}ms` }}
-                className={`relative p-6 sm:p-7 rounded-[18px] border transition-all duration-500 cursor-pointer flex flex-col justify-between ${isSelected
-                  ? "bg-white border-[#BE9B59] shadow-[0_20px_50px_rgba(190,155,89,0.15)] ring-1 ring-[#BE9B59]/40"
-                  : "bg-white/60 border-[#171816]/10 hover:bg-white hover:border-[#BE9B59]/40"
-                  } ${visibleSections.roadmap
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                  }`}
-              >
-                {/* Connecting horizontal line for desktop */}
-                {idx < 3 && (
-                  <div className="hidden lg:block absolute top-10 -right-3 w-6 h-[2px] bg-[#BE9B59]/30 z-10" />
-                )}
+          <div className="mt-16 grid gap-12 lg:mt-24 lg:grid-cols-12 lg:gap-16">
+            
+            <ul className="mat-list border-t border-warm-ivory/15 lg:col-span-5">
+              {service.materials.map((m, i) => {
+                const on = activeMaterial === i;
+                return (
+                  <li key={m.name} className="mat-row border-b border-warm-ivory/15">
+                    <button
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => setActiveMaterial(i)}
+                      className="group flex w-full items-center gap-5 py-6 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-champagne-gold"
+                    >
+                      <span
+                        aria-hidden
+                        className={`h-12 w-12 shrink-0 rounded-full ring-1 transition-all duration-500 ${on ? "scale-110 ring-champagne-gold" : "ring-warm-ivory/25 group-hover:scale-105"
+                          }`}
+                        style={{ background: SWATCHES[i % SWATCHES.length] }}
+                      />
+                      <span className="flex-1">
+                        <span className="block font-sans text-sm text-warm-ivory/50">
+                          ({pad(i + 1)}) {m.origin}
+                        </span>
+                        <span
+                          className={`mt-1 block font-serif text-2xl font-light transition-colors duration-500 sm:text-3xl ${on ? "text-warm-ivory" : "text-warm-ivory/45 group-hover:text-warm-ivory/80"
+                            }`}
+                        >
+                          {m.name}
+                        </span>
+                      </span>
+                      <span
+                        aria-hidden
+                        className={`text-champagne-gold transition-all duration-500 ${on ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0"
+                          }`}
+                      >
+                        <Arrow />
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul> */}
 
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-editorial text-4xl text-[#BE9B59] font-light">
-                      {step.number}
-                    </span>
-                    <span className="text-[10px] font-sans uppercase tracking-[0.2em] px-2.5 py-1 rounded-full bg-[#BE9B59]/10 text-[#8f7134] font-medium">
-                      {phaseTimelines[idx]?.duration}
-                    </span>
+      {/* Detail */}
+      {/* <div className="lg:col-span-7" aria-live="polite">
+              {material && (
+                <div key={activeMaterial} className="chip-in">
+                  <div className="flex items-start justify-between gap-6">
+                    <div>
+                      <p className="font-sans text-sm text-champagne-gold">
+                        From {material.origin}
+                      </p>
+                      <h3 className="mt-3 font-serif text-4xl font-light uppercase leading-[1] tracking-tight sm:text-5xl lg:text-6xl">
+                        {material.name}
+                      </h3>
+                    </div>
+                    <span
+                      aria-hidden
+                      className="hidden h-24 w-24 shrink-0 rounded-full ring-1 ring-warm-ivory/25 sm:block"
+                      style={{ background: swatch }}
+                    />
                   </div>
 
-                  <h3 className="font-editorial text-xl sm:text-2xl text-[#171816] mb-3 leading-snug">
+                  <p className="mt-8 max-w-xl font-sans text-base leading-relaxed text-warm-ivory/75">
+                    {material.description}
+                  </p>
+
+                  <dl className="mt-10 grid border-t border-warm-ivory/15 sm:grid-cols-2">
+                    {[
+                      { k: "Finish", v: spec.finish },
+                      { k: "Performance", v: spec.rating },
+                      { k: "Best used for", v: spec.use },
+                      { k: "Care", v: spec.care },
+                    ].map((row) => (
+                      <div
+                        key={row.k}
+                        className="border-b border-warm-ivory/15 py-5 sm:odd:pr-8 sm:even:pl-8"
+                      >
+                        <dt className="font-sans text-sm text-warm-ivory/45">{row.k}</dt>
+                        <dd className="mt-2 font-sans text-base text-warm-ivory/90">{row.v}</dd>
+                      </div>
+                    ))}
+                  </dl>
+
+                  <div className="mt-10 flex flex-wrap items-center justify-between gap-6">
+                    <p className="max-w-xs font-sans text-sm text-warm-ivory/55">
+                      Physical samples are available at your studio consultation.
+                    </p>
+                    <Link
+                      href="/consultation"
+                      className="inline-flex items-center gap-3 rounded-full bg-champagne-gold px-8 py-4 font-sans text-sm font-medium text-deep-charcoal transition-colors duration-300 hover:bg-warm-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-ivory"
+                    >
+                      Request a sample box
+                      <Arrow />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      {/* ============ 5. Process (tabs with a filling line) ============ */}
+      <section
+        data-theme="light"
+        aria-labelledby="process-heading"
+        className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+      >
+        <div className="mx-auto max-w-[1600px]">
+          <Label>How we run it</Label>
+          <h2
+            id="process-heading"
+            className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+          >
+            Four phases, one team
+          </h2>
+          <p className="mt-6 max-w-lg font-sans text-base leading-relaxed text-deep-charcoal/65">
+            Choose a phase to see its timing, its milestone and the approvals
+            needed before it can move on.
+          </p>
+
+          <div
+            role="tablist"
+            aria-label="Execution phases"
+            className="pr-tabs mt-16 grid grid-cols-2 gap-x-6 gap-y-10 lg:mt-24 lg:grid-cols-4"
+          >
+            {service.processSteps.map((s, i) => {
+              const on = activeStep === i;
+              return (
+                <button
+                  key={s.number}
+                  ref={(el) => {
+                    tabRefs.current[i] = el;
+                  }}
+                  type="button"
+                  role="tab"
+                  id={`phase-tab-${i}`}
+                  aria-selected={on}
+                  aria-controls="phase-panel"
+                  tabIndex={on ? 0 : -1}
+                  onClick={() => setActiveStep(i)}
+                  onKeyDown={(e) => onTabKey(e, i)}
+                  className="pr-tab group text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+                >
+                  <span className="relative block h-0.5 w-full overflow-hidden bg-deep-charcoal/15">
+                    <span
+                      className={`absolute inset-0 origin-left bg-champagne-gold transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] ${i <= activeStep ? "scale-x-100" : "scale-x-0"
+                        }`}
+                    />
+                  </span>
+                  <span className="mt-4 block font-sans text-sm tabular-nums text-deep-charcoal/50">
+                    ({s.number})
+                  </span>
+                  <span
+                    className={`mt-1 block font-serif text-xl font-light transition-colors duration-500 sm:text-2xl ${on ? "text-deep-charcoal" : "text-deep-charcoal/40 group-hover:text-deep-charcoal/75"
+                      }`}
+                  >
+                    {s.title}
+                  </span>
+                  <span className="mt-1 block font-sans text-sm text-deep-charcoal/50">
+                    {s.timing || PHASES[i % PHASES.length]?.duration}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            id="phase-panel"
+            role="tabpanel"
+            aria-labelledby={`phase-tab-${activeStep}`}
+            className="mt-14 border-t border-deep-charcoal/15 pt-12 lg:mt-20"
+          >
+            {step && (
+              <div key={activeStep} className="chip-in grid gap-12 lg:grid-cols-12">
+                <div className="lg:col-span-5">
+                  <p className="font-serif text-8xl font-light leading-none text-champagne-gold lg:text-[10rem]">
+                    {step.number}
+                  </p>
+                  <h3 className="mt-4 font-serif text-3xl font-light uppercase tracking-tight sm:text-4xl">
                     {step.title}
                   </h3>
-
-                  <p className="font-sans text-xs text-[#171816]/70 leading-relaxed font-light mb-4">
+                </div>
+                <div className="lg:col-span-6 lg:col-start-7">
+                  <p className="max-w-lg font-sans text-lg leading-relaxed text-deep-charcoal/75">
                     {step.description}
                   </p>
-                </div>
-
-                {/* Highlighted milestone on active */}
-                <div className="pt-4 border-t border-[#171816]/10 text-[11px] font-sans space-y-1">
-                  <div className="text-[#171816]/50 uppercase tracking-wider text-[9px] font-semibold">
-                    REGULATORY GATEWAY
-                  </div>
-                  <div className="text-[#171816]/80 font-medium">
-                    {phaseTimelines[idx]?.approvals}
+                  {phase && (
+                    <dl className="mt-10 border-t border-deep-charcoal/15">
+                      <div className="border-b border-deep-charcoal/15 py-5">
+                        <dt className="font-sans text-sm text-deep-charcoal/50">Timing</dt>
+                        <dd className="mt-2 font-serif text-2xl font-light">{phase.duration}</dd>
+                      </div>
+                      <div className="border-b border-deep-charcoal/15 py-5">
+                        <dt className="font-sans text-sm text-deep-charcoal/50">Milestone</dt>
+                        <dd className="mt-2 font-sans text-base text-deep-charcoal/85">
+                          {phase.milestone}
+                        </dd>
+                      </div>
+                      <div className="border-b border-deep-charcoal/15 py-5">
+                        <dt className="font-sans text-sm text-deep-charcoal/50">Approvals</dt>
+                        <dd className="mt-2 font-sans text-base text-deep-charcoal/85">
+                          {phase.approvals}
+                        </dd>
+                      </div>
+                    </dl>
+                  )}
+                  <div className="mt-8">
+                    <Link
+                      href="/consultation"
+                      className="inline-flex items-center gap-2 rounded-full border border-deep-charcoal/30 px-6 py-3 font-sans text-xs uppercase tracking-[0.16em] font-medium text-deep-charcoal transition-colors hover:bg-deep-charcoal hover:text-warm-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+                    >
+                      <span>Plan phase {step.number} with our design director</span>
+                      <span aria-hidden="true">&rarr;</span>
+                    </Link>
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 6. PERSPECTIVE GALLERY WITH LIGHTBOX / LENS HOVER */}
-      <section
-        data-theme="light"
-        data-anim-id="gallery"
-        className="py-16 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 border-t border-[#171816]/10"
-      >
-        <div
-          className={`flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4 transition-all duration-700 ${visibleSections.gallery
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-8"
-            }`}
-        >
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className="w-2 h-2 rounded-full bg-[#BE9B59]" />
-              <span className="text-[#BE9B59] uppercase tracking-[0.28em] text-xs font-sans font-semibold">
-                PORTFOLIO PERSPECTIVES
-              </span>
-            </div>
-            <h2 className="font-editorial text-3xl sm:text-4xl font-light text-[#171816]">
-              Realized Commission Perspectives
-            </h2>
+            )}
           </div>
-
-          <Link
-            href="/portfolio"
-            className="text-xs uppercase tracking-[0.2em] font-sans font-semibold text-[#BE9B59] hover:text-[#8f7134] transition-colors inline-flex items-center gap-1.5"
-          >
-            <span>Explore All 8 Dubai Projects</span>
-            <span>&rarr;</span>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {service.gallery.map((img, i) => (
-            <div
-              key={i}
-              onClick={() => setLightboxImage(img)}
-              style={{ transitionDelay: `${i * 150}ms` }}
-              className={`group relative rounded-[16px] overflow-hidden aspect-[4/3] bg-neutral-200 cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 ${visibleSections.gallery
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-                }`}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover object-center group-hover:scale-108 transition-transform duration-700 ease-out"
-              />
-
-              {/* Architectural lens overlay with crosshair */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6">
-                <div className="flex justify-end">
-                  <span className="px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-sans text-white uppercase tracking-widest border border-white/20">
-                    Click to Zoom
-                  </span>
-                </div>
-
-                <div>
-                  <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#BE9B59] font-medium block mb-1">
-                    PERSPECTIVE 0{i + 1}
-                  </span>
-                  <p className="font-sans text-xs text-white/95 font-light leading-relaxed">
-                    {img.caption}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
-      {/* 7. NEXT DISCIPLINE HORIZON NAVIGATOR (DARK ATELIER BAR) */}
-      <section className="bg-[#171816] text-[#F5F0E7] py-16 sm:py-20 border-t border-white/10 relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-96 h-full bg-[radial-gradient(ellipse_at_center,_rgba(190,155,89,0.08)_0%,_transparent_70%)] pointer-events-none" />
+      {/* ============ 6. Gallery ============ */}
+      {total > 0 && (
+        <section
+          data-theme="light"
+          aria-labelledby="gallery-heading"
+          className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+        >
+          <div className="mx-auto max-w-[1600px]">
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div>
+                <Label>Completed work</Label>
+                <h2
+                  id="gallery-heading"
+                  className="mt-6 font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+                >
+                  From the portfolio
+                </h2>
+              </div>
+              <Link
+                href="/portfolio"
+                className="group inline-flex w-fit items-center gap-3 border-b border-champagne-gold pb-1 font-sans text-sm font-medium transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+              >
+                See all projects
+                <span className="text-champagne-gold transition-transform duration-500 group-hover:translate-x-1.5">
+                  <Arrow />
+                </span>
+              </Link>
+            </div>
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative z-10">
-          <div>
-            <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-[#BE9B59] block mb-2 font-semibold">
-              NEXT DISCIPLINE IN CYCLE
-            </span>
-            <Link
-              href={`/services/${nextService.slug}`}
-              className="group inline-flex items-center gap-4"
-            >
-              <span className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-white group-hover:text-[#BE9B59] transition-colors font-light leading-tight">
+            <div className="mt-16 grid gap-x-8 gap-y-16 lg:mt-24 lg:grid-cols-12 lg:gap-y-24">
+              {service.gallery.map((img, i) => (
+                <GalleryCard
+                  key={img.src}
+                  image={img}
+                  index={i}
+                  onOpen={() => setLightboxIdx(i)}
+                  onHover={setHovering}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ============ 7. Next service ============ */}
+      <section data-theme="dark" aria-label="Next service">
+        <Link
+          href={`/services/${nextService.slug}`}
+          className="nx-band group relative block h-[70vh] overflow-hidden bg-deep-charcoal text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-champagne-gold lg:h-[85vh]"
+        >
+          <div className="nx-img absolute -inset-y-[10%] inset-x-0 will-change-transform">
+            <Image
+              src={nextService.heroImage}
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+            />
+          </div>
+          <div className="absolute inset-0 bg-deep-charcoal/55 transition-colors duration-700 group-hover:bg-deep-charcoal/40" />
+
+          <div className="relative flex h-full flex-col justify-end px-6 pb-10 sm:px-10 lg:px-16 lg:pb-16">
+            <p className="font-sans text-sm text-white/70">Next service</p>
+            <div className="mt-4 flex items-end justify-between gap-8">
+              <span className="font-serif text-[clamp(40px,8vw,140px)] font-light uppercase leading-[0.95] tracking-tight transition-transform duration-700 group-hover:translate-x-3">
                 {nextService.title}
               </span>
-              <span className="text-[#BE9B59] text-2xl group-hover:translate-x-2 transition-transform">
-                &rarr;
+              <span className="mb-2 hidden shrink-0 text-champagne-gold transition-transform duration-500 group-hover:translate-x-3 sm:block">
+                <Arrow className="h-5 w-16 lg:w-28" />
               </span>
-            </Link>
-            <p className="font-sans text-xs text-white/60 font-light mt-1 max-w-md">
-              {nextService.subtitle}
-            </p>
+            </div>
+            {nextService.subtitle && (
+              <p className="mt-5 max-w-md font-sans text-base text-white/75">
+                {nextService.subtitle}
+              </p>
+            )}
           </div>
+        </Link>
+      </section>
 
-          <div className="flex flex-wrap items-center gap-4">
+      {/* ============ 8. Call to action ============ */}
+      <section
+        data-theme="light"
+        aria-labelledby="detail-cta"
+        className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+      >
+        <div className="mx-auto grid max-w-[1600px] items-center gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <h2
+              id="detail-cta"
+              className="font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+            >
+              Talk to us about this service
+            </h2>
+            <p className="mt-8 max-w-lg font-sans text-base leading-relaxed text-deep-charcoal/70">
+              Book a free 45-minute session with a senior designer to look at
+              samples, review your plans and get an honest view of timing and
+              budget.
+            </p>
             <Link
               href="/services"
-              className="px-6 py-3 rounded-full border border-white/20 text-xs font-sans uppercase tracking-[0.2em] text-white hover:border-[#BE9B59] hover:text-[#BE9B59] transition-colors"
+              className="mt-8 inline-block border-b border-champagne-gold pb-1 font-sans text-sm font-medium transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
             >
-              All Disciplines
+              See all services
             </Link>
+          </div>
+          <div className="lg:col-span-4 lg:justify-self-end">
             <Link
               href="/consultation"
-              className="px-8 py-3.5 rounded-full bg-[#BE9B59] text-[#171816] text-xs font-sans uppercase tracking-[0.2em] font-semibold hover:bg-[#d3b06e] transition-colors shadow-lg"
+              className="flex h-56 w-56 items-center justify-center rounded-full border border-deep-charcoal/20 p-8 text-center font-sans text-sm font-medium transition-colors duration-300 hover:bg-deep-charcoal hover:text-warm-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold lg:h-64 lg:w-64"
             >
-              Consult an Architect
+              Book a consultation
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 8. FLOATING STICKY ACTION PILL (Appears on Scroll) */}
+      {/* ============ Floating action pill (after the hero scrolls away) ============ */}
       <aside
-        aria-label="Floating Actions"
-        className={`fixed bottom-6 right-6 z-40 transition-all duration-500 transform ${showFloatingBar
-          ? "translate-y-0 opacity-100 pointer-events-auto"
-          : "translate-y-10 opacity-0 pointer-events-none"
+        aria-label="Quick actions"
+        className={`fixed bottom-6 left-6 z-40 transition-all duration-500 ${showFloating && lightboxIdx === null
+          ? "pointer-events-auto translate-y-0 opacity-100"
+          : "pointer-events-none translate-y-6 opacity-0"
           }`}
       >
-        <div className="bg-[#141513]/95 backdrop-blur-xl border border-[#BE9B59]/40 rounded-full py-2.5 px-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center gap-3 text-xs">
-          <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#BE9B59] hidden sm:inline">
-            Discipline {service.id}
+        <div className="flex items-center gap-3 rounded-full border border-warm-ivory/15 bg-deep-charcoal/95 py-2 pl-5 pr-2 text-warm-ivory shadow-xl backdrop-blur-md">
+          <span className="hidden font-sans text-sm text-warm-ivory/70 sm:inline">
+            {service.title}
           </span>
-          <span className="hidden sm:inline text-white/30">|</span>
           <Link
             href="/consultation"
-            className="px-3.5 py-1.5 rounded-full bg-[#BE9B59] hover:bg-[#d3b06e] text-[#171816] font-semibold uppercase tracking-wider text-[10px] transition-colors shadow-sm"
+            tabIndex={showFloating ? 0 : -1}
+            className="rounded-full bg-champagne-gold px-5 py-2.5 font-sans text-sm font-medium text-deep-charcoal transition-colors hover:bg-warm-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warm-ivory"
           >
-            Commission Service &rarr;
+            Book a consultation
           </Link>
           <button
             type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="p-1.5 text-white/70 hover:text-[#BE9B59] transition-colors focus:outline-none"
-            aria-label="Scroll back to top"
+            tabIndex={showFloating ? 0 : -1}
+            onClick={() =>
+              window.scrollTo({ top: 0, behavior: prefersReduced() ? "auto" : "smooth" })
+            }
+            aria-label="Back to top"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-warm-ivory/80 transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne-gold"
           >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
             </svg>
           </button>
         </div>
       </aside>
 
-      {/* 9. LIGHTBOX MODAL FOR PERSPECTIVES */}
-      {lightboxImage && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          onClick={() => setLightboxImage(null)}
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-8 animate-fade-in cursor-zoom-out"
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative max-w-5xl w-full bg-[#171816] rounded-2xl overflow-hidden border border-white/10 shadow-2xl cursor-default"
-          >
-            <button
-              type="button"
-              onClick={() => setLightboxImage(null)}
-              className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-black/60 text-white hover:text-[#BE9B59] transition-colors border border-white/20"
-              aria-label="Close image lightbox"
-            >
-              ✕
-            </button>
-
-            <div className="relative w-full aspect-[16/10]">
-              <Image
-                src={lightboxImage.src}
-                alt={lightboxImage.alt}
-                fill
-                sizes="(max-width: 1280px) 100vw, 1280px"
-                className="object-contain"
-              />
-            </div>
-
-            <div className="p-6 bg-[#171816] border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <span className="text-[10px] font-sans uppercase tracking-[0.25em] text-[#BE9B59] font-semibold block mb-1">
-                  RICHMAN ARCHITECTURAL PERSPECTIVE
-                </span>
-                <p className="font-sans text-sm text-white/90 font-light">
-                  {lightboxImage.caption}
-                </p>
-              </div>
-
-              <Link
-                href="/portfolio"
-                onClick={() => setLightboxImage(null)}
-                className="px-5 py-2 rounded-full border border-white/20 hover:border-[#BE9B59] text-xs font-sans uppercase tracking-[0.18em] text-[#BE9B59] whitespace-nowrap transition-colors"
-              >
-                View in Portfolio &rarr;
-              </Link>
-            </div>
-          </div>
-        </div>
+      {/* ============ Lightbox ============ */}
+      {lightboxIdx !== null && (
+        <Lightbox
+          images={service.gallery}
+          index={lightboxIdx}
+          onClose={closeLightbox}
+          onPrev={prevImage}
+          onNext={nextImage}
+        />
       )}
     </main>
   );

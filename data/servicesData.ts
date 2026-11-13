@@ -7,10 +7,13 @@ export interface ServiceData {
   heroImage: string;
   leadParagraph: string;
   description: string;
+  features?: string[];
+  deliverablesSummary?: string;
   stats: { label: string; value: string }[];
   deliverables: {
     title: string;
     description: string;
+    points?: string[];
   }[];
   materials: {
     name: string;
@@ -21,6 +24,9 @@ export interface ServiceData {
     number: string;
     title: string;
     description: string;
+    timing?: string;
+    milestone?: string;
+    approvals?: string;
   }[];
   gallery: {
     src: string;
@@ -45,9 +51,16 @@ export const SERVICES: ServiceData[] = [
     heroImage:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791982249/pexels-david-vinicius-562259225-28652353_ynv2xo.jpg",
     leadParagraph:
-      "We eliminate the friction of juggling multiple subcontractors. From concept blueprints and custom joinery to stone bookmatching and white-glove handover, we deliver ready-to-inhabit luxury.",
+      "We eliminate the complexity of coordinating multiple contractors. From initial design development and bespoke joinery to precision stone bookmatching and white-glove handover, we manage every stage of the fit-out process to deliver cohesive, move-in-ready interiors.",
     description:
-      "Our Complete Turnkey Fit-Out practice provides absolute, single-source accountability for private residences, luxury penthouses, and bespoke commercial spaces in Dubai. We manage spatial reconfiguration, in-house millwork fabrication, Italian marble masonry, MEP coordination, statutory developer clearances, and final furnishing. No finger-pointing, no split responsibilities—just flawless architectural delivery.",
+      "Our Complete Turnkey Fit-Out service provides a single point of accountability for private residences, luxury penthouses and bespoke commercial spaces in Dubai. We coordinate every stage of the project, from spatial reconfiguration and bespoke in-house joinery fabrication to natural stone installation, MEP integration, developer and authority approval coordination, and final furnishing. With every stage managed through one coordinated process, we deliver cohesive interiors with greater control over quality, timelines and execution.",
+    features: [
+      "Single-Contract Turnkey Delivery",
+      "Bespoke In-House Joinery Fabrication",
+      "Developer & Authority Approval Coordination",
+    ],
+    deliverablesSummary:
+      "From initial design development and technical drawings to material selection, bespoke joinery, natural stone installation, MEP coordination and final furnishing, every stage is carefully managed. Project specifications, material selections, responsibilities and delivery milestones are established before execution to ensure a coordinated process and a consistent finish throughout the property.",
     stats: [
       { label: "Accountability", value: "100% In-House" },
       { label: "Atelier Facility", value: "35,000 sq ft" },
@@ -58,27 +71,52 @@ export const SERVICES: ServiceData[] = [
       {
         title: "Complete Shell & Core to Turnkey Transformation",
         description:
-          "Full-spectrum architectural execution transforming bare concrete volumes into refined luxury environments with zero client coordination fatigue.",
+          "Full-spectrum architectural execution transforming bare concrete spaces into refined luxury environments, with every stage carefully coordinated to minimise the client's involvement.",
+        points: [
+          "Architectural design development, technical drawings and construction documentation",
+          "Coordination of structural modifications, MEP works and interior finishing",
+          "Project supervision, quality inspections and final furnishing coordination",
+        ],
       },
       {
         title: "Bespoke In-House Joinery & Architectural Millwork",
         description:
-          "Custom walk-in dressing suites, concealed pivot doors, show kitchens, and fluted wall paneling manufactured in our Dubai facility.",
+          "Custom walk-in dressing suites, concealed pivot doors, show kitchens and fluted wall panelling, designed and manufactured at our Dubai facility.",
+        points: [
+          "Bespoke joinery design, detailed shop drawings and material specifications",
+          "Custom fabrication of wardrobes, kitchens, doors and architectural wall features",
+          "Precision installation, alignment checks and final finish inspections",
+        ],
       },
       {
-        title: "Natural Stone Sourcing, Bookmatching & Masonry",
+        title: "Natural Stone Sourcing, Bookmatching & Installation",
         description:
-          "Direct import from Italian and Greek quarries. Slabs are dry-laid, bookmatched, and diamond-honed prior to site installation.",
+          "Natural stone sourcing and specialist installation, with careful slab selection, bookmatching and precision finishing to achieve a consistent, refined appearance.",
+        points: [
+          "Natural stone selection, sourcing and slab quality inspections",
+          "Dry-laying and bookmatching to achieve consistent vein alignment",
+          "Precision cutting, edge finishing, polishing and on-site installation",
+        ],
       },
       {
         title: "Smart Lighting & Home Automation Integration",
         description:
-          "Seamless coordination of Lutron/Crestron automation, architectural recessed coves, and hidden climate sensors.",
+          "Seamless coordination of Lutron and Crestron automation systems, architectural recessed lighting, concealed coves and integrated climate controls.",
+        points: [
+          "Coordination of lighting layouts, fixtures and architectural lighting details",
+          "Integration of compatible home automation and climate control systems",
+          "Installation coordination, system configuration and operational testing",
+        ],
       },
       {
         title: "Rigorous Snagging & White-Glove Handover Protocol",
         description:
-          "Multi-tier quality inspections, deep cleaning, and formal handover dossier complete with all warranties and operation manuals.",
+          "Multi-stage quality inspections, final cleaning and formal handover documentation, including applicable warranties and equipment operation manuals.",
+        points: [
+          "Detailed snagging inspections and documented defect reports",
+          "Final cleaning, installation checks and quality verification",
+          "Handover documentation, equipment manuals and applicable warranty records",
+        ],
       },
     ],
     materials: [
@@ -104,24 +142,36 @@ export const SERVICES: ServiceData[] = [
         title: "Spatial Diagnostics & Feasibility Audit",
         description:
           "Laser 3D scanning of the shell, structural review, lifestyle briefing, and Dubai developer covenant assessment.",
+        timing: "Weeks 1–3",
+        milestone: "Laser 3D survey and preliminary filing with Dubai authorities",
+        approvals: "Initial Emaar, Nakheel and Civil Defence clearance checks",
       },
       {
         number: "02",
         title: "Detailed Design Dossier & Material Board",
         description:
           "Photorealistic 8K virtual reality renders, fully coordinated MEP schemes, and physical stone/veneer sample sign-offs.",
+        timing: "Weeks 4–7",
+        milestone: "Virtual reality walkthrough and final material board",
+        approvals: "Your sign-off on stone cuts, timber veneers and MEP schemes",
       },
       {
         number: "03",
         title: "Precision Fabrication & Site Execution",
         description:
           "Concurrent workshop manufacturing and site fit-out under continuous supervision of our dedicated project engineers.",
+        timing: "Weeks 8–18",
+        milestone: "Factory dry-fit, then precise assembly on site",
+        approvals: "Interim Civil Defence site safety inspection",
       },
       {
         number: "04",
         title: "White-Glove Staging & Turnkey Key Handover",
         description:
           "Thorough snagging, acoustic balancing, Building Completion Certificate (BCC) clearance, and handover with full warranties.",
+        timing: "Weeks 19–22",
+        milestone: "Styling, acoustic tuning and key handover",
+        approvals: "Building Completion Certificate and 10-year workshop warranty",
       },
     ],
     gallery: [
@@ -157,9 +207,16 @@ export const SERVICES: ServiceData[] = [
     heroImage:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791961970/pexels-dwi2793-34961443_bkwpcx.jpg",
     leadParagraph:
-      "Renovation is not merely cosmetic renewal—it is the art of unlocking structural potential, expanding living spans, and modernizing mechanical lifelines.",
+      "Specialising in high-value turnkey renovations across Dubai's prestigious communities, including Palm Jumeirah, Emirates Hills, Downtown Dubai, Dubai Marina and Jumeirah Golf Estates.",
     description:
-      "Specializing in high-value turnkey renovations across Dubai's most prestigious communities—including Palm Jumeirah, Emirates Hills, Downtown Dubai, Dubai Marina, and Jumeirah Golf Estates. We reconfigure outdated floor plans, remove non-structural and load-bearing masonry, overhaul bathrooms and kitchens, install floor-to-ceiling slimline glazing, and upgrade all MEP infrastructure to create expansive, timeless modern homes.",
+      "We reconfigure existing floor plans, undertake approved structural modifications, transform bathrooms and kitchens, install floor-to-ceiling slimline glazing and upgrade mechanical, electrical and plumbing (MEP) systems to create more functional, refined and contemporary homes.",
+    features: [
+      "Single-Contract Turnkey Renovations",
+      "Bespoke In-House Joinery",
+      "Developer & Authority Approval Coordination",
+    ],
+    deliverablesSummary:
+      "From initial property assessment and design planning to material selection, structural modifications, bathroom and kitchen upgrades, MEP improvements and final finishing, every stage is carefully coordinated. Drawings, material specifications, project responsibilities and key milestones are agreed upon before work begins to ensure clarity throughout the renovation.",
     stats: [
       { label: "Communities", value: "Palm, Hills, Downtown, Marina" },
       { label: "Structural Works", value: "Certified Steel & Masonry" },
@@ -170,27 +227,52 @@ export const SERVICES: ServiceData[] = [
       {
         title: "Structural Partition Removal & Open-Concept Engineering",
         description:
-          "Eliminating dated compartmentalization with certified steel portal frames to create expansive, seamless living and dining areas.",
+          "Reconfiguring dated layouts through carefully engineered structural modifications, including steel portal frames where required, to create more expansive, connected living and dining areas.",
+        points: [
+          "Structural assessment and engineering design for proposed modifications",
+          "Coordination of required developer and authority approvals",
+          "Installation of approved steel supports and associated masonry works",
+        ],
       },
       {
         title: "Complete Master Bathroom & Spa Overhauls",
         description:
-          "Floor-to-ceiling bookmatched marble slabs, walk-in rain showers, freestanding sculptural bathtubs, and concealed Dornbracht hardware.",
+          "Transforming master bathrooms into refined private retreats with floor-to-ceiling bookmatched marble, walk-in rain showers, freestanding sculptural bathtubs and premium concealed fittings.",
+        points: [
+          "Bathroom layout planning, waterproofing and plumbing upgrades",
+          "Installation of natural stone, premium sanitaryware and shower systems",
+          "Custom vanity fabrication, lighting integration and finishing",
+        ],
       },
       {
         title: "German Show Kitchen & Preparation Kitchen Rebuild",
         description:
-          "Ergonomic custom cabinetry with soft-close Blum hardware, Sub-Zero & Miele integrated appliances, and seamless porcelain worktops.",
+          "Creating functional, design-led kitchens with bespoke cabinetry, soft-close Blum hardware, integrated appliances from brands such as Sub-Zero and Miele, and seamless porcelain worktops.",
+        points: [
+          "Custom kitchen layouts, cabinetry design and storage planning",
+          "Integration of appliances, hardware and kitchen equipment",
+          "Worktop installation, plumbing, electrical and lighting coordination",
+        ],
       },
       {
         title: "Expansive Slimline Glazing & Window Upgrades",
         description:
-          "Replacing original frames with thermally broken, motorized minimal-profile sliding glass systems maximizing natural light.",
+          "Upgrading existing windows and openings with thermally broken, minimal-profile glazing systems and motorised sliding solutions to maximise natural light and improve indoor comfort.",
+        points: [
+          "Assessment of existing window openings and glazing requirements",
+          "Selection and installation of suitable slimline glazing systems",
+          "Coordination of structural interfaces, weather sealing and finishing",
+        ],
       },
       {
         title: "Flooring Replacement & Architectural Microtopping",
         description:
-          "Seamless large-format Italian porcelain, chevron hardwood parquetry, and continuous microcement finishes.",
+          "Elevating interior spaces with large-format Italian porcelain, chevron hardwood parquetry and seamless microcement finishes, selected to complement the property's overall design.",
+        points: [
+          "Existing floor assessment and substrate preparation",
+          "Installation of porcelain tiles, hardwood flooring and microcement finishes",
+          "Grouting, surface finishing, sealing and final quality inspections",
+        ],
       },
     ],
     materials: [
@@ -215,25 +297,37 @@ export const SERVICES: ServiceData[] = [
         number: "01",
         title: "Laser Scanning & Structural Survey",
         description:
-          "Non-destructive testing of existing slabs, MEP riser locations, and developer structural limits.",
+          "3D laser scanning of existing spaces, assessment of MEP riser locations, structural condition reviews and evaluation of applicable developer structural guidelines.",
+        timing: "Weeks 1–3",
+        milestone: "Completed 3D laser survey, initial structural assessment and preliminary renovation feasibility review.",
+        approvals: "Initial assessment of applicable Emaar, Nakheel and relevant authority requirements, including Civil Defence where required.",
       },
       {
         number: "02",
         title: "Space Optimization & Reconfiguration Scheme",
         description:
           "Designing the modernized floor plan, expanded sightlines, new ceiling coves, and 3D visual walkthroughs.",
+        timing: "Weeks 4–7",
+        milestone: "Approved spatial reconfiguration schemes, photorealistic 3D design approvals, and material board sign-off.",
+        approvals: "Developer NOC package submission and preliminary municipality clearance coordination.",
       },
       {
         number: "03",
         title: "Controlled Demolition & Structural Reinforcement",
         description:
-          "Acoustically isolated strip-out with certified dust barriers, waste disposal, and steel portal installations.",
+          "Carefully managed strip-out works with protective dust barriers, noise-control measures and responsible waste disposal, alongside approved structural reinforcement and steel portal frame installations where required.",
+        timing: "Weeks 8–18",
+        milestone: "Completion of demolition, structural reinforcement and key site preparation works, followed by inspections before reconstruction.",
+        approvals: "Coordination of applicable interim site inspections and required developer or authority clearances, including Civil Defence inspections where applicable.",
       },
       {
         number: "04",
         title: "Refined Rebuild & Turnkey Commissioning",
         description:
-          "Precision joinery fitting, stone installation, electrical/AC recommissioning, and Building Completion clearance.",
+          "Precision joinery installation, natural stone finishing, MEP system testing and recommissioning, final interior finishing and coordination of applicable completion clearances.",
+        timing: "Weeks 19–22",
+        milestone: "Final styling, system commissioning, snagging inspections and formal key handover.",
+        approvals: "Applicable final inspections and Building Completion Certificate (BCC), subject to relevant authority requirements.",
       },
     ],
     gallery: [
@@ -264,14 +358,21 @@ export const SERVICES: ServiceData[] = [
     slug: "office-commercial-interiors",
     id: "03",
     title: "Office & Commercial Interiors",
-    subtitle: "Corporate headquarters, private family offices, and bespoke commercial spaces engineered for prestige and focus.",
+    subtitle: "A commercial interior is an instrument of prestige and productivity, supporting business performance and brand perception.",
     eyebrow: "CORPORATE EXCELLENCE · HIGH-IMPACT SPACES",
     heroImage:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791961973/pexels-rashed-hossain-1520582336-38033547_tdf40v.jpg",
     leadParagraph:
-      "A commercial interior is an instrument of prestige and productivity. We balance acoustic discretion, ergonomic excellence, and unmistakable corporate authority.",
+      "A commercial interior is an instrument of prestige and productivity.",
     description:
-      "From sovereign wealth offices in DIFC to multi-family investment suites in Business Bay and boutique flagship spaces in Downtown, our commercial interiors practice merges luxury atelier craftsmanship with commercial compliance. We create environments with STC-55+ acoustic isolation, concealed telepresence systems, executive lounges, private boardrooms, and fast-track delivery to prevent business downtime.",
+      "We balance acoustic comfort, ergonomic functionality and distinctive corporate identity to create professional environments that support both business performance and brand perception.",
+    features: [
+      "Executive Boardrooms & Telepresence Suites",
+      "High-Performance Acoustic Glazing",
+      "Commercial MEP & Precision Climate Distribution",
+    ],
+    deliverablesSummary:
+      "From initial space planning and design development to technical drawings, material specifications, bespoke joinery, MEP coordination and final finishing, every stage is carefully managed. Project deliverables, material selections, responsibilities and key milestones are agreed upon before execution to ensure clarity and coordination throughout the project.",
     stats: [
       { label: "Acoustic Rating", value: "STC 55+ Executive" },
       { label: "Free Zones Covered", value: "DIFC, DMCC, DDA, Tecom" },
@@ -282,27 +383,52 @@ export const SERVICES: ServiceData[] = [
       {
         title: "Executive Boardrooms & Telepresence Suites",
         description:
-          "Monolithic boardroom tables with concealed pop-up connectivity, acoustic baffle ceilings, and motorized privacy smart glass.",
+          "Monolithic boardroom tables with concealed pop-up connectivity, integrated telepresence systems, acoustic ceiling treatments and motorised privacy smart glass.",
+        points: [
+          "Custom boardroom layouts, furniture design and technical drawings",
+          "Integration of AV systems, concealed connectivity and video conferencing technology",
+          "Acoustic treatments, lighting coordination and smart glass installation",
+        ],
       },
       {
         title: "High-Performance Acoustic Glazed Partitions",
         description:
-          "Double-glazed acoustic partition systems with magnetic acoustic drop seals and custom black anodized or brass profiles.",
+          "Double-glazed acoustic partition systems with magnetic acoustic drop seals and custom black anodised or brass-finished profiles, designed to provide privacy while maintaining a refined workplace aesthetic.",
+        points: [
+          "Acoustic partition planning, technical detailing and system specifications",
+          "Supply and installation of double-glazed partition systems and acoustic seals",
+          "Custom profile finishes, door integration and acoustic performance checks",
+        ],
       },
       {
         title: "Private Executive Suites & Principal Offices",
         description:
-          "Tailored leather-wrapped credenzas, concealed private restrooms, hidden document safes, and personalized client reception lounges.",
+          "Tailored leather-wrapped credenzas, bespoke executive furniture, integrated private en-suite facilities, secure document storage and personalised client reception lounges.",
+        points: [
+          "Executive office space planning and bespoke furniture design",
+          "Custom credenzas, secure storage and integrated interior features",
+          "Coordination of private facilities, lighting and premium interior finishes",
+        ],
       },
       {
         title: "Welcoming Reception Lounges & Sculptural Desks",
         description:
-          "Backlit onyx and travertine monolithic reception desks paired with architectural mood lighting creating powerful first impressions.",
+          "Backlit onyx and travertine reception desks paired with architectural lighting, bespoke finishes and carefully planned waiting areas to create a distinctive first impression.",
+        points: [
+          "Reception layouts, visitor flow planning and custom desk design",
+          "Natural stone selection, fabrication and precision installation",
+          "Architectural lighting, feature walls and lounge finishing",
+        ],
       },
       {
         title: "Commercial MEP & Precision Climate Distribution",
         description:
-          "Zoned VRF air conditioning, linear diffuser arrays, and fresh-air CO2 monitoring optimized for full occupancy comfort.",
+          "Zoned VRF air-conditioning systems, coordinated linear diffuser layouts and CO₂ monitoring solutions designed to support effective ventilation and indoor comfort across commercial spaces.",
+        points: [
+          "MEP planning and coordination for commercial interior layouts",
+          "VRF air-conditioning, ventilation and linear diffuser integration",
+          "CO₂ monitoring, system testing and commissioning coordination",
+        ],
       },
     ],
     materials: [
@@ -325,27 +451,39 @@ export const SERVICES: ServiceData[] = [
     processSteps: [
       {
         number: "01",
-        title: "Corporate Workflow & Acoustic Audit",
+        title: "Workplace Planning & Acoustic Assessment",
         description:
-          "Evaluating headcount density, department hierarchies, IT infrastructure, and acoustic isolation criteria.",
+          "Evaluating employee headcount, workspace density, departmental layouts, IT infrastructure requirements and acoustic performance criteria to establish the project's initial design and technical requirements.",
+        timing: "Weeks 1–3",
+        milestone: "Completed 3D laser survey, initial workplace assessment and preliminary project feasibility review.",
+        approvals: "Initial assessment of applicable building management, developer and authority requirements, including Emaar, Nakheel and Dubai Civil Defence where relevant.",
       },
       {
         number: "02",
-        title: "BIM Coordination & Authority Clearance",
+        title: "BIM Coordination & Design Approvals",
         description:
-          "Developing clash-free 3D MEP models, DCD fire evacuation plans, and landlord submission packages.",
+          "Developing coordinated 3D BIM models, reviewing MEP service clashes, preparing applicable fire and life-safety documentation, and compiling landlord, developer and authority submission packages.",
+        timing: "Weeks 4–7",
+        milestone: "Approved design layouts, coordinated BIM models, virtual reality walkthrough and final material board.",
+        approvals: "Client sign-off on stone selections, timber veneers, material finishes, furniture specifications and coordinated MEP designs.",
       },
       {
         number: "03",
-        title: "Off-Site Pre-Fabrication & Fast Assembly",
+        title: "Off-Site Fabrication & On-Site Execution",
         description:
-          "Manufacturing all wall paneling, reception desks, and doors in-house to minimize on-site commercial fit-out duration.",
+          "Coordinating off-site fabrication of bespoke wall panelling, reception desks, doors and custom joinery, alongside on-site preparation and installation to minimise disruption and reduce fit-out time at the premises.",
+        timing: "Weeks 8–18",
+        milestone: "Completion of factory dry-fit inspections, followed by coordinated delivery and precision installation on site.",
+        approvals: "Coordination of applicable interim site inspections, building management requirements and developer or authority clearances, including Civil Defence requirements where applicable.",
       },
       {
         number: "04",
-        title: "IT/AV Commissioning & BCC Handover",
+        title: "IT/AV Commissioning & Final Handover",
         description:
-          "Complete network stress-testing, air balancing, final DCD inspection, and official Building Completion certificate.",
+          "Conducting network and AV system testing, HVAC air balancing, final MEP checks, acoustic performance reviews and applicable authority inspections to prepare the commercial space for handover.",
+        timing: "Weeks 19–22",
+        milestone: "Final styling, system commissioning, acoustic checks, snagging completion and formal key handover.",
+        approvals: "Applicable final inspection clearances and Building Completion Certificate (BCC), where required by the relevant authority. Handover of applicable system documentation and warranty records.",
       },
     ],
     gallery: [
@@ -376,14 +514,21 @@ export const SERVICES: ServiceData[] = [
     slug: "mep-works",
     id: "04",
     title: "MEP Works — Electrical, HVAC & Plumbing",
-    subtitle: "High-performance climate control, silent acoustic HVAC, precision plumbing, and intelligent electrical infrastructure.",
+    subtitle: "In Dubai's demanding climate, precision MEP engineering is essential to everyday comfort, acoustic tranquility, and energy performance.",
     eyebrow: "CRITICAL INFRASTRUCTURE · MECHANICAL ENGINEERING",
     heroImage:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791961975/pexels-jonathanborba-9976128_iqwrsv.jpg",
     leadParagraph:
-      "The true measure of luxury is invisible: silent ambient cooling without drafts, flawless water pressure, and zero hum from concealed electrical systems.",
+      "In Dubai's demanding desert climate, mechanical, electrical and plumbing (MEP) systems are essential to the comfort, functionality and performance of every prime residence and executive space.",
     description:
-      "In Dubai's demanding desert climate, mechanical, electrical, and plumbing systems are the vital lifelines of any prime residence or executive space. RichMan Interiors employs dedicated in-house MEP engineers who design, calculate, and install whisper-quiet variable refrigerant flow (VRF) and chilled water systems, frameless linear ceiling slot diffusers, smart power distribution, and acoustic wastewater drainage with zero tolerance for failure.",
+      "RichMan Interiors coordinates MEP design, engineering and installation, covering variable refrigerant flow (VRF) and chilled water air-conditioning systems, integrated linear ceiling slot diffusers, smart electrical distribution and acoustic wastewater drainage. Each system is carefully planned and coordinated to support reliable operation, energy efficiency and everyday comfort.",
+    features: [
+      "Single-Contract Turnkey Delivery",
+      "Integrated MEP & Interior Coordination",
+      "Developer & Authority Approval Coordination",
+    ],
+    deliverablesSummary:
+      "From initial site assessments and MEP design development to engineering drawings, equipment specifications, HVAC and plumbing installations, electrical distribution and system commissioning, every stage is carefully coordinated. Technical requirements, equipment selections, project responsibilities and key milestones are established before execution to ensure clarity and reliable system integration throughout the project.",
     stats: [
       { label: "Acoustic Criteria", value: "Under NC-25 Whisper-Quiet" },
       { label: "Climate Systems", value: "VRF & Chilled Water" },
@@ -394,27 +539,52 @@ export const SERVICES: ServiceData[] = [
       {
         title: "Silent Chilled Water & VRF Air Conditioning",
         description:
-          "Independent thermal zoning, variable-speed fan coil units, acoustic internal duct lining, and custom microprocessor thermostats.",
+          "Independently controlled thermal zones, variable-speed fan coil units, acoustically lined internal ductwork and programmable thermostats designed to maintain consistent indoor comfort.",
+        points: [
+          "HVAC load calculations, equipment selection and coordinated MEP drawings",
+          "Installation of VRF or chilled water systems, fan coil units and associated ductwork",
+          "System testing, air balancing and commissioning",
+        ],
       },
       {
         title: "Architectural Frameless Linear Slot Diffusers",
         description:
-          "Seamless integration into gypsum ceiling details, eliminating unsightly grills and providing draft-free laminar air distribution.",
+          "Seamless integration of linear slot diffusers into gypsum ceiling details, creating a clean architectural finish while supporting controlled and evenly distributed airflow.",
+        points: [
+          "Linear diffuser layouts, airflow calculations and ceiling coordination",
+          "Integration of concealed ductwork, plenum boxes and air distribution components",
+          "Airflow testing, balancing and final diffuser adjustments",
+        ],
       },
       {
-        title: "High-Capacity Domestic Water & Constant Pressure Booster",
+        title: "High-Capacity Domestic Water & Constant Pressure Booster Systems",
         description:
-          "Central multi-stage water filtration, UV sterilization, instantaneous recirculating hot water loops, and sound-insulated drainage.",
+          "Domestic water systems incorporating multi-stage filtration, UV treatment where specified, hot water circulation loops, pressure booster pumps and sound-insulated drainage solutions.",
+        points: [
+          "Domestic water supply layouts, pressure calculations and plumbing drawings",
+          "Installation coordination for filtration, UV treatment, booster pumps and hot water circulation",
+          "Drainage installation, pressure testing and plumbing system commissioning",
+        ],
       },
       {
         title: "Low-Voltage Infrastructure & Smart Power Distribution",
         description:
-          "Structured Cat6A data networks, surge-protected master distribution panels, DALI lighting protocols, and clean uninterrupted power.",
+          "Structured Cat6A data networks, surge-protected electrical distribution panels, DALI lighting control systems and integrated power infrastructure designed for modern residential and commercial environments.",
+        points: [
+          "Electrical load calculations, power distribution layouts and technical drawings",
+          "Structured cabling, distribution panels and smart lighting control integration",
+          "Electrical testing, safety checks and system commissioning",
+        ],
       },
       {
         title: "Dubai Civil Defence (DCD) Fire & Life Safety Systems",
         description:
-          "Concealed sprinkler heads, addressable smoke detection, fire dampers, and emergency lighting fully approved by DCD.",
+          "Integrated fire and life safety provisions, including concealed sprinkler heads, addressable smoke detection, fire dampers and emergency lighting, coordinated with applicable Dubai Civil Defence requirements.",
+        points: [
+          "Fire protection and life safety design coordination and technical documentation",
+          "Installation coordination for sprinklers, detection systems, fire dampers and emergency lighting",
+          "Inspection preparation, system testing and coordination of applicable DCD approvals",
+        ],
       },
     ],
     materials: [
@@ -437,27 +607,39 @@ export const SERVICES: ServiceData[] = [
     processSteps: [
       {
         number: "01",
-        title: "Thermal Load & Electrical Demand Calculation",
+        title: "MEP Load Calculations & Engineering Design",
         description:
-          "ASHRAE-compliant heat load calculations, solar heat gain analysis, and DEWA load schedule preparation.",
+          "ASHRAE-based HVAC load calculations, solar heat gain analysis, electrical demand assessments and preparation of applicable DEWA load schedules to establish the project's initial engineering requirements.",
+        timing: "Weeks 1–3",
+        milestone: "Completed site survey, preliminary HVAC load calculations, electrical demand assessment and initial MEP design requirements.",
+        approvals: "Initial assessment of applicable DEWA requirements, building management guidelines, developer requirements and relevant authority regulations, including Dubai Civil Defence where required.",
       },
       {
         number: "02",
-        title: "3D BIM Clash Detection with Joinery & Ceilings",
+        title: "Coordinated MEP Schematics & Authority Filings",
         description:
-          "Full 3D modeling of all duct runs, pipe slopes, and cable trays to guarantee maximum finished ceiling heights.",
+          "Fully coordinated composite MEP BIM modeling, clash-detection between ductwork and architectural ceiling details, and submission of electrical/water applications.",
+        timing: "Weeks 4–7",
+        milestone: "Coordinated MEP BIM drawings, equipment schedule approvals, and utility submission dossiers.",
+        approvals: "DEWA electrical connection approvals, Civil Defence drawing approvals, and master developer clearances.",
       },
       {
         number: "03",
-        title: "Precision Mechanical Installation & Pressure Testing",
+        title: "MEP Installation, Testing & Pressure Checks",
         description:
-          "Hydrostatic pressure testing of plumbing at 10 bar, duct leakage testing, and electrical megger insulation testing.",
+          "Executing mechanical, electrical and plumbing installations, including hydrostatic pressure testing of water supply lines, HVAC duct leakage testing and electrical insulation resistance testing using calibrated megohmmeters.",
+        timing: "Weeks 8–18",
+        milestone: "Completion of major MEP installations, plumbing pressure tests, duct leakage inspections and electrical insulation resistance testing.",
+        approvals: "Coordination of applicable installation inspections, building management requirements and developer or authority clearances, including Civil Defence inspections where required.",
       },
       {
         number: "04",
-        title: "Testing, Adjusting & Balancing (TAB) Sign-Off",
+        title: "MEP System Commissioning, Testing & TAB",
         description:
-          "Calibrated air flow balancing across all diffusers, chiller delta-T verification, and DCD life safety commissioning.",
+          "Carrying out final HVAC air balancing across supply and return diffusers, verifying chilled water system performance through delta-T measurements, and coordinating the testing and commissioning of applicable fire and life safety systems.",
+        timing: "Weeks 19–22",
+        milestone: "Completed HVAC testing, adjusting and balancing (TAB), MEP system commissioning, final performance checks and handover of system documentation.",
+        approvals: "Coordination of applicable final inspections and Dubai Civil Defence clearances where required, along with the Building Completion Certificate (BCC) process, subject to the relevant authority requirements.",
       },
     ],
     gallery: [
@@ -488,14 +670,21 @@ export const SERVICES: ServiceData[] = [
     slug: "authority-approval-coordination",
     id: "05",
     title: "Authority Approval Coordination",
-    subtitle: "Direct liaison and accelerated approvals across Dubai Municipality, Civil Defence, Emaar, Nakheel, and master developers.",
+    subtitle: "From developer NOCs to municipality and Civil Defence approvals, we coordinate every stage to keep your project compliant and moving forward.",
     eyebrow: "STATUTORY EXPEDITING · FULL REGULATORY COMPLIANCE",
     heroImage:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791982249/pexels-david-vinicius-562259225-28652353_ynv2xo.jpg",
     leadParagraph:
-      "Permit delays can paralyze any high-end project. Our in-house regulatory division navigates UAE statutory codes with flawless speed and absolute certainty.",
+      "Regulatory approvals are a critical part of every successful interior project. Delays in permits and compliance documentation can affect project timelines and construction progress. Our authority approval coordination team manages the documentation, submission processes and regulatory requirements involved in securing the necessary permissions.",
     description:
-      "Navigating Dubai's complex regulatory landscape requires deep technical competence and direct relationships with government engineers and developer review boards. RichMan Interiors manages the entire statutory journey: preparing compliant engineering drawings, filing structural and architectural submittals, securing developer NOCs, coordinating Civil Defence fire reviews, and obtaining the final Building Completion Certificate (BCC).",
+      "Navigating Dubai's regulatory landscape requires technical expertise, accurate documentation and careful coordination with relevant authorities and property developers. RichMan Interiors manages the approval coordination process, including the preparation and submission of architectural and engineering drawings, structural documentation, developer NOC applications and applicable Civil Defence fire safety submissions. We also coordinate the required inspections and completion documentation to help move your project towards final handover.",
+    features: [
+      "End-to-End Approval Coordination",
+      "Technical Drawings & Compliance Documentation",
+      "Developer & Relevant Authority Submissions",
+    ],
+    deliverablesSummary:
+      "From architectural and engineering drawings to developer NOC applications, authority submissions and final inspection documentation, every approval requirement is carefully coordinated. Submission documents, compliance requirements and approval milestones are established in advance to help minimise delays and keep your project progressing.",
     stats: [
       { label: "First-Pass Rate", value: "98.4% On First Submittal" },
       { label: "Authorities Covered", value: "DM, DCD, Trakhees, DDA" },
@@ -506,27 +695,52 @@ export const SERVICES: ServiceData[] = [
       {
         title: "Dubai Municipality (DM) Architectural & Structural Permits",
         description:
-          "Preparation and submission of full engineering dossiers, structural load calculations, and NOC processing for villa modifications.",
+          "Preparation and coordination of architectural and structural documentation for applicable property modifications, including engineering calculations, technical drawings and required NOC submissions.",
+        points: [
+          "Architectural and structural drawings with supporting technical documentation",
+          "Structural assessment reports and calculations where required",
+          "Coordination of applicable developer NOCs and municipality submissions",
+        ],
       },
       {
         title: "Dubai Civil Defence (DCD) Fire & Life Safety Approvals",
         description:
-          "Fire strategy plans, egress calculations, sprinkler hydraulic calculations, and direct coordination with DCD inspecting officers.",
+          "Coordination of fire and life safety documentation, including fire strategy drawings, means-of-egress layouts, sprinkler system calculations and applicable fire safety submissions.",
+        points: [
+          "Fire alarm, sprinkler and emergency exit layout documentation",
+          "Fire safety calculations and technical compliance documents",
+          "Coordination of DCD submissions, inspections and required revisions",
+        ],
       },
       {
         title: "Master Developer NOC Clearances (Emaar, Nakheel, Meraas)",
         description:
-          "Ensuring complete compliance with community deed covenants, exterior alterations, setback allowances, and contractor site permits.",
+          "Coordination of developer approvals for interior modifications, renovation works and fit-out activities in applicable residential and commercial developments.",
+        points: [
+          "Review of developer design guidelines and modification requirements",
+          "Preparation of drawings and documents for NOC applications",
+          "Coordination of contractor access permits and site work permissions",
+        ],
       },
       {
-        title: "Free Zone Permitting (DIFC, DMCC, Tecom, DDA, JAFZA)",
+        title: "Free Zone & Development Authority Fit-Out Permits",
         description:
-          "Fast-track fit-out permits and security clearances for commercial suites, corporate towers, and high-security zones.",
+          "Coordination of fit-out documentation and approval requirements for applicable developments and commercial properties within DIFC, DMCC, TECOM, DDA and JAFZA jurisdictions.",
+        points: [
+          "Preparation of fit-out drawings and technical submission packages",
+          "Coordination of building management and relevant authority requirements",
+          "Follow-up on permit applications, comments and required revisions",
+        ],
       },
       {
-        title: "Final Site Inspections & Completion Certificate (BCC)",
+        title: "Final Site Inspections & Completion Documentation",
         description:
-          "Managing on-site inspector visits, clearing snagging checklists, and securing official Building Completion Certificates for deposit returns.",
+          "Coordination of final inspections, technical documentation and applicable completion certificate requirements to support project closeout and handover.",
+        points: [
+          "Coordination of final site inspections and snagging rectification",
+          "Preparation of as-built drawings, test reports and completion documents",
+          "Follow-up on applicable completion certificate and handover requirements",
+        ],
       },
     ],
     materials: [
@@ -549,27 +763,39 @@ export const SERVICES: ServiceData[] = [
     processSteps: [
       {
         number: "01",
-        title: "Regulatory Pre-Audit & Master Covenant Review",
+        title: "Regulatory Assessment & Developer Requirements Review",
         description:
-          "Reviewing existing title deeds, as-built drawings, master developer guidelines, and structural feasibility before design begins.",
+          "Initial evaluation of property jurisdiction, developer master guidelines, and applicable municipality or free-zone modification restrictions.",
+        timing: "Weeks 1–3",
+        milestone: "Completed compliance audit, property constraint report, and authority submission roadmap.",
+        approvals: "Landlord initial consent and property management registration.",
       },
       {
         number: "02",
         title: "Drawing Package Preparation & Code Alignment",
         description:
-          "Formatting architectural, MEP, and structural packages strictly to Dubai Municipality and Civil Defence submittal guidelines.",
+          "Preparation and coordination of architectural, MEP and structural drawing packages in line with applicable Dubai authority and developer submission requirements.",
+        timing: "Weeks 4–7",
+        milestone: "Completed technical drawing package, compliance review and submission-ready documentation.",
+        approvals: "Client review of proposed layouts and technical drawings, followed by confirmation to proceed with relevant authority submissions.",
       },
       {
         number: "03",
-        title: "Online Submittal & Direct Officer Follow-Up",
+        title: "Authority Submissions & Application Follow-Up",
         description:
-          "Submitting via DM, Trakhees, or developer portals with direct engineer follow-ups to resolve clarifications without delays.",
+          "Submission of architectural, structural and MEP documentation through the relevant authority and developer portals, with follow-up on technical comments, clarification requests and required revisions.",
+        timing: "Weeks 8–18",
+        milestone: "Confirmation of application submissions, tracking of review status and resolution of authority comments.",
+        approvals: "Responses to technical observations and coordination of revised drawings or supporting documents required for approval.",
       },
       {
         number: "04",
-        title: "Site Inspection Coordination & BCC Issuance",
+        title: "Final Site Inspections & Completion Certification",
         description:
-          "Guiding authority inspectors on site, obtaining approval stamps, and releasing final completion documentation.",
+          "Coordinating final authority inspections, addressing compliance observations and managing the documentation required for project completion and handover.",
+        timing: "Weeks 19–22",
+        milestone: "Completion of required site inspections, closure of outstanding observations and submission of final compliance documentation.",
+        approvals: "Final inspection clearance and applicable Building Completion Certificate (BCC), subject to the relevant authority's requirements and approval.",
       },
     ],
     gallery: [
@@ -600,14 +826,21 @@ export const SERVICES: ServiceData[] = [
     slug: "project-management-execution",
     id: "06",
     title: "Project Management & Execution",
-    subtitle: "Dedicated on-site governance, milestone scheduling, procurement control, and zero-defect quality assurance.",
+    subtitle: "From contractor coordination and site supervision to quality inspections, we oversee every stage to keep projects on schedule and within budget.",
     eyebrow: "ON-SITE SUPERINTENDENCE · UNCOMPROMISING PRECISION",
     heroImage:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791961975/pexels-jonathanborba-9976128_iqwrsv.jpg",
     leadParagraph:
-      "Exceptional design without rigorous execution is merely an illusion. We govern every millimeter of construction with relentless discipline.",
+      "Exceptional design requires equally exceptional execution. We bring structure, precision and accountability to every stage of construction, ensuring that each detail is delivered in line with the approved design, specifications and project objectives.",
     description:
-      "Our Project Management & Execution practice is the operational engine that transforms complex architectural visions into tangible reality. Led by veteran project directors and full-time on-site superintendents, we maintain continuous site governance, daily photographic milestone reporting, strict budget administration, supply chain verification, and exhaustive QA/QC audits. We guarantee delivery on time, on budget, and to bespoke standards.",
+      "Our Project Management & Execution service transforms architectural plans into carefully coordinated, well-executed projects. From contractor coordination and site supervision to procurement tracking, budget monitoring and quality inspections, we oversee every stage of the construction process. Through structured planning, regular progress reporting and close attention to approved specifications, we help keep projects on schedule, within agreed budgets and aligned with the intended design standards.",
+    features: [
+      "Master Critical Path Scheduling",
+      "Dedicated Full-Time On-Site Project Engineers",
+      "12-Month Defects Liability & Post-Handover Aftercare",
+    ],
+    deliverablesSummary:
+      "From initial project planning and detailed scheduling to procurement coordination, on-site supervision, budget monitoring and quality inspections, every stage is carefully managed. Project deliverables, responsibilities, material specifications and key milestones are established before execution to maintain clarity, accountability and control throughout the project.",
     stats: [
       { label: "On-Time Delivery", value: "99.2% Track Record" },
       { label: "Site Superintendence", value: "Full-Time Dedicated" },
@@ -618,27 +851,52 @@ export const SERVICES: ServiceData[] = [
       {
         title: "Master Critical Path Scheduling (Primavera / MS Project)",
         description:
-          "Granular activity sequencing linking procurement lead times, factory joinery production, and site milestones with zero slack.",
+          "Detailed project scheduling that connects construction activities, procurement lead times, joinery production and site milestones to establish a coordinated execution plan.",
+        points: [
+          "Development of project schedules, activity sequences and key milestones",
+          "Coordination of procurement, supplier deliveries and off-site fabrication timelines",
+          "Regular schedule reviews, progress tracking and identification of potential delays",
+        ],
       },
       {
         title: "Dedicated Full-Time On-Site Project Engineers",
         description:
-          "Experienced civil and MEP superintendents permanently stationed on-site enforcing design drawings and safety standards.",
+          "On-site project supervision and technical coordination to ensure construction activities follow approved drawings, project specifications and applicable safety requirements.",
+        points: [
+          "Daily coordination of civil, MEP and specialist subcontractors",
+          "Site supervision to monitor workmanship, construction progress and safety practices",
+          "Technical clarification, drawing coordination and resolution of site execution issues",
+        ],
       },
       {
-        title: "Multi-Tier QA/QC Material & Dry-Fit Inspection",
+        title: "Multi-Stage QA/QC, Material & Factory Inspection",
         description:
-          "Rigorous material testing, factory dry-fit sign-offs, and laser tolerance verification before materials are installed on site.",
+          "Structured quality control throughout procurement, fabrication and installation, with inspections to verify materials, workmanship and compliance with approved specifications.",
+        points: [
+          "Material inspections and verification against approved samples and specifications",
+          "Factory joinery inspections and pre-installation dry-fit checks, where applicable",
+          "Site quality inspections, dimensional checks and documentation of defects for rectification",
+        ],
       },
       {
         title: "Transparent Cost Engineering & Budget Governance",
         description:
-          "Strict change-order controls, open-book material tracking, and milestone payment verifications aligned with real progress.",
+          "Proactive cost monitoring and financial coordination to maintain visibility over project expenditure, approved variations and procurement commitments.",
+        points: [
+          "Preparation and monitoring of project budgets and cost breakdowns",
+          "Review and documentation of variation orders and additional work costs",
+          "Procurement cost tracking, payment milestone monitoring and budget reporting",
+        ],
       },
       {
-        title: "12-Month Atelier Warranty & 24/7 Concierge Aftercare",
+        title: "12-Month Defects Liability & Post-Handover Aftercare",
         description:
-          "Post-handover rapid-response maintenance, seasonal AC calibration, and comprehensive defects liability protection.",
+          "Post-completion support to address reported defects and coordinate maintenance requirements in accordance with the agreed project contract and warranty terms.",
+        points: [
+          "Coordination of defects inspections and rectification during the applicable liability period",
+          "Follow-up on reported maintenance issues and post-handover service requests",
+          "Guidance on system operation, maintenance requirements and relevant warranty documentation",
+        ],
       },
     ],
     materials: [
@@ -661,27 +919,39 @@ export const SERVICES: ServiceData[] = [
     processSteps: [
       {
         number: "01",
-        title: "Master Timeline Baseline & Resource Allocation",
+        title: "Master Project Planning & Resource Allocation",
         description:
-          "Establishing the critical path schedule, labor deployment, long-lead procurement milestones, and cash-flow projections.",
+          "Establishing the project execution plan through critical path scheduling, workforce allocation, procurement planning and cash-flow forecasting. Key activities, responsibilities and delivery milestones are defined to provide a clear roadmap for project execution.",
+        timing: "Weeks 1–3",
+        milestone: "Completion of the initial site assessment, project scope definition, baseline schedule and resource allocation plan.",
+        approvals: "Initial review of applicable developer guidelines, project documentation requirements and relevant authority approval procedures.",
       },
       {
         number: "02",
-        title: "Procurement Tracking & Factory Quality Checks",
+        title: "Procurement Tracking & Factory Quality Inspections",
         description:
-          "Inspecting marble at the quarry, timber at the mill, and joinery in our workshop prior to packing and site dispatch.",
+          "Coordinating material procurement, supplier deliveries and factory inspections to verify that selected materials, finishes and custom joinery meet the approved project specifications before dispatch to site.",
+        timing: "Weeks 4–7",
+        milestone: "Completion of material sample approvals, procurement schedules and factory quality inspections before site dispatch.",
+        approvals: "Client sign-off on stone selections, timber veneers, material samples, finish specifications and relevant MEP equipment selections.",
       },
       {
         number: "03",
-        title: "Daily Site Superintending & Milestone Gateways",
+        title: "On-Site Project Supervision & Progress Monitoring",
         description:
-          "Conducting daily trade coordination, MEP pressure inspections, safety briefings, and photographic client reports.",
+          "Managing daily site activities through trade coordination, MEP installation inspections, safety monitoring and regular photographic progress reporting. Workmanship, construction quality and execution milestones are monitored against approved drawings and project specifications.",
+        timing: "Weeks 8–18",
+        milestone: "Completion of key construction and installation milestones, with progress inspections and documented quality checks.",
+        approvals: "Coordination of required interim inspections, technical reviews and applicable developer or authority site clearances.",
       },
       {
         number: "04",
-        title: "Exhaustive Pre-Handover Snagging & Orientation",
+        title: "Final Quality Inspections, Snagging & Handover",
         description:
-          "Internal 3-tier snagging protocol, full equipment commissioning, user training, and formal key handover ceremony.",
+          "Conducting detailed pre-handover inspections, coordinating defect rectification, verifying completed installations and overseeing system commissioning. We also provide client orientation and organise the required handover documentation to support a smooth project closeout.",
+        timing: "Weeks 19–22",
+        milestone: "Completion of final snagging, defect rectification, system commissioning, client orientation and formal project handover.",
+        approvals: "Coordination of applicable final inspections, completion documentation and Building Completion Certificate (BCC), subject to relevant authority requirements.",
       },
     ],
     gallery: [

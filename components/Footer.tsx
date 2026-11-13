@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ConsultationDialog from "./Consultationdialog";
+import CookieSettingsButton from "@/components/cookie-consent/CookieSettingsButton";
 
 export default function Footer() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -299,8 +300,14 @@ export default function Footer() {
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-center sm:text-left">
               <span>&copy; 2026 RichMan Interiors FZ-LLC.</span>
               <span className="hidden sm:inline text-white/20">•</span>
+              <Link href="/cookie-policy" className="hover:text-white/70 transition-colors">
+                Cookie Policy
+              </Link>
+              <span className="hidden sm:inline text-white/20">•</span>
+              <CookieSettingsButton />
+              <span className="hidden sm:inline text-white/20">•</span>
               <span className="hover:text-white/70 transition-colors cursor-pointer">
-                Privacy & Data Policy
+                Privacy &amp; Data Policy
               </span>
               <span className="hidden sm:inline text-white/20">•</span>
               <span className="hover:text-white/70 transition-colors cursor-pointer">

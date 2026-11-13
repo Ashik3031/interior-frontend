@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+
+const APARTMENTS_HERO_BG =
+    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=85";
 
 const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400", "500"], variable: "--font-serif" });
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -242,7 +246,7 @@ function BookModal({ open, onClose }: { open: boolean; onClose: () => void }) {
                         <label className="block"><span className="era-eyebrow">Email:</span><input required type="email" name="email" className={f} /></label>
                         <label className="block"><span className="era-eyebrow">Phone:</span><input required type="tel" name="phone" className={f} /></label>
                         <label className="block"><span className="era-eyebrow">Message:</span><textarea name="message" rows={3} className={f} /></label>
-                        <p className="text-xs opacity-60">By submitting, you agree to our <a className="era-link" href="#">Privacy policy</a>,</p>
+                        <p className="text-xs opacity-60">By submitting, you agree to our <Link className="era-link" href="/cookie-policy">Privacy &amp; Cookie policy</Link>,</p>
                         <button disabled={status === "sending"} className="w-full bg-[#1D1B18] py-4 text-sm text-[#EFEAE1] transition-opacity hover:opacity-85 disabled:opacity-50">
                             {status === "sending" ? "Sending…" : "Submit"}
                         </button>
@@ -250,27 +254,6 @@ function BookModal({ open, onClose }: { open: boolean; onClose: () => void }) {
                     </form>
                 )}
             </aside>
-        </div>
-    );
-}
-
-function Cookies() {
-    const [show, setShow] = useState(false);
-    useEffect(() => {
-        try { if (localStorage.getItem("era-cookies")) return; } catch { }
-        const t = setTimeout(() => setShow(true), 3000);
-        return () => clearTimeout(t);
-    }, []);
-    const choose = (v: string) => { try { localStorage.setItem("era-cookies", v); } catch { } setShow(false); };
-    return (
-        <div className={`fixed bottom-4 left-4 z-30 w-[calc(100%-2rem)] max-w-sm bg-[#1D1B18] p-5 text-[#EFEAE1] transition-all duration-700 ${EASE} ${show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-8 opacity-0"}`}>
-            <p className="era-eyebrow !opacity-100">Cookies</p>
-            <p className="mt-2 text-sm opacity-80">This website uses cookies to ensure you get the best experience on website.</p>
-            <div className="mt-4 flex gap-3 text-sm">
-                <button onClick={() => choose("accept")} className="bg-[#EFEAE1] px-4 py-2 text-[#1D1B18]">Accept</button>
-                <span className="self-center opacity-40">/</span>
-                <button onClick={() => choose("decline")} className="era-link">Decline</button>
-            </div>
         </div>
     );
 }
@@ -312,18 +295,33 @@ export default function Apartments() {
             <Header onBook={() => setBooking(true)} />
 
             {/* Title + filters */}
-            <section className="mx-auto max-w-[1600px] px-5 pb-10 pt-32 md:px-10">
-                <nav className="era-eyebrow mb-8 flex gap-2"><Link href="/" className="era-link">Home</Link> / <span>Select an Apartment</span></nav>
+            <section data-theme="dark" className="relative isolate overflow-hidden mx-auto max-w-[1600px] px-5 pb-10 pt-32 md:px-10 text-[#EFEAE1]">
+                {/* Background Hero Image */}
+                <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+                    <Image
+                        src={APARTMENTS_HERO_BG}
+                        alt="Era Residence Apartments"
+                        fill
+                        priority
+                        quality={90}
+                        sizes="100vw"
+                        className="object-cover object-center"
+                    />
+                    {/* Dark Luxury Overlay matching Home Page Hero */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+                </div>
+                <nav className="era-eyebrow mb-8 flex gap-2 text-[#EFEAE1]/75"><Link href="/" className="era-link !text-[#EFEAE1]">Home</Link> / <span>Select an Apartment</span></nav>
                 <div className="flex items-start gap-3">
-                    <h1 className={`era-rise ${SERIF} text-6xl font-light md:text-9xl`}>Apartments</h1>
-                    <sup className={`${SERIF} mt-3 text-2xl md:text-4xl`}>{count}</sup>
+                    <h1 className={`era-rise ${SERIF} text-6xl font-light md:text-9xl text-[#EFEAE1]`}>Apartments</h1>
+                    <sup className={`${SERIF} mt-3 text-2xl md:text-4xl text-[#BE9B59]`}>{count}</sup>
                 </div>
                 <div className="mt-12 flex flex-wrap items-end gap-8 md:gap-12">
                     <Dropdown label="Typology" value={typ} options={TYPS} onChange={setTyp} />
                     <Dropdown label="Bedrooms" value={beds} options={BEDS} onChange={setBeds} />
                     <Dropdown label="Sort by" value={sort} options={SORTS} onChange={setSort} />
                     <button onClick={() => { setTyp("All"); setBeds("All"); setSort("Relevant"); }} disabled={!dirty}
-                        className="era-link pb-2 text-sm transition-opacity disabled:pointer-events-none disabled:opacity-30">Reset</button>
+                        className="era-link pb-2 text-sm transition-opacity disabled:pointer-events-none disabled:opacity-30 !text-[#EFEAE1]">Reset</button>
                 </div>
             </section>
 
@@ -376,13 +374,12 @@ export default function Apartments() {
                 </div>
                 <div className="mt-16 flex flex-wrap justify-between gap-4 border-t border-[#1D1B18]/15 pt-6 text-xs opacity-70">
                     <span>©2026 All rights reserved</span>
-                    <span className="flex gap-3"><a className="era-link" href="#">Privacy policy</a>,<a className="era-link" href="#">Terms of Use</a></span>
+                    <span className="flex gap-3"><Link className="era-link" href="/cookie-policy">Privacy &amp; Cookie policy</Link></span>
                     <span>Made by <a className="era-link" href="https://thefirstthelast.agency/">Thefirstthelast</a></span>
                 </div>
             </footer>
 
             <BookModal open={booking} onClose={() => setBooking(false)} />
-            <Cookies />
         </div>
     );
 }

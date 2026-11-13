@@ -17,22 +17,9 @@ const useIsoLayoutEffect =
 /*  details with real ones before publishing.                          */
 /* ------------------------------------------------------------------ */
 
-// Hero corner video. This clip has its leaves in the TOP-LEFT of the frame, so it is
-// mirrored (flipX) to sit in the top-RIGHT corner. If the leaves ever look wrong,
-// change flipX / flipY (flipY turns a plant that grows UP into one that hangs DOWN).
-const HERO_VIDEO = {
-    src: "https://res.cloudinary.com/img3p1wr/video/upload/v1794312057/IMG_6150.mp4",
-    flipY: false,
-    flipX: true,
-};
-const heroVideoFlip =
-    HERO_VIDEO.flipX && HERO_VIDEO.flipY
-        ? "-scale-100"
-        : HERO_VIDEO.flipY
-            ? "-scale-y-100"
-            : HERO_VIDEO.flipX
-                ? "-scale-x-100"
-                : "";
+// Hero background image (Unsplash link - replace later with studio photography)
+const ABOUT_HERO_BG =
+    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=85";
 
 const IMG = {
     wide: "https://res.cloudinary.com/dugtxybef/image/upload/v1791982249/pexels-david-vinicius-562259225-28652353_ynv2xo.jpg",
@@ -183,47 +170,6 @@ function useCountUp(end: number, start: boolean, duration = 1500) {
     }, [end, start, duration]);
 
     return value;
-}
-
-/**
- * Decorative looping vine video. Plays only while on screen and stays paused for
- * reduced-motion users. `mix-blend-multiply` + the small filter hide the white
- * background of the MP4 against a white section (the parent needs `isolate`).
- * If you switch to a true-alpha WebM, delete those two classes.
- */
-function LeafVideo({ src, className = "" }: { src: string; className?: string }) {
-    const ref = useRef<HTMLVideoElement>(null);
-
-    useEffect(() => {
-        const video = ref.current;
-        if (!video) return;
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            video.pause();
-            return;
-        }
-        const io = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) video.play().catch(() => { });
-            else video.pause();
-        });
-        io.observe(video);
-        return () => io.disconnect();
-    }, []);
-
-    return (
-        <video
-            ref={ref}
-            src={src}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            aria-hidden
-            tabIndex={-1}
-            disablePictureInPicture
-            className={`pointer-events-none absolute select-none mix-blend-multiply [filter:brightness(1.12)_contrast(1.1)] ${className}`}
-        />
-    );
 }
 
 /** Small gold-dot label used above section headings. */
@@ -674,24 +620,35 @@ export default function AboutPage() {
         <main ref={rootRef} className="bg-white text-deep-charcoal">
             {/* ============ 1. Hero ============ */}
             <section
-                data-theme="light"
+                data-theme="dark"
                 aria-labelledby="about-hero-heading"
-                className="relative isolate overflow-hidden bg-white px-6 pb-20 pt-36 sm:px-10 lg:px-16 lg:pb-28 lg:pt-44"
+                className="relative isolate overflow-hidden px-6 pb-20 pt-36 sm:px-10 lg:px-16 lg:pb-28 lg:pt-44 text-warm-ivory"
             >
-                <LeafVideo
-                    src={HERO_VIDEO.src}
-                    className={`right-0 top-0 w-[80vw] sm:w-[62vw] ${heroVideoFlip}`}
-                />
+                {/* Background Hero Image */}
+                <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+                    <Image
+                        src={ABOUT_HERO_BG}
+                        alt="RichMan Interiors Architectural Sanctuary Dubai"
+                        fill
+                        priority
+                        quality={90}
+                        sizes="100vw"
+                        className="object-cover object-center"
+                    />
+                    {/* Dark Luxury Overlay matching Home Page Hero */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+                </div>
 
                 <div className="relative z-10 mx-auto max-w-[1600px]">
-                    <p className="hero-fade flex items-center gap-2.5 font-sans text-sm text-deep-charcoal/70">
+                    <p className="hero-fade flex items-center gap-2.5 font-sans text-sm text-warm-ivory/80">
                         <span className="h-2 w-2 rounded-full bg-champagne-gold" />
                         About RichMan Interiors
                     </p>
 
                     <h1
                         id="about-hero-heading"
-                        className="mt-8 font-serif text-[clamp(44px,7.4vw,128px)] font-light uppercase leading-[0.95] tracking-tight"
+                        className="mt-8 font-serif text-[clamp(44px,7.4vw,128px)] font-light uppercase leading-[0.95] tracking-tight text-warm-ivory"
                     >
                         {HERO_LINES.map((l) => (
                             <span key={l.text} className={`block overflow-hidden pb-[0.08em] ${l.indent}`}>
@@ -701,17 +658,17 @@ export default function AboutPage() {
                     </h1>
 
                     <div className="mt-14 grid gap-10 lg:mt-24 lg:grid-cols-12">
-                        <p className="hero-fade max-w-md font-sans text-base leading-relaxed text-deep-charcoal/75 lg:col-span-5 lg:text-lg">
+                        <p className="hero-fade max-w-md font-sans text-base leading-relaxed text-warm-ivory/85 lg:col-span-5 lg:text-lg">
                             We are a Dubai design and fit-out studio. We create calm, personal
                             homes and workplaces across the UAE, and we look after every step
                             from the first sketch to the final styling.
                         </p>
 
-                        <dl className="hero-fade grid grid-cols-3 gap-6 border-t border-deep-charcoal/15 pt-6 lg:col-span-6 lg:col-start-7">
+                        <dl className="hero-fade grid grid-cols-3 gap-6 border-t border-white/15 pt-6 lg:col-span-6 lg:col-start-7">
                             {FACTS.map((f) => (
                                 <div key={f.label}>
-                                    <dt className="font-sans text-sm text-deep-charcoal/50">{f.label}</dt>
-                                    <dd className="mt-2 font-serif text-xl sm:text-2xl">{f.value}</dd>
+                                    <dt className="font-sans text-sm text-warm-ivory/60">{f.label}</dt>
+                                    <dd className="mt-2 font-serif text-xl sm:text-2xl text-warm-ivory">{f.value}</dd>
                                 </div>
                             ))}
                         </dl>

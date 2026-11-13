@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServiceBySlug, SERVICES } from "@/data/servicesData";
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function Page({ params }: PageProps) {
+async function ServiceContent({ params }: PageProps) {
   const { slug } = await params;
   const service = getServiceBySlug(slug);
 
@@ -48,3 +49,10 @@ export default async function Page({ params }: PageProps) {
   return <ServiceDetailPage service={service} />;
 }
 
+export default function Page({ params }: PageProps) {
+  return (
+    <Suspense fallback={null}>
+      <ServiceContent params={params} />
+    </Suspense>
+  );
+}

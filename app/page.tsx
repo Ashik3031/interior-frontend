@@ -3,13 +3,13 @@
 import React, { useEffect, useCallback } from "react";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
-import ScrollProgress from "@/components/ScrollProgress";
 import LoadingScreen from "@/components/LoadingScreen";
 import About from "@/components/About";
 import DesignProcess from "@/components/Desingprocess";
 import FAQ from "@/components/FAQ";
 import Scrollcomp from "@/components/Scrollcomp";
 import { useNavigation, type IntroStage } from "@/context/NavigationContext";
+
 
 export default function Home() {
   const { setIntroStage, setActiveSection } = useNavigation();
@@ -37,9 +37,6 @@ export default function Home() {
         onComplete={handleIntroComplete}
       />
 
-      {/* 1. Right-Side Editorial Scroll Progress Indicator (Custom scrollbar replacement) */}
-      <ScrollProgress onSectionChange={setActiveSection} />
-
       {/* 2. Immersive Hero Section (Dark photographic background) */}
       <Hero />
 
@@ -49,6 +46,7 @@ export default function Home() {
       <About />
       <DesignProcess />
       <FAQ />
+
 
       <Scrollcomp />
     </main>

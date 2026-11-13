@@ -285,7 +285,7 @@ export default function DesignProcess() {
             id="process"
             data-theme="light"
             aria-labelledby="process-heading"
-            className="relative bg-warm-ivory text-deep-charcoal"
+            className="relative bg-warm-ivory text-deep-charcoal overflow-hidden"
         >
             {/* Pinned viewport (desktop) / normal block (mobile) */}
             <div
@@ -300,17 +300,15 @@ export default function DesignProcess() {
                 >
                     {/* ---------------- Intro panel ---------------- */}
                     <header className="process-header relative flex flex-col items-center gap-6 pb-40 text-center sm:pb-52 [.hs-on_&]:h-full [.hs-on_&]:w-screen [.hs-on_&]:shrink-0 [.hs-on_&]:justify-center [.hs-on_&]:px-[9vw] [.hs-on_&]:pb-0">
-                        {/* Leaves hanging from the top-left corner */}
+                        {/* Leaves hanging from the top-left corner flush to screen edges */}
                         <LeafVideo
                             src={LEAF_TOP_LEFT}
-                            className="left-0 top-0 w-[80vw] sm:w-[66vw]"
+                            className="-top-24 -left-6 sm:-top-24 sm:-left-10 md:-top-32 [.hs-on_&]:top-0 [.hs-on_&]:left-0 w-[85vw] sm:w-[66vw] max-w-none"
                         />
-                        {/* Leaves rising from the bottom, straddling the join between the
-                            intro panel and the first stage (centred on the intro's right
-                            edge on desktop, bottom-centre when stacked on mobile) */}
+                        {/* Leaves rising from the bottom - hidden on mobile, shown on desktop horizontal scroll */}
                         <LeafVideo
                             src={LEAF_BOTTOM_CENTER}
-                            className="bottom-0 left-1/2 z-[5] w-[90vw] -translate-x-1/2 sm:w-[52vw] [.hs-on_&]:left-auto [.hs-on_&]:right-0 [.hs-on_&]:w-[50vw] [.hs-on_&]:translate-x-1/2"
+                            className="hidden [.hs-on_&]:block bottom-0 z-[5] [.hs-on_&]:left-auto [.hs-on_&]:right-0 [.hs-on_&]:w-[50vw] [.hs-on_&]:translate-x-1/2"
                         />
 
                         <p className="relative z-10 font-sans text-sm text-champagne-gold">
@@ -328,7 +326,7 @@ export default function DesignProcess() {
                             </span>
                             <span className="block overflow-hidden pb-[0.08em]">
                                 <span className="h-line block">
-                                    from the first conversation to the final detail,
+                                    from the first conversation to the final details,
                                 </span>
                             </span>
                             <span className="block overflow-hidden pb-[0.08em]">
@@ -390,10 +388,10 @@ export default function DesignProcess() {
 
                     {/* ---------------- Closing panel ---------------- */}
                     <div className="relative flex flex-col items-start gap-10 border-t border-champagne-gold/30 pb-44 pt-12 sm:pb-56 [.hs-on_&]:h-full [.hs-on_&]:w-[100vw] [.hs-on_&]:shrink-0 [.hs-on_&]:flex-row [.hs-on_&]:items-center [.hs-on_&]:justify-center [.hs-on_&]:gap-[6vw] [.hs-on_&]:border-0 [.hs-on_&]:pb-0 [.hs-on_&]:pt-0">
-                        {/* Leaves rising from the bottom-right corner */}
+                        {/* Leaves rising from the bottom-right corner flush to screen edges */}
                         <LeafVideo
                             src={LEAF_BOTTOM_RIGHT}
-                            className="bottom-0 right-0 w-[90vw] sm:w-[53vw]"
+                            className="-right-6 -bottom-24 sm:-right-10 md:-bottom-32 [.hs-on_&]:right-0 [.hs-on_&]:bottom-0 w-[85vw] sm:w-[53vw] max-w-none"
                         />
 
                         <p className="relative z-10 max-w-xl font-serif text-4xl font-light uppercase leading-tight tracking-tight sm:text-5xl [.hs-on_&]:text-[4.5vw]">

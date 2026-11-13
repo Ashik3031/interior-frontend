@@ -14,9 +14,9 @@ const useIsoLayoutEffect =
 /* ------------------------------------------------------------------ */
 
 const PHOTO_MAIN =
-    "https://res.cloudinary.com/dugtxybef/image/upload/v1791962094/pexels-fatih-guney-337108406-18699433_pesxoq.jpg"; // TODO: your best residential shot (portrait)
+    "https://res.cloudinary.com/dugtxybef/image/upload/v1794551212/Warm_leather_rich_walnut_and_soft_brass_light_layered_to_create_a_bedroom_that_feels_calm_and_wxfyvh.jpg"; // TODO: your best residential shot (portrait)
 const PHOTO_WIDE =
-    "https://res.cloudinary.com/dugtxybef/image/upload/v1791962094/pexels-fatih-guney-337108406-18699433_pesxoq.jpg"; // TODO: wide, cinematic interior shot (currently the same photo)
+    "https://res.cloudinary.com/dugtxybef/image/upload/v1794571802/pexels-jonathanborba-19737866_bfgv7r.jpg"; // TODO: wide, cinematic interior shot (currently the same photo)
 
 const HEADLINE = [
     { text: "Spaces that", indent: "" },
@@ -142,7 +142,7 @@ export default function About() {
                         ))}
                     </h2>
 
-                    <div className="mt-12 flex max-w-lg items-center gap-8 lg:mt-20">
+                    <div className="mt-12 flex max-w-xl items-center gap-7 sm:gap-9 lg:mt-20">
                         <Badge />
                         <p className="font-sans text-base leading-relaxed text-deep-charcoal/75">
                             RichMan Interiors is a Dubai design and fit-out studio. We pair
@@ -282,7 +282,7 @@ export default function About() {
 /** Slowly rotating circular text, like ERA's circular logo mark. */
 function Badge() {
     return (
-        <div className="relative h-28 w-28 shrink-0">
+        <div className="relative h-36 w-36 sm:h-40 sm:w-40 shrink-0">
             <svg
                 viewBox="0 0 120 120"
                 aria-hidden
@@ -307,11 +307,11 @@ function Badge() {
             </svg>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center">
                 <Image
-                    src="/images/RM Interior - Logo.png"
+                    src="/images/RM Interior - Logo Icon .png"
                     alt="RichMan Interiors Logo"
-                    width={48}
-                    height={48}
-                    className="object-contain"
+                    width={64}
+                    height={64}
+                    className="h-14 w-14 sm:h-16 sm:w-16 object-contain"
                 />
             </div>
         </div>

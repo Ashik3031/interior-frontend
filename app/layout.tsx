@@ -1,8 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 import { NavigationProvider } from "@/context/NavigationContext";
+import { CookieConsentProvider } from "@/context/CookieConsentContext";
+import CookieConsentBanner from "@/components/cookie-consent/CookieConsentBanner";
+import CookiePreferencesModal from "@/components/cookie-consent/CookiePreferencesModal";
+import LiveChatConcierge from "@/components/LiveChatConcierge";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -30,6 +35,16 @@ export const metadata: Metadata = {
     "Villa Renovation Dubai",
     "Penthouse Interior Design",
   ],
+  icons: {
+    icon: [
+      { url: "/images/RM Interior - Logo Icon .png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/images/RM Interior - Logo Icon .png",
+    apple: [
+      { url: "/images/RM Interior - Logo Icon .png", type: "image/png" },
+    ],
+  },
 };
 
 export const viewport: Viewport = {
@@ -50,9 +65,15 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-[#171816] text-[#F5F0E7] font-sans antialiased selection:bg-[#BE9B59] selection:text-[#171816] overflow-x-hidden">
         <NavigationProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <CookieConsentProvider>
+            <Navbar />
+            <ScrollProgress />
+            {children}
+            <Footer />
+            <LiveChatConcierge />
+            <CookieConsentBanner />
+            <CookiePreferencesModal />
+          </CookieConsentProvider>
         </NavigationProvider>
       </body>
     </html>
