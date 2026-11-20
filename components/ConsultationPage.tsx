@@ -915,7 +915,7 @@ export default function ConsultationPage() {
       <section
         data-theme="light"
         aria-labelledby="session-heading"
-        className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+        className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
       >
         <div className="mx-auto max-w-[1400px]">
           <p className="flex items-center gap-2.5 font-sans text-sm text-deep-charcoal/70">
@@ -958,66 +958,66 @@ export default function ConsultationPage() {
 
       {/* ============ 4. Materials + contact (dark) ============ */}
       <section
-        data-theme="dark"
+        data-theme="light"
         aria-labelledby="materials-heading"
-        className="bg-deep-charcoal px-6 py-24 text-warm-ivory sm:px-10 lg:px-16 lg:py-40"
+        className="bg-[#FAF8F5] px-6 py-24 text-deep-charcoal sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
       >
         <div className="mx-auto max-w-[1400px]">
-          <p className="flex items-center gap-2.5 font-sans text-sm text-warm-ivory/70">
+          <p className="flex items-center gap-2.5 font-sans text-sm text-deep-charcoal/70">
             <span className="h-2 w-2 rounded-full bg-champagne-gold" />
             In the studio
           </p>
           <h2
             id="materials-heading"
-            className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+            className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl text-deep-charcoal"
           >
             Materials ready for you to touch
           </h2>
 
-          <ul className="mt-16 border-t border-warm-ivory/15 lg:mt-24">
+          <ul className="mt-16 border-t border-deep-charcoal/15 lg:mt-24">
             {MATERIALS.map((m) => (
               <li
                 key={m.name}
-                className="group grid items-center gap-x-8 gap-y-3 border-b border-warm-ivory/15 py-8 transition-colors duration-500 hover:bg-warm-ivory/[0.03] sm:grid-cols-[4rem_1fr] lg:grid-cols-[4rem_14rem_1fr_20rem] lg:py-10"
+                className="group grid items-center gap-x-8 gap-y-3 border-b border-deep-charcoal/15 py-8 transition-colors duration-500 hover:bg-deep-charcoal/[0.02] sm:grid-cols-[4rem_1fr] lg:grid-cols-[4rem_14rem_1fr_20rem] lg:py-10"
               >
                 <span
                   aria-hidden
-                  className="h-14 w-14 rounded-full ring-1 ring-warm-ivory/25 transition-transform duration-500 group-hover:scale-110"
+                  className="h-14 w-14 rounded-full ring-1 ring-deep-charcoal/20 transition-transform duration-500 group-hover:scale-110 shadow-sm"
                   style={{ background: m.swatch }}
                 />
-                <p className="font-sans text-sm text-warm-ivory/55">{m.category}</p>
-                <h3 className="font-serif text-2xl font-light sm:text-3xl lg:text-4xl">
+                <p className="font-sans text-sm text-deep-charcoal/55">{m.category}</p>
+                <h3 className="font-serif text-2xl font-light sm:text-3xl lg:text-4xl text-deep-charcoal">
                   {m.name}
                 </h3>
-                <p className="font-sans text-sm leading-relaxed text-warm-ivory/60 sm:col-start-2 lg:col-start-auto">
+                <p className="font-sans text-sm leading-relaxed text-deep-charcoal/65 sm:col-start-2 lg:col-start-auto">
                   {m.note}
                 </p>
               </li>
             ))}
           </ul>
 
-          <div className="mt-24 grid gap-10 lg:mt-32 lg:grid-cols-12">
-            <h3 className="font-serif text-4xl font-light uppercase leading-[1] tracking-tight sm:text-5xl lg:col-span-6 lg:text-6xl">
+          <div className="mt-24 grid gap-10 lg:mt-32 lg:grid-cols-12 border-t border-deep-charcoal/15 pt-12">
+            <h3 className="font-serif text-4xl font-light uppercase leading-[1] tracking-tight sm:text-5xl lg:col-span-6 lg:text-6xl text-deep-charcoal">
               Prefer to talk first?
             </h3>
-            <dl className="grid gap-8 font-sans text-sm text-warm-ivory/70 sm:grid-cols-2 lg:col-span-5 lg:col-start-8">
+            <dl className="grid gap-8 font-sans text-sm text-deep-charcoal/70 sm:grid-cols-2 lg:col-span-5 lg:col-start-8">
               <div>
-                <dt className="text-warm-ivory/45">Call us</dt>
+                <dt className="text-deep-charcoal/45">Call us</dt>
                 <dd className="mt-2">
                   <a
                     href={PHONE_LINK}
-                    className="font-serif text-2xl text-warm-ivory transition-colors hover:text-champagne-gold"
+                    className="font-serif text-2xl text-deep-charcoal transition-colors hover:text-champagne-gold"
                   >
                     {PHONE_DISPLAY}
                   </a>
                 </dd>
               </div>
               <div>
-                <dt className="text-warm-ivory/45">Studio</dt>
-                <dd className="mt-2 leading-relaxed">
+                <dt className="text-deep-charcoal/45">Studio</dt>
+                <dd className="mt-2 leading-relaxed text-deep-charcoal">
                   Al Quoz Industrial Area 3, Dubai
                   <br />
-                  Sunday to Thursday, 9am – 6pm {/* TODO: confirm hours */}
+                  Sunday to Thursday, 9am – 6pm
                 </dd>
               </div>
             </dl>

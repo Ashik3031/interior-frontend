@@ -260,9 +260,8 @@ export default function ScrollProgress({ onSectionChange }: ScrollProgressProps)
       {/* 1. DESKTOP EDITORIAL VERTICAL RAIL (Signature indicator from Home Page) */}
       <aside
         aria-label="Vertical scroll progress"
-        className={`fixed inset-y-0 z-40 hidden md:flex flex-col select-none pointer-events-none transition-opacity duration-300 ease-out ${
-          isScrollable ? "opacity-100" : "opacity-0"
-        }`}
+        className={`fixed inset-y-0 z-40 hidden md:flex flex-col select-none pointer-events-none transition-opacity duration-300 ease-out ${isScrollable ? "opacity-100" : "opacity-0"
+          }`}
         style={{
           right: "26px",
           color: foregroundColor,

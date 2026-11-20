@@ -59,8 +59,8 @@ html {
 }
 
 body {
-  background-color: var(--deep-charcoal);
-  color: var(--warm-ivory);
+  background-color: var(--pure-white);
+  color: var(--deep-charcoal);
   font-family: var(--font-sans);
   overflow-x: hidden;
 }
@@ -95,6 +95,7 @@ body {
     opacity: 0;
     transform: translateY(24px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -105,15 +106,19 @@ body {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.8;
   }
+
   50% {
     opacity: 1;
   }
@@ -123,6 +128,7 @@ body {
   0% {
     width: 0%;
   }
+
   100% {
     width: 100%;
   }
@@ -133,6 +139,7 @@ body {
     opacity: 0;
     transform: scale(0.92);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -171,6 +178,7 @@ body {
   html {
     scroll-behavior: auto;
   }
+
   .animate-fade-up,
   .animate-fade-up-delay-1,
   .animate-fade-up-delay-2,

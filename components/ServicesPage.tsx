@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { SERVICES } from "@/data/servicesData";
 
-// One background colour per panel (cycled if you add more services)
-const PANEL_COLORS = ["#C3CDD9", "#B794A1", "#7F937F", "#E39562", "#EDEBE6", "#CDB88E"];
+// Alternating premium off-white and pure white per panel
+const PANEL_COLORS = ["#FAF8F5", "#FFFFFF", "#FAF8F5", "#FFFFFF", "#FAF8F5", "#FFFFFF"];
 
 const shortTitle = (t: string) => t.split("—")[0].trim();
 

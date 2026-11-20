@@ -239,15 +239,15 @@ function Beliefs() {
 
     return (
         <section
-            data-theme="dark"
+            data-theme="light"
             aria-labelledby="beliefs-heading"
-            className="mt-24 bg-deep-charcoal px-6 py-24 text-warm-ivory sm:px-10 lg:mt-40 lg:px-16 lg:py-40"
+            className="mt-24 bg-[#FAF8F5] px-6 py-24 text-deep-charcoal sm:px-10 lg:mt-40 lg:px-16 lg:py-40"
         >
             <div className="mx-auto max-w-[1600px]">
-                <Label light>How we work</Label>
+                <Label>How we work</Label>
                 <h2
                     id="beliefs-heading"
-                    className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+                    className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl text-deep-charcoal"
                 >
                     What we believe
                 </h2>
@@ -256,7 +256,7 @@ function Beliefs() {
                     {/* Sticky photo (desktop): crossfades as the active belief changes */}
                     <div className="hidden lg:col-span-5 lg:block">
                         <div className="sticky top-28 h-[min(72vh,720px)]">
-                            <div className="relative h-full overflow-hidden rounded-[4px] bg-warm-ivory/5">
+                            <div className="relative h-full overflow-hidden rounded-[4px] bg-deep-charcoal/5">
                                 {BELIEFS.map((b, i) => (
                                     <div
                                         key={b.title}
@@ -274,7 +274,7 @@ function Beliefs() {
                                 ))}
                                 <p
                                     aria-hidden
-                                    className="absolute bottom-5 left-5 rounded-full bg-deep-charcoal/60 px-4 py-2 font-sans text-sm text-white backdrop-blur"
+                                    className="absolute bottom-5 left-5 rounded-full bg-deep-charcoal/70 px-4 py-2 font-sans text-sm text-white backdrop-blur"
                                 >
                                     ({String(active + 1).padStart(2, "0")}) {BELIEFS[active].title}
                                 </p>
@@ -294,10 +294,10 @@ function Beliefs() {
                                     }}
                                     data-index={i}
                                     onMouseEnter={() => setActive(i)}
-                                    className="border-t border-warm-ivory/15 py-12 last:border-b lg:flex lg:min-h-[60vh] lg:flex-col lg:justify-center lg:py-0"
+                                    className="border-t border-deep-charcoal/15 py-12 last:border-b lg:flex lg:min-h-[60vh] lg:flex-col lg:justify-center lg:py-0"
                                 >
                                     {/* Photo for small screens */}
-                                    <div className="relative mb-8 aspect-[4/3] overflow-hidden rounded-[4px] bg-warm-ivory/5 lg:hidden">
+                                    <div className="relative mb-8 aspect-[4/3] overflow-hidden rounded-[4px] bg-deep-charcoal/5 lg:hidden">
                                         <Image
                                             src={b.img}
                                             alt={b.alt}
@@ -308,19 +308,19 @@ function Beliefs() {
                                     </div>
 
                                     <p
-                                        className={`font-sans text-sm tabular-nums transition-colors duration-500 ${on ? "text-champagne-gold" : "text-champagne-gold lg:text-warm-ivory/35"
+                                        className={`font-sans text-sm tabular-nums transition-colors duration-500 ${on ? "text-champagne-gold font-semibold" : "text-champagne-gold lg:text-deep-charcoal/35"
                                             }`}
                                     >
                                         ({String(i + 1).padStart(2, "0")})
                                     </p>
                                     <h3
-                                        className={`mt-4 font-serif text-4xl font-light uppercase leading-[1] tracking-tight transition-colors duration-500 sm:text-5xl lg:text-6xl ${on ? "text-warm-ivory" : "text-warm-ivory lg:text-warm-ivory/30"
+                                        className={`mt-4 font-serif text-4xl font-light uppercase leading-[1] tracking-tight transition-colors duration-500 sm:text-5xl lg:text-6xl ${on ? "text-deep-charcoal" : "text-deep-charcoal lg:text-deep-charcoal/30"
                                             }`}
                                     >
                                         {b.title}
                                     </h3>
                                     <p
-                                        className={`mt-6 max-w-md font-sans text-base leading-relaxed transition-colors duration-500 ${on ? "text-warm-ivory/75" : "text-warm-ivory/75 lg:text-warm-ivory/30"
+                                        className={`mt-6 max-w-md font-sans text-base leading-relaxed transition-colors duration-500 ${on ? "text-deep-charcoal/75" : "text-deep-charcoal/75 lg:text-deep-charcoal/30"
                                             }`}
                                     >
                                         {b.text}
@@ -348,7 +348,7 @@ function WhereWeWork() {
         <section
             data-theme="light"
             aria-labelledby="where-heading"
-            className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+            className="bg-[#FAF8F5] px-6 py-24 sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
         >
             <div ref={ref} className="mx-auto grid max-w-[1600px] gap-16 lg:grid-cols-12 lg:gap-12">
                 {/* Text + list */}
@@ -703,7 +703,7 @@ export default function AboutPage() {
             <section
                 data-theme="light"
                 aria-labelledby="story-heading"
-                className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+                className="bg-[#FAF8F5] px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
             >
                 <div className="mx-auto grid max-w-[1600px] gap-16 lg:grid-cols-12 lg:gap-12">
                     <div className="lg:col-span-4">
@@ -782,7 +782,7 @@ export default function AboutPage() {
             <section
                 data-theme="light"
                 aria-labelledby="work-heading"
-                className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+                className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
             >
                 <div className="mx-auto max-w-[1600px]">
                     <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
@@ -841,7 +841,7 @@ export default function AboutPage() {
             <section
                 data-theme="light"
                 aria-labelledby="team-heading"
-                className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+                className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
             >
                 <div className="mx-auto max-w-[1600px]">
                     <div className="grid gap-10 lg:grid-cols-12">
@@ -865,7 +865,7 @@ export default function AboutPage() {
                     <ul className="mt-16 grid grid-cols-2 gap-x-4 gap-y-12 lg:mt-24 lg:grid-cols-4 lg:gap-x-6">
                         {TEAM.map((m) => (
                             <li key={m.name} className="group">
-                                <div className="flex aspect-[3/4] items-center justify-center rounded-[4px] bg-white transition-colors duration-500 group-hover:bg-champagne-gold/25">
+                                <div className="flex aspect-[3/4] items-center justify-center rounded-[4px] bg-[#FAF8F5] border border-deep-charcoal/10 transition-colors duration-500 group-hover:bg-champagne-gold/25">
                                     <span className="font-serif text-6xl font-light text-deep-charcoal/60 sm:text-7xl lg:text-8xl">
                                         {m.initials}
                                     </span>
@@ -880,31 +880,31 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* ============ 9. Closing call to action (dark) ============ */}
+            {/* ============ 9. Closing call to action ============ */}
             <section
-                data-theme="dark"
+                data-theme="light"
                 aria-labelledby="cta-heading"
-                className="bg-deep-charcoal px-6 py-24 text-warm-ivory sm:px-10 lg:px-16 lg:py-40"
+                className="bg-[#FAF8F5] px-6 py-24 text-deep-charcoal sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
             >
                 <div className="mx-auto max-w-[1600px]">
                     <h2
                         id="cta-heading"
-                        className="max-w-5xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+                        className="max-w-5xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl text-deep-charcoal"
                     >
                         Let&rsquo;s talk about your space
                     </h2>
 
-                    <ul className="mt-16 border-t border-warm-ivory/15 lg:mt-24">
+                    <ul className="mt-16 border-t border-deep-charcoal/15 lg:mt-24">
                         {[
-                            { label: "Book a consultation", href: "#contact" },
+                            { label: "Book a consultation", href: "/consultation" },
                             { label: "See our work", href: "/portfolio" },
                         ].map((l) => (
-                            <li key={l.href} className="border-b border-warm-ivory/15">
+                            <li key={l.href} className="border-b border-deep-charcoal/15">
                                 <Link
                                     href={l.href}
                                     className="group flex items-center justify-between gap-6 py-8 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold lg:py-12"
                                 >
-                                    <span className="font-serif text-3xl font-light uppercase tracking-tight transition-colors duration-500 group-hover:text-champagne-gold sm:text-5xl lg:text-[5vw]">
+                                    <span className="font-serif text-3xl font-light uppercase tracking-tight transition-colors duration-500 group-hover:text-champagne-gold sm:text-5xl lg:text-[5vw] text-deep-charcoal">
                                         {l.label}
                                     </span>
                                     <span className="text-champagne-gold transition-transform duration-500 group-hover:translate-x-3">
@@ -915,19 +915,19 @@ export default function AboutPage() {
                         ))}
                     </ul>
 
-                    {/* TODO: replace with the real studio details */}
-                    <dl className="mt-16 grid gap-8 font-sans text-sm text-warm-ivory/70 sm:grid-cols-3">
+                    {/* Studio details */}
+                    <dl className="mt-16 grid gap-8 font-sans text-sm text-deep-charcoal/70 sm:grid-cols-3">
                         <div>
-                            <dt className="text-warm-ivory/45">Studio</dt>
-                            <dd className="mt-2">Al Quoz Industrial Area 3, Dubai, UAE</dd>
+                            <dt className="text-deep-charcoal/45">Studio</dt>
+                            <dd className="mt-2 text-deep-charcoal">Al Quoz Industrial Area 3, Dubai, UAE</dd>
                         </div>
                         <div>
-                            <dt className="text-warm-ivory/45">Phone</dt>
-                            <dd className="mt-2">+971 4 000 0000</dd>
+                            <dt className="text-deep-charcoal/45">Phone</dt>
+                            <dd className="mt-2 text-deep-charcoal">+971 4 000 0000</dd>
                         </div>
                         <div>
-                            <dt className="text-warm-ivory/45">Email</dt>
-                            <dd className="mt-2">hello@richmaninteriors.ae</dd>
+                            <dt className="text-deep-charcoal/45">Email</dt>
+                            <dd className="mt-2 text-deep-charcoal">hello@richmaninteriors.ae</dd>
                         </div>
                     </dl>
                 </div>

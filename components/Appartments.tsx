@@ -95,11 +95,11 @@ function Dropdown<T extends string>({ label, value, options, onChange }: { label
                     <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" />
                 </svg>
             </button>
-            <ul className={`absolute left-0 top-full z-20 mt-2 w-full origin-top bg-[#EFEAE1] shadow-xl ring-1 ring-[#1D1B18]/15 transition-all duration-300 ${EASE} ${open ? "scale-y-100 opacity-100" : "pointer-events-none scale-y-95 opacity-0"}`}>
+            <ul className={`absolute left-0 top-full z-20 mt-2 w-full origin-top bg-[#FAF8F5] shadow-xl ring-1 ring-[#1D1B18]/15 transition-all duration-300 ${EASE} ${open ? "scale-y-100 opacity-100" : "pointer-events-none scale-y-95 opacity-0"}`}>
                 {options.map((o) => (
                     <li key={o}>
                         <button onClick={() => { onChange(o); setOpen(false); }}
-                            className={`w-full px-4 py-3 text-left text-sm transition-colors hover:bg-[#1D1B18] hover:text-[#EFEAE1] ${o === value ? "opacity-40" : ""}`}>{o}</button>
+                            className={`w-full px-4 py-3 text-left text-sm transition-colors hover:bg-[#1D1B18] hover:text-[#FAF8F5] ${o === value ? "opacity-40" : ""}`}>{o}</button>
                     </li>
                 ))}
             </ul>
@@ -112,7 +112,7 @@ function Card({ a, i }: { a: Apt; i: number }) {
     return (
         <Link ref={ref} href={`/apartments/${a.id}`} style={{ transitionDelay: `${(i % 3) * 90}ms` }}
             className={`group relative flex min-h-[320px] flex-col justify-between border border-[#1D1B18]/15 p-6 transition-all duration-[900ms] ${EASE}
-      hover:bg-[#1D1B18] hover:text-[#EFEAE1] ${seen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
+      hover:bg-[#1D1B18] hover:text-white ${seen ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
             <div className="flex items-start justify-between">
                 <span className="era-eyebrow !opacity-100">{a.typ}</span>
                 <span className="era-eyebrow">Completion: 4Q 2026</span>
@@ -160,13 +160,13 @@ function Preloader() {
     }, []);
     if (phase === "done") return null;
     return (
-        <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-between bg-[#1D1B18] px-6 py-10 text-[#EFEAE1] transition-transform duration-[800ms] ${EASE} ${phase === "out" ? "-translate-y-full" : ""}`}>
+        <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-between bg-[#FAF8F5] px-6 py-10 text-[#1D1B18] transition-transform duration-[800ms] ${EASE} ${phase === "out" ? "-translate-y-full" : ""}`}>
             <div className="era-eyebrow flex w-full justify-between !opacity-70"><span>Costa</span><span>Estepona</span><span>del Sol</span></div>
             <div className="text-center">
                 <h1 className={`era-rise ${SERIF} text-6xl font-light leading-[.95] md:text-8xl`}>Era<br />Residence</h1>
                 <p className="era-rise mt-6 text-sm opacity-70" style={{ animationDelay: ".4s" }}>A place to return to.</p>
             </div>
-            <div className="h-px w-40 overflow-hidden bg-[#EFEAE1]/20"><div className="era-bar h-full w-full origin-left bg-[#EFEAE1]" /></div>
+            <div className="h-px w-40 overflow-hidden bg-[#1D1B18]/20"><div className="era-bar h-full w-full origin-left bg-[#1D1B18]" /></div>
         </div>
     );
 }
@@ -183,7 +183,7 @@ function Header({ onBook }: { onBook: () => void }) {
     const links = [{ l: "Home", h: "/" }, { l: "Select an Apartment", h: "/apartments" }, { l: "Book a call", h: "#" }, { l: "Contact", h: "/contact" }];
     return (
         <>
-            <header className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${scrolled ? "bg-[#EFEAE1]/90 backdrop-blur" : ""}`}>
+            <header className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${scrolled ? "bg-white/90 backdrop-blur" : ""}`}>
                 <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-5 md:px-10">
                     <Link href="/" className={`${SERIF} text-2xl tracking-wide`}>Era</Link>
                     <div className="hidden items-center gap-8 text-sm md:flex">
@@ -193,7 +193,7 @@ function Header({ onBook }: { onBook: () => void }) {
                     <button onClick={() => setMenu(true)} className="text-sm uppercase tracking-widest">Menu</button>
                 </div>
             </header>
-            <div className={`fixed inset-0 z-50 bg-[#1D1B18] text-[#EFEAE1] transition-[clip-path] duration-[900ms] ${EASE} ${menu ? "[clip-path:inset(0_0_0_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"}`}>
+            <div className={`fixed inset-0 z-50 bg-[#FAF8F5] text-[#1D1B18] transition-[clip-path] duration-[900ms] ${EASE} ${menu ? "[clip-path:inset(0_0_0_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"}`}>
                 <div className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-5 md:px-10">
                     <span className={`${SERIF} text-2xl`}>Era</span>
                     <button onClick={() => setMenu(false)} className="text-sm uppercase tracking-widest">Close</button>
@@ -228,7 +228,7 @@ function BookModal({ open, onClose }: { open: boolean; onClose: () => void }) {
     return (
         <div className={`fixed inset-0 z-[60] transition-opacity duration-500 ${open ? "opacity-100" : "pointer-events-none opacity-0"}`}>
             <div className="absolute inset-0 bg-[#1D1B18]/50" onClick={onClose} />
-            <aside className={`absolute right-0 top-0 h-full w-full max-w-lg overflow-y-auto bg-[#EFEAE1] p-8 transition-transform duration-[800ms] ${EASE} md:p-12 ${open ? "translate-x-0" : "translate-x-full"}`}>
+            <aside className={`absolute right-0 top-0 h-full w-full max-w-lg overflow-y-auto bg-[#FAF8F5] p-8 transition-transform duration-[800ms] ${EASE} md:p-12 ${open ? "translate-x-0" : "translate-x-full"}`}>
                 <button onClick={onClose} className="absolute right-6 top-6 text-sm uppercase tracking-widest">Close</button>
                 {status === "ok" ? (
                     <div className="era-fade flex h-full flex-col justify-center">
@@ -247,7 +247,7 @@ function BookModal({ open, onClose }: { open: boolean; onClose: () => void }) {
                         <label className="block"><span className="era-eyebrow">Phone:</span><input required type="tel" name="phone" className={f} /></label>
                         <label className="block"><span className="era-eyebrow">Message:</span><textarea name="message" rows={3} className={f} /></label>
                         <p className="text-xs opacity-60">By submitting, you agree to our <Link className="era-link" href="/cookie-policy">Privacy &amp; Cookie policy</Link>,</p>
-                        <button disabled={status === "sending"} className="w-full bg-[#1D1B18] py-4 text-sm text-[#EFEAE1] transition-opacity hover:opacity-85 disabled:opacity-50">
+                        <button disabled={status === "sending"} className="w-full bg-[#1D1B18] py-4 text-sm text-[#FAF8F5] transition-opacity hover:opacity-85 disabled:opacity-50">
                             {status === "sending" ? "Sending…" : "Submit"}
                         </button>
                         {status === "error" && <p className="text-sm text-red-700">Oops! Something went wrong while submitting the form.</p>}
@@ -276,7 +276,7 @@ export default function Apartments() {
     const dirty = typ !== "All" || beds !== "All" || sort !== "Relevant";
 
     return (
-        <div className={`${serif.variable} ${sans.variable} min-h-screen bg-[#EFEAE1] font-[family-name:var(--font-sans)] text-[#1D1B18] antialiased`}>
+        <div className={`${serif.variable} ${sans.variable} min-h-screen bg-white font-[family-name:var(--font-sans)] text-[#1D1B18] antialiased`}>
             <style>{`
         .era-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.18em;opacity:.6}
         .era-link{position:relative;display:inline-block}
@@ -340,44 +340,48 @@ export default function Apartments() {
             </section>
 
             {/* Info blocks */}
-            <section className="mx-auto flex max-w-[1600px] flex-col gap-24 px-5 py-24 md:gap-40 md:px-10">
-                {BLOCKS.map((b, i) => <InfoBlock key={b.t} b={b} i={i} />)}
-            </section>
+            <div className="w-full bg-[#FAF8F5]">
+                <section className="mx-auto flex max-w-[1600px] flex-col gap-24 px-5 py-24 md:gap-40 md:px-10">
+                    {BLOCKS.map((b, i) => <InfoBlock key={b.t} b={b} i={i} />)}
+                </section>
+            </div>
 
             {/* CTA */}
-            <section ref={ctaRef} className="relative overflow-hidden bg-[#1D1B18] px-5 py-32 text-[#EFEAE1] md:px-10">
-                <video className="absolute inset-0 h-full w-full object-cover opacity-30" src="/flowers/bougainvillea-flowers_05.webm" autoPlay muted loop playsInline />
+            <section ref={ctaRef} className="relative overflow-hidden bg-white border-t border-[#1D1B18]/10 px-5 py-32 text-[#1D1B18] md:px-10">
+                <video className="absolute inset-0 h-full w-full object-cover opacity-15" src="/flowers/bougainvillea-flowers_05.webm" autoPlay muted loop playsInline />
                 <div className={`relative mx-auto max-w-3xl text-center transition-all duration-1000 ${EASE} ${ctaSeen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}>
                     <p className="mx-auto max-w-xl text-sm leading-relaxed opacity-80">A short conversation is enough to understand which apartment fits your use case — whether it is a family second home, a longer stay, or a place to return to year after year.</p>
-                    <h2 className={`${SERIF} mt-12 text-5xl font-light md:text-8xl`}>Perfect sea views</h2>
-                    <h3 className={`${SERIF} mt-3 text-2xl italic opacity-70 md:text-3xl`}>From rooftop terraces</h3>
-                    <Link href="/apartments" className="mt-12 inline-block border border-[#EFEAE1]/60 px-8 py-4 text-sm transition-colors duration-500 hover:bg-[#EFEAE1] hover:text-[#1D1B18]">View available apartments</Link>
+                    <h2 className={`${SERIF} mt-12 text-5xl font-light md:text-8xl text-[#1D1B18]`}>Perfect sea views</h2>
+                    <h3 className={`${SERIF} mt-3 text-2xl italic opacity-70 md:text-3xl text-[#1D1B18]`}>From rooftop terraces</h3>
+                    <Link href="/apartments" className="mt-12 inline-block border border-[#1D1B18]/60 px-8 py-4 text-sm transition-colors duration-500 hover:bg-[#1D1B18] hover:text-white">View available apartments</Link>
                 </div>
             </section>
 
             {/* Footer */}
-            <footer className="mx-auto max-w-[1600px] px-5 py-16 md:px-10">
-                <div className="grid gap-12 md:grid-cols-3">
-                    <div>
-                        <a href="tel:+34655408648" className={`era-link ${SERIF} text-3xl`}>+34 (655) 408-648</a>
-                        <div className="mt-6 flex gap-5 text-sm">
-                            <a className="era-link" href="https://www.linkedin.com/company/eraresidenceestepona/">LinkedIn</a>
-                            <a className="era-link" href="https://www.facebook.com/era.residence.estepona">Facebook</a>
-                            <a className="era-link" href="https://www.instagram.com/era.residence.estepona">Instagram</a>
+            <div className="w-full bg-[#FAF8F5] border-t border-[#1D1B18]/10">
+                <footer className="mx-auto max-w-[1600px] px-5 py-16 md:px-10">
+                    <div className="grid gap-12 md:grid-cols-3">
+                        <div>
+                            <a href="tel:+34655408648" className={`era-link ${SERIF} text-3xl`}>+34 (655) 408-648</a>
+                            <div className="mt-6 flex gap-5 text-sm">
+                                <a className="era-link" href="https://www.linkedin.com/company/eraresidenceestepona/">LinkedIn</a>
+                                <a className="era-link" href="https://www.facebook.com/era.residence.estepona">Facebook</a>
+                                <a className="era-link" href="https://www.instagram.com/era.residence.estepona">Instagram</a>
+                            </div>
                         </div>
+                        <div>
+                            <p className="era-eyebrow">Sales Office</p>
+                            <a className="era-link mt-3 text-sm" href="https://maps.app.goo.gl/EzyfT2M6vR5aBdMu9">Avenida Litoral, 29680 Estepona, Málaga, Spain</a>
+                        </div>
+                        <div className={`${SERIF} text-6xl font-light md:text-right`}>Era Residence.</div>
                     </div>
-                    <div>
-                        <p className="era-eyebrow">Sales Office</p>
-                        <a className="era-link mt-3 text-sm" href="https://maps.app.goo.gl/EzyfT2M6vR5aBdMu9">Avenida Litoral, 29680 Estepona, Málaga, Spain</a>
+                    <div className="mt-16 flex flex-wrap justify-between gap-4 border-t border-[#1D1B18]/15 pt-6 text-xs opacity-70">
+                        <span>©2026 All rights reserved</span>
+                        <span className="flex gap-3"><Link className="era-link" href="/cookie-policy">Privacy &amp; Cookie policy</Link></span>
+                        <span>Made by <a className="era-link" href="https://thefirstthelast.agency/">Thefirstthelast</a></span>
                     </div>
-                    <div className={`${SERIF} text-6xl font-light md:text-right`}>Era Residence.</div>
-                </div>
-                <div className="mt-16 flex flex-wrap justify-between gap-4 border-t border-[#1D1B18]/15 pt-6 text-xs opacity-70">
-                    <span>©2026 All rights reserved</span>
-                    <span className="flex gap-3"><Link className="era-link" href="/cookie-policy">Privacy &amp; Cookie policy</Link></span>
-                    <span>Made by <a className="era-link" href="https://thefirstthelast.agency/">Thefirstthelast</a></span>
-                </div>
-            </footer>
+                </footer>
+            </div>
 
             <BookModal open={booking} onClose={() => setBooking(false)} />
         </div>

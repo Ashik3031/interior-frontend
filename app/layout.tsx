@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#171816",
+  themeColor: "#FFFFFF",
   width: "device-width",
   initialScale: 1,
 };
@@ -63,7 +63,7 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#171816] text-[#F5F0E7] font-sans antialiased selection:bg-[#BE9B59] selection:text-[#171816] overflow-x-hidden">
+      <body className="min-h-full bg-white text-[#171816] font-sans antialiased selection:bg-[#BE9B59] selection:text-[#171816] overflow-x-hidden">
         <NavigationProvider>
           <CookieConsentProvider>
             <Navbar />

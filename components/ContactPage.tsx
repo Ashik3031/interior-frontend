@@ -648,11 +648,11 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ============ 3. PHYSICAL STUDIOS & WORKSHOPS (Warm Ivory) ============ */}
+      {/* ============ 3. PHYSICAL STUDIOS & WORKSHOPS (Off-White) ============ */}
       <section
         data-theme="light"
         aria-labelledby="studios-heading"
-        className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+        className="bg-[#FAF8F5] px-6 py-24 sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
       >
         <div className="mx-auto max-w-[1400px]">
           <p className="flex items-center gap-2.5 font-sans text-sm text-deep-charcoal/70">
@@ -738,53 +738,53 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ============ 4. DIRECT CHANNELS (Dark Charcoal) ============ */}
+      {/* ============ 4. DIRECT CHANNELS (White) ============ */}
       <section
-        data-theme="dark"
+        data-theme="light"
         aria-labelledby="channels-heading"
-        className="bg-deep-charcoal px-6 py-24 text-warm-ivory sm:px-10 lg:px-16 lg:py-40"
+        className="bg-white px-6 py-24 text-deep-charcoal sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
       >
         <div className="mx-auto max-w-[1400px]">
-          <p className="flex items-center gap-2.5 font-sans text-sm text-warm-ivory/70">
+          <p className="flex items-center gap-2.5 font-sans text-sm text-deep-charcoal/70">
             <span className="h-2 w-2 rounded-full bg-champagne-gold" />
             Direct practice channels
           </p>
           <h2
             id="channels-heading"
-            className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+            className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl text-deep-charcoal"
           >
             Direct contact with our team
           </h2>
 
-          <ul className="mt-16 border-t border-warm-ivory/15 lg:mt-24">
+          <ul className="mt-16 border-t border-deep-charcoal/15 lg:mt-24">
             {DIRECT_CHANNELS.map((ch) => (
               <li
                 key={ch.role}
-                className="group grid items-center gap-x-8 gap-y-4 border-b border-warm-ivory/15 py-8 transition-colors duration-500 hover:bg-warm-ivory/[0.03] lg:grid-cols-[18rem_1fr_16rem] lg:py-10"
+                className="group grid items-center gap-x-8 gap-y-4 border-b border-deep-charcoal/15 py-8 transition-colors duration-500 hover:bg-deep-charcoal/[0.02] lg:grid-cols-[18rem_1fr_16rem] lg:py-10"
               >
                 <div>
                   <span className="font-sans text-xs uppercase tracking-widest text-champagne-gold font-semibold block mb-1">
                     {ch.scope}
                   </span>
-                  <h3 className="font-serif text-2xl font-light sm:text-3xl text-warm-ivory group-hover:text-champagne-gold transition-colors">
+                  <h3 className="font-serif text-2xl font-light sm:text-3xl text-deep-charcoal group-hover:text-champagne-gold transition-colors">
                     {ch.role}
                   </h3>
                 </div>
 
-                <p className="font-sans text-sm leading-relaxed text-warm-ivory/65 max-w-xl">
+                <p className="font-sans text-sm leading-relaxed text-deep-charcoal/65 max-w-xl">
                   {ch.desc}
                 </p>
 
                 <div className="lg:text-right font-sans text-sm space-y-1">
                   <a
                     href={`mailto:${ch.email}`}
-                    className="block text-warm-ivory hover:text-champagne-gold transition-colors font-medium"
+                    className="block text-deep-charcoal hover:text-champagne-gold transition-colors font-medium"
                   >
                     {ch.email}
                   </a>
                   <a
                     href={`tel:${ch.phone.replace(/\s+/g, "")}`}
-                    className="block text-warm-ivory/55 hover:text-champagne-gold transition-colors text-xs"
+                    className="block text-deep-charcoal/55 hover:text-champagne-gold transition-colors text-xs"
                   >
                     {ch.phone}
                   </a>
@@ -793,28 +793,28 @@ export default function ContactPage() {
             ))}
           </ul>
 
-          <div className="mt-24 grid gap-10 lg:mt-32 lg:grid-cols-12 border-t border-warm-ivory/15 pt-12">
-            <h3 className="font-serif text-4xl font-light uppercase leading-[1] tracking-tight sm:text-5xl lg:col-span-6 lg:text-6xl">
+          <div className="mt-24 grid gap-10 lg:mt-32 lg:grid-cols-12 border-t border-deep-charcoal/15 pt-12">
+            <h3 className="font-serif text-4xl font-light uppercase leading-[1] tracking-tight sm:text-5xl lg:col-span-6 lg:text-6xl text-deep-charcoal">
               Prefer to call directly?
             </h3>
-            <dl className="grid gap-8 font-sans text-sm text-warm-ivory/70 sm:grid-cols-2 lg:col-span-5 lg:col-start-8">
+            <dl className="grid gap-8 font-sans text-sm text-deep-charcoal/70 sm:grid-cols-2 lg:col-span-5 lg:col-start-8">
               <div>
-                <dt className="text-warm-ivory/45 uppercase tracking-wider text-xs">Telephone</dt>
+                <dt className="text-deep-charcoal/45 uppercase tracking-wider text-xs">Telephone</dt>
                 <dd className="mt-2">
                   <a
                     href={PHONE_LINK}
-                    className="font-serif text-2xl text-warm-ivory transition-colors hover:text-champagne-gold"
+                    className="font-serif text-2xl text-deep-charcoal transition-colors hover:text-champagne-gold"
                   >
                     {PHONE_DISPLAY}
                   </a>
-                  <span className="block text-xs text-warm-ivory/50 mt-1">
+                  <span className="block text-xs text-deep-charcoal/50 mt-1">
                     Monday to Saturday, 9am – 7pm GST
                   </span>
                 </dd>
               </div>
               <div>
-                <dt className="text-warm-ivory/45 uppercase tracking-wider text-xs">Primary Atelier</dt>
-                <dd className="mt-2 leading-relaxed">
+                <dt className="text-deep-charcoal/45 uppercase tracking-wider text-xs">Primary Atelier</dt>
+                <dd className="mt-2 leading-relaxed text-deep-charcoal">
                   Warehouse 14, Street 18B, Al Quoz 3, Dubai
                   <br />
                   Complimentary valet parking on site
@@ -825,11 +825,11 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ============ 5. VISITING PROTOCOLS & FAQ (White) ============ */}
+      {/* ============ 5. VISITING PROTOCOLS & FAQ (Off-White) ============ */}
       <section
         data-theme="light"
         aria-labelledby="faq-heading"
-        className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+        className="bg-[#FAF8F5] px-6 py-24 sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
       >
         <div className="mx-auto max-w-[1400px]">
           <div className="max-w-3xl">

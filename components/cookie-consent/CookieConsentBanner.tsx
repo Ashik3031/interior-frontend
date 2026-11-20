@@ -19,14 +19,14 @@ export default function CookieConsentBanner() {
       role="region"
       className="fixed bottom-4 inset-x-4 sm:bottom-6 sm:inset-x-6 z-[60] pointer-events-none animate-fade-in"
     >
-      <div className="max-w-4xl mx-auto pointer-events-auto rounded-xl bg-[#171816]/95 text-[#F5F0E7] border border-white/10 px-5 py-3.5 sm:px-6 sm:py-3.5 shadow-2xl backdrop-blur-md transition-all duration-300">
+      <div className="max-w-4xl mx-auto pointer-events-auto rounded-xl bg-white/95 text-[#171816] border border-[#171816]/10 px-5 py-3.5 sm:px-6 sm:py-3.5 shadow-2xl backdrop-blur-md transition-all duration-300">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
           {/* Minimal Notice */}
-          <p className="font-sans text-xs text-[#F5F0E7]/80 leading-relaxed font-light">
+          <p className="font-sans text-xs text-[#171816]/80 leading-relaxed font-light">
             We use cookies to refine your browsing experience and analyze site traffic. Read our{" "}
             <Link
               href="/cookie-policy"
-              className="underline underline-offset-4 text-[#F5F0E7] hover:text-[#BE9B59] transition-colors"
+              className="underline underline-offset-4 text-[#171816] hover:text-[#BE9B59] transition-colors"
             >
               Cookie Policy
             </Link>
@@ -46,7 +46,7 @@ export default function CookieConsentBanner() {
             <button
               type="button"
               onClick={rejectAll}
-              className="rounded-full border border-white/20 bg-transparent px-3.5 py-1.5 font-sans text-[11px] uppercase tracking-[0.14em] font-medium text-[#F5F0E7]/90 transition-colors duration-200 hover:bg-white/10 hover:border-white/40 focus:outline-none cursor-pointer"
+              className="rounded-full border border-[#171816]/20 bg-transparent px-3.5 py-1.5 font-sans text-[11px] uppercase tracking-[0.14em] font-medium text-[#171816]/90 transition-colors duration-200 hover:bg-[#171816]/5 hover:border-[#171816]/40 focus:outline-none cursor-pointer"
             >
               Reject
             </button>

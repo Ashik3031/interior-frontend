@@ -646,7 +646,7 @@ export default function ServiceDetailPage({ service }: Props) {
   return (
     <main
       ref={rootRef}
-      className="relative bg-warm-ivory text-deep-charcoal selection:bg-champagne-gold selection:text-deep-charcoal"
+      className="relative bg-white text-deep-charcoal selection:bg-champagne-gold selection:text-deep-charcoal"
     >
       <style>{`
         @keyframes chipIn { from { opacity: 0; transform: translateY(8px); } }
@@ -776,7 +776,7 @@ export default function ServiceDetailPage({ service }: Props) {
       </section>
 
       {/* ============ 2. Photo band that opens to full width ============ */}
-      <section data-theme="light" aria-label="Featured project" className="bg-warm-ivory pb-6">
+      <section data-theme="light" aria-label="Featured project" className="bg-[#FAF8F5] pb-6">
         <div className="band-frame relative h-[60vh] w-full overflow-hidden sm:h-[70vh] lg:h-[88vh]">
           <div className="band-img absolute inset-0 will-change-transform">
             <Image
@@ -1037,7 +1037,7 @@ export default function ServiceDetailPage({ service }: Props) {
       <section
         data-theme="light"
         aria-labelledby="process-heading"
-        className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+        className="bg-[#FAF8F5] px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
       >
         <div className="mx-auto max-w-[1600px]">
           <Label>How we run it</Label>
@@ -1238,7 +1238,7 @@ export default function ServiceDetailPage({ service }: Props) {
       <section
         data-theme="light"
         aria-labelledby="detail-cta"
-        className="bg-warm-ivory px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
+        className="bg-[#FAF8F5] px-6 py-24 sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
       >
         <div className="mx-auto grid max-w-[1600px] items-center gap-12 lg:grid-cols-12">
           <div className="lg:col-span-8">

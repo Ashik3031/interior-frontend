@@ -60,7 +60,7 @@ export default function FAQ() {
       id="faq"
       data-theme="light"
       aria-labelledby="faq-heading"
-      className="relative bg-[#FAF8F5] px-6 py-24 text-deep-charcoal sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
+      className="relative bg-white px-6 py-24 text-deep-charcoal sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
     >
       <div className="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-12 lg:gap-12">
         {/* ---------------- Title column (sticks while the list scrolls) ---------------- */}

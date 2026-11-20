@@ -285,7 +285,7 @@ export default function DesignProcess() {
             id="process"
             data-theme="light"
             aria-labelledby="process-heading"
-            className="relative bg-warm-ivory text-deep-charcoal overflow-hidden"
+            className="relative bg-[#FAF8F5] text-deep-charcoal overflow-hidden border-t border-deep-charcoal/5"
         >
             {/* Pinned viewport (desktop) / normal block (mobile) */}
             <div
@@ -296,7 +296,7 @@ export default function DesignProcess() {
                     It has its own background so the leaf videos can blend with it. */}
                 <div
                     ref={trackRef}
-                    className="flex flex-col gap-24 bg-warm-ivory px-6 py-24 sm:px-10 md:gap-32 md:py-32 [.hs-on_&]:h-full [.hs-on_&]:w-max [.hs-on_&]:flex-row [.hs-on_&]:items-center [.hs-on_&]:gap-0 [.hs-on_&]:p-0 will-change-transform"
+                    className="flex flex-col gap-24 bg-[#FAF8F5] px-6 py-24 sm:px-10 md:gap-32 md:py-32 [.hs-on_&]:h-full [.hs-on_&]:w-max [.hs-on_&]:flex-row [.hs-on_&]:items-center [.hs-on_&]:gap-0 [.hs-on_&]:p-0 will-change-transform"
                 >
                     {/* ---------------- Intro panel ---------------- */}
                     <header className="process-header relative flex flex-col items-center gap-6 pb-40 text-center sm:pb-52 [.hs-on_&]:h-full [.hs-on_&]:w-screen [.hs-on_&]:shrink-0 [.hs-on_&]:justify-center [.hs-on_&]:px-[9vw] [.hs-on_&]:pb-0">

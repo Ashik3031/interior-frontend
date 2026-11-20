@@ -35,7 +35,7 @@ export default function ConsultationDialog({ open, onClose }: Props) {
             ref={ref}
             onClose={onClose}
             onClick={(e) => e.target === e.currentTarget && onClose()}
-            className="m-auto w-[92vw] max-w-105 bg-white p-0 text-ink backdrop:bg-ink/60 dark:bg-[#16373b] dark:text-[#eef1ec]"
+            className="m-auto w-[92vw] max-w-105 bg-white p-0 text-ink backdrop:bg-ink/60"
         >
             <div className="p-8">
                 <button

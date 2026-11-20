@@ -9,7 +9,7 @@ import DesignProcess from "@/components/Desingprocess";
 import FAQ from "@/components/FAQ";
 import Scrollcomp from "@/components/Scrollcomp";
 import { useNavigation, type IntroStage } from "@/context/NavigationContext";
-
+import Hero1 from "@/components/hero1";
 
 export default function Home() {
   const { setIntroStage, setActiveSection } = useNavigation();
@@ -30,7 +30,7 @@ export default function Home() {
   }, [setIntroStage]);
 
   return (
-    <main className="relative min-h-screen bg-[#171816] text-[#F5F0E7]">
+    <main className="relative min-h-screen bg-white text-[#171816]">
       {/* 0. Cinematic Loading Intro Animation Screen */}
       <LoadingScreen
         onStageChange={handleStageChange}
@@ -39,11 +39,13 @@ export default function Home() {
 
       {/* 2. Immersive Hero Section (Dark photographic background) */}
       <Hero />
+      {/* <Hero1 /> */}
 
+      <About />
       {/* 3. Horizontal Scrolling Services Section (Pinned desktop / Native mobile) */}
       <Services />
 
-      <About />
+
       <DesignProcess />
       <FAQ />
 

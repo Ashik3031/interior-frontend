@@ -142,7 +142,7 @@ export default function CookiePolicyPage() {
               {COOKIE_CATEGORIES.map((cat, idx) => (
                 <div
                   key={cat.id}
-                  className="rounded-2xl border border-deep-charcoal/15 p-6 sm:p-8 bg-warm-ivory/30"
+                  className="rounded-2xl border border-deep-charcoal/15 p-6 sm:p-8 bg-[#FAF8F5]"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
                     <div className="flex items-center gap-3">
@@ -256,7 +256,7 @@ export default function CookiePolicyPage() {
                 For questions concerning our cookie stewardship or data governance, please contact our
                 client concierge desk:
               </p>
-              <div className="rounded-xl border border-deep-charcoal/15 p-6 bg-warm-ivory/40 max-w-lg space-y-1 text-sm">
+              <div className="rounded-xl border border-deep-charcoal/15 p-6 bg-[#FAF8F5] max-w-lg space-y-1 text-sm">
                 <p className="font-medium text-deep-charcoal">RichMan Interiors Atelier Concierge</p>
                 <p className="text-deep-charcoal/70">Warehouse 14, Street 18B, Al Quoz 3, Dubai, UAE</p>
                 <p className="text-deep-charcoal/70">

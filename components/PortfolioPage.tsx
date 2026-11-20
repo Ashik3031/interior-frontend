@@ -633,7 +633,7 @@ export default function PortfolioPage() {
   return (
     <main
       ref={rootRef}
-      className="bg-warm-ivory text-deep-charcoal selection:bg-champagne-gold selection:text-deep-charcoal"
+      className="bg-white text-deep-charcoal selection:bg-champagne-gold selection:text-deep-charcoal"
     >
       <style>{`
         @keyframes overlayIn { from { opacity: 0; } }
@@ -721,7 +721,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* ============ 2. Filters (static: scrolls away with the page) ============ */}
-      <div className="border-y border-deep-charcoal/10 bg-warm-ivory">
+      <div className="border-y border-deep-charcoal/10 bg-[#FAF8F5]">
         <div className="mx-auto max-w-[1600px] px-6 sm:px-10 lg:px-16">
           <div className="scrollbar-none -mx-1 overflow-x-auto">
             <div className="relative flex w-max gap-8 px-1 sm:gap-12">
@@ -805,35 +805,35 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* ============ 5. Call to action (dark) ============ */}
+      {/* ============ 5. Call to action ============ */}
       <section
-        data-theme="dark"
+        data-theme="light"
         aria-labelledby="portfolio-cta"
-        className="bg-deep-charcoal px-6 py-24 text-warm-ivory sm:px-10 lg:px-16 lg:py-40"
+        className="bg-[#FAF8F5] px-6 py-24 text-deep-charcoal sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
       >
         <div className="mx-auto max-w-[1600px]">
           <h2
             id="portfolio-cta"
-            className="max-w-5xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
+            className="max-w-5xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl text-deep-charcoal"
           >
             Have a project in mind?
           </h2>
-          <p className="mt-8 max-w-lg font-sans text-base leading-relaxed text-warm-ivory/65">
+          <p className="mt-8 max-w-lg font-sans text-base leading-relaxed text-deep-charcoal/65">
             We take on a limited number of private residences at a time, so each
             one gets our full attention.
           </p>
 
-          <ul className="mt-16 border-t border-warm-ivory/15 lg:mt-24">
+          <ul className="mt-16 border-t border-deep-charcoal/15 lg:mt-24">
             {[
               { label: "Book a consultation", href: "/consultation" },
               { label: "Contact the studio", href: "/contact" },
             ].map((l) => (
-              <li key={l.href} className="border-b border-warm-ivory/15">
+              <li key={l.href} className="border-b border-deep-charcoal/15">
                 <Link
                   href={l.href}
                   className="group flex items-center justify-between gap-6 py-8 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold lg:py-12"
                 >
-                  <span className="font-serif text-3xl font-light uppercase tracking-tight transition-colors duration-500 group-hover:text-champagne-gold sm:text-5xl lg:text-[5vw]">
+                  <span className="font-serif text-3xl font-light uppercase tracking-tight transition-colors duration-500 group-hover:text-champagne-gold sm:text-5xl lg:text-[5vw] text-deep-charcoal">
                     {l.label}
                   </span>
                   <svg

@@ -84,14 +84,14 @@ export default function LoadingScreen({
       if (isDesktop) {
         return {
           deltaX: 0,
-          deltaY: -(window.innerHeight / 2 - 48),
-          scale: 48 / 120,
+          deltaY: -(window.innerHeight / 2 - 52),
+          scale: 66 / 120,
         };
       } else {
         return {
-          deltaX: -(window.innerWidth / 2 - 40),
-          deltaY: -(window.innerHeight / 2 - 40),
-          scale: 40 / 96,
+          deltaX: -(window.innerWidth / 2 - 44),
+          deltaY: -(window.innerHeight / 2 - 44),
+          scale: 50 / 96,
         };
       }
     };
@@ -191,13 +191,12 @@ export default function LoadingScreen({
             transition: isTraveling
               ? "transform 950ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease"
               : isComplete
-              ? "opacity 100ms ease"
-              : "none",
+                ? "opacity 100ms ease"
+                : "none",
             willChange: "transform, opacity",
           }}
-          className={`relative flex-shrink-0 ${
-            stage === "revealing" ? "animate-intro-logo" : ""
-          }`}
+          className={`relative flex-shrink-0 ${stage === "revealing" ? "animate-intro-logo" : ""
+            }`}
         >
           <Image
             src="/images/RM Interior - Logo Icon .png"

@@ -81,10 +81,10 @@ export default function CookiePreferencesModal() {
       <div
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
-        className="relative flex flex-col w-full max-w-3xl max-h-[90vh] bg-[#171816] text-[#F5F0E7] border border-white/15 rounded-2xl shadow-[0_30px_70px_rgba(0,0,0,0.8)] overflow-hidden"
+        className="relative flex flex-col w-full max-w-3xl max-h-[90vh] bg-white text-[#171816] border border-[#171816]/15 rounded-2xl shadow-[0_30px_70px_rgba(0,0,0,0.25)] overflow-hidden"
       >
         {/* Modal Header */}
-        <div className="flex items-start justify-between p-6 sm:p-8 border-b border-white/10 shrink-0">
+        <div className="flex items-start justify-between p-6 sm:p-8 border-b border-[#171816]/10 shrink-0">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
               <span className="h-2 w-2 rounded-full bg-[#BE9B59]" />
@@ -94,7 +94,7 @@ export default function CookiePreferencesModal() {
             </div>
             <h2
               id="cookie-modal-title"
-              className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light uppercase tracking-tight text-[#F5F0E7]"
+              className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light uppercase tracking-tight text-[#171816]"
             >
               Cookie Preferences
             </h2>
@@ -104,7 +104,7 @@ export default function CookiePreferencesModal() {
             type="button"
             onClick={closePreferences}
             aria-label="Close cookie preferences modal"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#BE9B59] cursor-pointer"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-[#171816]/60 hover:text-[#171816] hover:bg-black/5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#BE9B59] cursor-pointer"
           >
             ✕
           </button>
@@ -112,13 +112,13 @@ export default function CookiePreferencesModal() {
 
         {/* Modal Content / Category List (Scrollable) */}
         <div className="p-6 sm:p-8 overflow-y-auto space-y-6 scrollbar-none">
-          <p className="font-sans text-xs sm:text-sm text-[#F5F0E7]/75 leading-relaxed font-light">
+          <p className="font-sans text-xs sm:text-sm text-[#171816]/75 leading-relaxed font-light">
             When you visit RichMan Interiors, information may be stored through cookies on your
             browser. We value your digital privacy. You can adjust which non-essential cookies you
             consent to below. Your choices will be stored for 12 months.
           </p>
 
-          <div className="divide-y divide-white/10 border-y border-white/10">
+          <div className="divide-y divide-[#171816]/10 border-y border-[#171816]/10">
             {COOKIE_CATEGORIES.map((cat) => {
               const isEnabled = draft[cat.id];
               const isRequired = cat.required;
@@ -129,25 +129,24 @@ export default function CookiePreferencesModal() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 pr-4">
                       <div className="flex items-center gap-3">
-                        <h3 className="font-serif text-xl sm:text-2xl font-light text-[#F5F0E7]">
+                        <h3 className="font-serif text-xl sm:text-2xl font-light text-[#171816]">
                           {cat.title}
                         </h3>
                         {cat.badge && (
                           <span
-                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-sans uppercase tracking-widest font-semibold ${
-                              isRequired
+                            className={`px-2.5 py-0.5 rounded-full text-[10px] font-sans uppercase tracking-widest font-semibold ${isRequired
                                 ? "bg-[#BE9B59]/20 text-[#BE9B59] border border-[#BE9B59]/40"
                                 : isEnabled
-                                ? "bg-white/15 text-white/90"
-                                : "bg-white/5 text-white/40"
-                            }`}
+                                  ? "bg-[#171816]/10 text-[#171816]"
+                                  : "bg-black/5 text-[#171816]/40"
+                              }`}
                           >
                             {cat.badge}
                           </span>
                         )}
                       </div>
 
-                      <p className="mt-2 font-sans text-xs sm:text-sm text-[#F5F0E7]/70 leading-relaxed font-light">
+                      <p className="mt-2 font-sans text-xs sm:text-sm text-[#171816]/70 leading-relaxed font-light">
                         {cat.description}
                       </p>
 
@@ -156,7 +155,7 @@ export default function CookiePreferencesModal() {
                         onClick={() =>
                           setExpandedCategory(isExpanded ? null : cat.id)
                         }
-                        className="mt-3 font-sans text-xs text-[#BE9B59] hover:underline focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#BE9B59] inline-flex items-center gap-1.5 cursor-pointer"
+                        className="mt-3 font-sans text-xs text-[#BE9B59] hover:underline focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#BE9B59] inline-flex items-center gap-1.5 cursor-pointer font-medium"
                       >
                         <span>
                           {isExpanded ? "Hide detailed cookies" : "View cookie details"}
@@ -180,14 +179,12 @@ export default function CookiePreferencesModal() {
                           role="switch"
                           aria-checked={isEnabled}
                           onClick={() => handleToggle(cat.id)}
-                          className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#BE9B59] cursor-pointer ${
-                            isEnabled ? "bg-[#BE9B59]" : "bg-white/20"
-                          }`}
+                          className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#BE9B59] cursor-pointer ${isEnabled ? "bg-[#BE9B59]" : "bg-neutral-300"
+                            }`}
                         >
                           <div
-                            className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 ${
-                              isEnabled ? "translate-x-6" : "translate-x-0"
-                            }`}
+                            className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 ${isEnabled ? "translate-x-6" : "translate-x-0"
+                              }`}
                           />
                         </button>
                       )}
@@ -196,26 +193,26 @@ export default function CookiePreferencesModal() {
 
                   {/* Expandable Cookie Details Table */}
                   {isExpanded && (
-                    <div className="mt-4 rounded-xl bg-white/[0.03] border border-white/10 p-4 sm:p-5 text-xs font-sans text-[#F5F0E7]/80 animate-fade-in">
+                    <div className="mt-4 rounded-xl bg-[#FAF8F5] border border-[#171816]/10 p-4 sm:p-5 text-xs font-sans text-[#171816]/80 animate-fade-in">
                       <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                           <thead>
-                            <tr className="border-b border-white/10 text-white/50 text-[10px] uppercase tracking-wider">
+                            <tr className="border-b border-[#171816]/10 text-[#171816]/50 text-[10px] uppercase tracking-wider">
                               <th className="pb-2 pr-4 font-medium">Cookie Name</th>
                               <th className="pb-2 pr-4 font-medium">Provider</th>
                               <th className="pb-2 pr-4 font-medium">Purpose</th>
                               <th className="pb-2 font-medium">Retention</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-white/5">
+                          <tbody className="divide-y divide-[#171816]/5">
                             {cat.examples.map((item) => (
                               <tr key={item.name} className="font-light">
-                                <td className="py-2.5 pr-4 text-[#BE9B59] font-mono">
+                                <td className="py-2.5 pr-4 text-[#BE9B59] font-mono font-medium">
                                   {item.name}
                                 </td>
-                                <td className="py-2.5 pr-4 text-white/90">{item.provider}</td>
-                                <td className="py-2.5 pr-4">{item.purpose}</td>
-                                <td className="py-2.5 text-white/60">{item.retention}</td>
+                                <td className="py-2.5 pr-4 text-[#171816] font-medium">{item.provider}</td>
+                                <td className="py-2.5 pr-4 text-[#171816]/75">{item.purpose}</td>
+                                <td className="py-2.5 text-[#171816]/60">{item.retention}</td>
                               </tr>
                             ))}
                           </tbody>
@@ -228,12 +225,12 @@ export default function CookiePreferencesModal() {
             })}
           </div>
 
-          <div className="text-xs text-white/50 font-sans">
+          <div className="text-xs text-[#171816]/60 font-sans">
             Read our full privacy disclosures in our{" "}
             <Link
               href="/cookie-policy"
               onClick={closePreferences}
-              className="text-[#BE9B59] underline hover:text-white transition-colors"
+              className="text-[#BE9B59] underline hover:text-[#171816] transition-colors"
             >
               Cookie Policy
             </Link>
@@ -242,11 +239,11 @@ export default function CookiePreferencesModal() {
         </div>
 
         {/* Modal Footer Controls */}
-        <div className="p-6 sm:p-8 border-t border-white/10 bg-[#141513] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 shrink-0">
+        <div className="p-6 sm:p-8 border-t border-[#171816]/10 bg-[#FAF8F5] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 shrink-0">
           <button
             type="button"
             onClick={rejectAll}
-            className="px-5 py-3 rounded-full border border-white/20 text-xs font-sans uppercase tracking-[0.16em] text-[#F5F0E7] hover:bg-white/10 hover:border-white/40 transition-colors text-center cursor-pointer"
+            className="px-5 py-3 rounded-full border border-[#171816]/20 text-xs font-sans uppercase tracking-[0.16em] text-[#171816] hover:bg-black/5 hover:border-[#171816]/40 transition-colors text-center cursor-pointer"
           >
             Reject Non-Essential
           </button>
@@ -255,7 +252,7 @@ export default function CookiePreferencesModal() {
             <button
               type="button"
               onClick={acceptAll}
-              className="px-6 py-3 rounded-full border border-[#BE9B59]/40 bg-[#BE9B59]/10 text-xs font-sans uppercase tracking-[0.16em] text-[#BE9B59] hover:bg-[#BE9B59]/20 transition-colors text-center cursor-pointer"
+              className="px-6 py-3 rounded-full border border-[#BE9B59]/40 bg-[#BE9B59]/10 text-xs font-sans uppercase tracking-[0.16em] text-[#8B6B2B] hover:bg-[#BE9B59]/20 transition-colors text-center cursor-pointer font-semibold"
             >
               Accept All
             </button>
@@ -263,7 +260,7 @@ export default function CookiePreferencesModal() {
             <button
               type="button"
               onClick={handleSaveDraft}
-              className="px-8 py-3 rounded-full bg-[#BE9B59] hover:bg-[#d3b06e] text-xs font-sans uppercase tracking-[0.16em] font-semibold text-[#171816] transition-colors shadow-lg text-center cursor-pointer"
+              className="px-8 py-3 rounded-full bg-[#BE9B59] hover:bg-[#d3b06e] text-xs font-sans uppercase tracking-[0.16em] font-semibold text-[#171816] transition-colors shadow-md text-center cursor-pointer"
             >
               Save Preferences
             </button>
