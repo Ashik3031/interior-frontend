@@ -612,7 +612,7 @@ export default function Services() {
                 className="hidden lg:block absolute left-[50px] top-[0.55rem] font-sans text-[10.5px] uppercase tracking-[0.3em] text-[#2B2927]"
                 style={{ opacity: 0 }}
               >
-                About
+                Services
               </div>
 
               <h2 className="font-sans font-light tracking-[-0.045em] leading-[0.92] text-[clamp(28px,4.7vw,96px)]">
