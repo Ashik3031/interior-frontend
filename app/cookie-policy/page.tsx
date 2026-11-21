@@ -25,7 +25,7 @@ export default function CookiePolicyPage() {
       {/* 1. EDITORIAL HERO */}
       <section
         data-theme="dark"
-        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 border-b border-white/10 text-warm-ivory"
+        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 border-b border-white/10 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
       >
         {/* Background Hero Image */}
         <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -38,9 +38,11 @@ export default function CookiePolicyPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Dark Luxury Overlay matching Home Page Hero */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+          {/* Minimal dark overlay matching home hero section */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-black/15"
+          />
         </div>
 
         <div className="relative z-10 mx-auto max-w-[1400px]">
@@ -258,20 +260,22 @@ export default function CookiePolicyPage() {
               </p>
               <div className="rounded-xl border border-deep-charcoal/15 p-6 bg-[#FAF8F5] max-w-lg space-y-1 text-sm">
                 <p className="font-medium text-deep-charcoal">RichMan Interiors Atelier Concierge</p>
-                <p className="text-deep-charcoal/70">Warehouse 14, Street 18B, Al Quoz 3, Dubai, UAE</p>
+                <p className="text-deep-charcoal/70">
+                  The Tower Plaza Hotel - Office 2004 &amp; 2003A, Sheikh Zayed Rd, Trade Center First, Dubai, UAE
+                </p>
                 <p className="text-deep-charcoal/70">
                   Direct Line:{" "}
-                  <a href="tel:+97143218899" className="text-deep-charcoal hover:text-champagne-gold">
-                    +971 4 321 8899
+                  <a href="tel:+971521934887" className="text-deep-charcoal hover:text-champagne-gold">
+                    +971 52 193 4887
                   </a>
                 </p>
                 <p className="text-deep-charcoal/70">
                   Email:{" "}
                   <a
-                    href="mailto:privacy@richmaninteriors.ae"
+                    href="mailto:info@richmanassociate.ae"
                     className="text-deep-charcoal hover:text-champagne-gold"
                   >
-                    privacy@richmaninteriors.ae
+                    info@richmanassociate.ae
                   </a>
                 </p>
               </div>

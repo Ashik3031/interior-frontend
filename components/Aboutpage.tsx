@@ -362,9 +362,7 @@ function WhereWeWork() {
                     </h2>
                     {/* TODO: confirm the studio location and the travel times */}
                     <p className="mt-8 max-w-sm font-sans text-base leading-relaxed text-deep-charcoal/70">
-                        Our studio sits in Al Quoz, close to the workshops, stone yards and
-                        showrooms we use every week. Most of our homes are within half an
-                        hour.
+                        Our studio sits at The Tower Plaza Hotel on Sheikh Zayed Road (Trade Center First), connected to Dubai&apos;s prime design hubs, workshops and prestigious communities. Most of our projects are within easy reach.
                     </p>
 
                     <ul
@@ -515,7 +513,7 @@ function WhereWeWork() {
                                     fontSize="14"
                                     fontWeight={600}
                                 >
-                                    Our studio, Al Quoz
+                                    Our studio, Sheikh Zayed Rd
                                 </text>
                             </g>
                         </svg>
@@ -583,25 +581,6 @@ export default function AboutPage() {
                     stagger: 0.1,
                     delay: 0.6,
                 });
-
-                /* Photo that opens from a framed strip to full width */
-                const side = isDesktop ? 26 : 10;
-                const trigger = {
-                    trigger: q(".expand")[0],
-                    start: "top 85%",
-                    end: "center 45%",
-                    scrub: true,
-                };
-                gsap.fromTo(
-                    q(".expand"),
-                    { clipPath: `inset(0% ${side}% 0% ${side}% round 4px)` },
-                    { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none", scrollTrigger: trigger }
-                );
-                gsap.fromTo(
-                    q(".expand-img"),
-                    { scale: 1.25 },
-                    { scale: 1, ease: "none", scrollTrigger: trigger }
-                );
             }
         );
 
@@ -622,7 +601,7 @@ export default function AboutPage() {
             <section
                 data-theme="dark"
                 aria-labelledby="about-hero-heading"
-                className="relative isolate overflow-hidden px-6 pb-20 pt-36 sm:px-10 lg:px-16 lg:pb-28 lg:pt-44 text-warm-ivory"
+                className="relative isolate overflow-hidden px-6 pb-20 pt-36 sm:px-10 lg:px-16 lg:pb-28 lg:pt-44 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
             >
                 {/* Background Hero Image */}
                 <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -635,9 +614,11 @@ export default function AboutPage() {
                         sizes="100vw"
                         className="object-cover object-center"
                     />
-                    {/* Dark Luxury Overlay matching Home Page Hero */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+                    {/* Minimal dark overlay matching home hero section */}
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 bg-black/15"
+                    />
                 </div>
 
                 <div className="relative z-10 mx-auto max-w-[1600px]">
@@ -676,30 +657,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* ============ 2. Photo that opens to full width ============ */}
-            <section aria-label="Studio photograph" className="bg-white pb-6">
-                <div
-                    className="expand relative aspect-[4/3] w-full overflow-hidden sm:aspect-[16/9] lg:aspect-[21/9]"
-                    style={{ clipPath: "inset(0% 0% 0% 0%)" }}
-                >
-                    <div className="expand-img absolute inset-0 will-change-transform">
-                        <Image
-                            src={IMG.wide}
-                            alt="A finished villa interior designed by RichMan Interiors"
-                            fill
-                            priority
-                            sizes="100vw"
-                            className="object-cover"
-                        />
-                    </div>
-                </div>
-                <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 pt-4 font-sans text-sm text-deep-charcoal/55 sm:px-10 lg:px-16">
-                    <span>Villa interior, Dubai Hills</span>
-                    <span>(01)</span>
-                </div>
-            </section>
-
-            {/* ============ 3. Story ============ */}
+            {/* ============ 2. Story ============ */}
             <section
                 data-theme="light"
                 aria-labelledby="story-heading"
@@ -919,15 +877,32 @@ export default function AboutPage() {
                     <dl className="mt-16 grid gap-8 font-sans text-sm text-deep-charcoal/70 sm:grid-cols-3">
                         <div>
                             <dt className="text-deep-charcoal/45">Studio</dt>
-                            <dd className="mt-2 text-deep-charcoal">Al Quoz Industrial Area 3, Dubai, UAE</dd>
+                            <dd className="mt-2 text-deep-charcoal">
+                                <a
+                                    href="https://share.google/065EEIjbEAjtDciRe"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-champagne-gold transition-colors"
+                                >
+                                    The Tower Plaza Hotel - Office 2004 &amp; 2003A, Sheikh Zayed Rd, Trade Center First, Dubai, UAE
+                                </a>
+                            </dd>
                         </div>
                         <div>
                             <dt className="text-deep-charcoal/45">Phone</dt>
-                            <dd className="mt-2 text-deep-charcoal">+971 4 000 0000</dd>
+                            <dd className="mt-2 text-deep-charcoal">
+                                <a href="tel:+971521934887" className="hover:text-champagne-gold transition-colors">
+                                    +971 52 193 4887
+                                </a>
+                            </dd>
                         </div>
                         <div>
                             <dt className="text-deep-charcoal/45">Email</dt>
-                            <dd className="mt-2 text-deep-charcoal">hello@richmaninteriors.ae</dd>
+                            <dd className="mt-2 text-deep-charcoal">
+                                <a href="mailto:info@richmanassociate.ae" className="hover:text-champagne-gold transition-colors">
+                                    info@richmanassociate.ae
+                                </a>
+                            </dd>
                         </div>
                     </dl>
                 </div>

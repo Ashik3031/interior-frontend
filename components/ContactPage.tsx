@@ -12,10 +12,10 @@ import Link from "next/link";
 const CONTACT_HERO_BG =
   "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2400&q=85";
 
-const PHONE_DISPLAY = "+971 4 321 8899";
-const PHONE_LINK = "tel:+97143218899";
-const EMAIL_CONCIERGE = "concierge@richmaninteriors.ae";
-const EMAIL_LINK = "mailto:concierge@richmaninteriors.ae";
+const PHONE_DISPLAY = "+971 52 193 4887";
+const PHONE_LINK = "tel:+971521934887";
+const EMAIL_CONCIERGE = "info@richmanassociate.ae";
+const EMAIL_LINK = "mailto:info@richmanassociate.ae";
 
 interface StudioLocation {
   id: string;
@@ -29,26 +29,28 @@ interface StudioLocation {
   email: string;
   valet: string;
   mapQuery: string;
+  mapUrl?: string;
   image: string;
   badge: string;
 }
 
 const STUDIOS: StudioLocation[] = [
   {
-    id: "al-quoz",
-    name: "Al Quoz Atelier & Workshops",
-    tagline: "Primary Design Studio, Material Library & Joinery Atelier",
-    address: "Warehouse 14, Street 18B, Al Quoz Industrial Area 3",
-    district: "Al Quoz 3",
+    id: "tower-plaza",
+    name: "The Tower Plaza Hotel Atelier",
+    tagline: "Primary Design Studio, Executive Suites & Material Atelier",
+    address: "The Tower Plaza Hotel - Office 2004 & 2003A, Sheikh Zayed Rd, Trade Center First",
+    district: "Trade Center First, Sheikh Zayed Rd",
     city: "Dubai, United Arab Emirates",
     hours: "Monday – Saturday: 9:00 AM – 7:00 PM (By appointment)",
-    phone: "+971 4 321 8899",
-    email: "atelier@richmaninteriors.ae",
-    valet: "Private atelier courtyard parking with complimentary valet",
-    mapQuery: "Al+Quoz+Industrial+Area+3+Dubai",
+    phone: "+971 52 193 4887",
+    email: "info@richmanassociate.ae",
+    valet: "The Tower Plaza Hotel VIP Valet & dedicated parking",
+    mapQuery: "The+Tower+Plaza+Hotel+Dubai",
+    mapUrl: "https://share.google/065EEIjbEAjtDciRe",
     image:
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791982249/pexels-david-vinicius-562259225-28652353_ynv2xo.jpg",
-    badge: "Primary Atelier & Workshop",
+    badge: "Primary Atelier & Suites",
   },
   {
     id: "downtown",
@@ -59,7 +61,7 @@ const STUDIOS: StudioLocation[] = [
     city: "Dubai, United Arab Emirates",
     hours: "Monday – Friday: 10:00 AM – 8:00 PM (Strictly by appointment)",
     phone: "+971 4 321 8890",
-    email: "concierge@richmaninteriors.ae",
+    email: "info@richmanassociate.ae",
     valet: "Tower 1 VIP Valet with dedicated concierge escort",
     mapQuery: "Boulevard+Plaza+Tower+1+Downtown+Dubai",
     image:
@@ -95,8 +97,8 @@ const DIRECT_CHANNELS = [
     role: "Private Client Director",
     scope: "Villa Estates, Penthouses & Private Residences",
     desc: "Direct partner oversight for signature residential commissions, turnkey renovations, and bespoke architectural interior architecture.",
-    email: "clientdirector@richmaninteriors.ae",
-    phone: "+971 4 321 8899",
+    email: "info@richmanassociate.ae",
+    phone: "+971 52 193 4887",
   },
   {
     role: "Technical & Fit-Out Director",
@@ -123,7 +125,7 @@ const DIRECT_CHANNELS = [
 
 const FAQS = [
   {
-    question: "Do I need an advance appointment to visit the Al Quoz Atelier?",
+    question: "Do I need an advance appointment to visit the Atelier?",
     answer:
       "Yes. Because we maintain strict client confidentiality and our senior partners personally host material reviews, atelier tours and material library sessions are scheduled by appointment. You can request a visit through this page or by contacting our concierge desk.",
   },
@@ -183,7 +185,7 @@ function Arrow() {
 /* ------------------------------------------------------------------ */
 
 export default function ContactPage() {
-  const [activeStudio, setActiveStudio] = useState<string>("al-quoz");
+  const [activeStudio, setActiveStudio] = useState<string>("tower-plaza");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -267,7 +269,7 @@ export default function ContactPage() {
       <section
         data-theme="dark"
         aria-labelledby="contact-heading"
-        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 text-warm-ivory"
+        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
       >
         {/* Background Hero Image */}
         <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -280,9 +282,11 @@ export default function ContactPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Dark Luxury Overlay matching Home Page Hero */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+          {/* Minimal dark overlay matching home hero section */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-black/15"
+          />
         </div>
 
         <div className="relative z-10 mx-auto max-w-[1400px]">
@@ -604,7 +608,7 @@ export default function ContactPage() {
 
                     <div className="pt-2 border-t border-deep-charcoal/15 flex items-center justify-between text-xs">
                       <a
-                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                        href={currentStudio.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                           currentStudio.mapQuery
                         )}`}
                         target="_blank"
@@ -714,7 +718,7 @@ export default function ContactPage() {
 
                 <div className="mt-8 pt-5 border-t border-deep-charcoal/15 flex items-center justify-between">
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                    href={s.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                       s.mapQuery
                     )}`}
                     target="_blank"
@@ -815,7 +819,16 @@ export default function ContactPage() {
               <div>
                 <dt className="text-deep-charcoal/45 uppercase tracking-wider text-xs">Primary Atelier</dt>
                 <dd className="mt-2 leading-relaxed text-deep-charcoal">
-                  Warehouse 14, Street 18B, Al Quoz 3, Dubai
+                  <a
+                    href="https://share.google/065EEIjbEAjtDciRe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-champagne-gold transition-colors"
+                  >
+                    The Tower Plaza Hotel - Office 2004 &amp; 2003A
+                    <br />
+                    Sheikh Zayed Rd, Trade Center First, Dubai
+                  </a>
                   <br />
                   Complimentary valet parking on site
                 </dd>

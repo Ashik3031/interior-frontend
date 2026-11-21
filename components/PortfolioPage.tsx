@@ -650,7 +650,7 @@ export default function PortfolioPage() {
       <section
         data-theme="dark"
         aria-labelledby="portfolio-heading"
-        className="relative isolate overflow-hidden px-6 pb-12 pt-36 sm:px-10 lg:px-16 lg:pb-16 lg:pt-44 text-warm-ivory"
+        className="relative isolate overflow-hidden px-6 pb-12 pt-36 sm:px-10 lg:px-16 lg:pb-16 lg:pt-44 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
       >
         {/* Background Hero Image */}
         <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -663,9 +663,11 @@ export default function PortfolioPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Dark Luxury Overlay matching Home Page Hero */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+          {/* Minimal dark overlay matching home hero section */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-black/15"
+          />
         </div>
 
         <div className="relative z-10 mx-auto max-w-[1600px]">

@@ -295,7 +295,7 @@ export default function Apartments() {
             <Header onBook={() => setBooking(true)} />
 
             {/* Title + filters */}
-            <section data-theme="dark" className="relative isolate overflow-hidden mx-auto max-w-[1600px] px-5 pb-10 pt-32 md:px-10 text-[#EFEAE1]">
+            <section data-theme="dark" className="relative isolate overflow-hidden mx-auto max-w-[1600px] px-5 pb-10 pt-32 md:px-10 text-[#EFEAE1] [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]">
                 {/* Background Hero Image */}
                 <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
                     <Image
@@ -307,9 +307,11 @@ export default function Apartments() {
                         sizes="100vw"
                         className="object-cover object-center"
                     />
-                    {/* Dark Luxury Overlay matching Home Page Hero */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+                    {/* Minimal dark overlay matching home hero section */}
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 bg-black/15"
+                    />
                 </div>
                 <nav className="era-eyebrow mb-8 flex gap-2 text-[#EFEAE1]/75"><Link href="/" className="era-link !text-[#EFEAE1]">Home</Link> / <span>Select an Apartment</span></nav>
                 <div className="flex items-start gap-3">

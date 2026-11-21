@@ -75,8 +75,9 @@ const FORMAT_OPTIONS = [
   "Online Video Consultation",
 ];
 
-const PHONE_NUMBER = "+97143218899";
-const WHATSAPP_NUMBER = "97143218899";
+const PHONE_NUMBER = "+971521934887";
+const PHONE_DISPLAY = "+971 52 193 4887";
+const WHATSAPP_NUMBER = "971521934887";
 
 /* ------------------------------------------------------------------ */
 /*  Calendar Slot Engine (Matches Consultation Page)                  */
@@ -773,7 +774,7 @@ export default function LiveChatConcierge() {
                           href={`tel:${PHONE_NUMBER}`}
                           className="flex items-center justify-center gap-2 rounded-lg border border-deep-charcoal/20 bg-white px-4 py-2 text-xs font-semibold text-deep-charcoal hover:bg-black/5 transition-colors shadow-xs"
                         >
-                          <span>Call Directly ({PHONE_NUMBER})</span>
+                          <span>Call Directly ({PHONE_DISPLAY})</span>
                         </a>
                       </div>
                     </div>

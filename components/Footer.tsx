@@ -45,10 +45,12 @@ export default function Footer() {
 
   return (
     <>
-      <footer
-        id="contact"
+      {/* ============ COMMISSIONS & INQUIRIES SESSION (Off-White) ============ */}
+      <section
+        id="commissions"
         data-theme="light"
-        className="relative bg-white text-[#171816] border-t border-[#171816]/10 overflow-hidden"
+        aria-label="Commissions and Inquiries"
+        className="relative bg-[#FAF8F5] text-[#171816] border-t border-[#171816]/10 overflow-hidden"
       >
         {/* Subtle architectural ambient glow */}
         <div
@@ -56,13 +58,12 @@ export default function Footer() {
           className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-[radial-gradient(ellipse_at_center,_rgba(190,155,89,0.12)_0%,_transparent_70%)] blur-3xl"
         />
 
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 pb-12 sm:pt-24 sm:pb-16">
-          {/* Top Invitation Banner */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-16 sm:pb-20 border-b border-[#171816]/10 items-end">
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 sm:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-7">
               <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.25em] text-[#BE9B59] uppercase font-sans font-semibold mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#BE9B59]" />
-                Commissions & Inquiries
+                Commissions &amp; Inquiries
               </span>
               <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-light text-[#171816] leading-[1.15] max-w-2xl">
                 Ready to craft a home that reflects quiet distinction?
@@ -86,16 +87,25 @@ export default function Footer() {
               </Link>
 
               <a
-                href="mailto:concierge@richmaninteriors.com"
+                href="mailto:info@richmanassociate.ae"
                 className="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-xs tracking-[0.18em] font-medium uppercase text-[#171816] hover:text-[#BE9B59] border border-[#171816]/20 hover:border-[#BE9B59]/60 hover:bg-[#BE9B59]/5 transition-all duration-300"
               >
                 Direct Concierge
               </a>
             </div>
           </div>
+        </div>
+      </section>
 
+      {/* ============ MAIN FOOTER LINKS & INFORMATION (Premium White) ============ */}
+      <footer
+        id="contact"
+        data-theme="light"
+        className="relative bg-white text-[#171816] border-t border-[#171816]/10 overflow-hidden"
+      >
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 pb-12 sm:pt-20 sm:pb-16">
           {/* Main Footer Links & Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 py-16 sm:py-20 border-b border-[#171816]/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 sm:pb-20 border-b border-[#171816]/10">
             {/* Column 1: Brand & Atelier identity */}
             <div className="lg:col-span-4 flex flex-col justify-between">
               <div>
@@ -280,14 +290,28 @@ export default function Footer() {
 
               {/* Studio Contact */}
               <div className="space-y-1.5 text-xs font-sans text-[#171816]/60 pt-2 border-t border-[#171816]/10">
-                <p className="text-[#171816]/85 font-medium">Dubai Design District (d3), Building 6</p>
-                <p>Dubai, United Arab Emirates</p>
-                <p className="pt-1">
+                <a
+                  href="https://share.google/065EEIjbEAjtDciRe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#BE9B59] transition-colors block"
+                >
+                  <p className="text-[#171816]/85 font-medium">The Tower Plaza Hotel - Office 2004 &amp; 2003A</p>
+                  <p>Sheikh Zayed Rd - Trade Center First</p>
+                  <p>Dubai - United Arab Emirates</p>
+                </a>
+                <p className="pt-1.5 flex flex-col gap-1">
                   <a
-                    href="mailto:concierge@richmaninteriors.com"
+                    href="tel:+971521934887"
                     className="hover:text-[#BE9B59] transition-colors"
                   >
-                    concierge@richmaninteriors.com
+                    +971 52 193 4887
+                  </a>
+                  <a
+                    href="mailto:info@richmanassociate.ae"
+                    className="hover:text-[#BE9B59] transition-colors"
+                  >
+                    info@richmanassociate.ae
                   </a>
                 </p>
               </div>

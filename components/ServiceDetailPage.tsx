@@ -540,25 +540,6 @@ export default function ServiceDetailPage({ service }: Props) {
           }
         );
 
-        // Photo band opens from a framed strip to full width
-        const side = window.matchMedia("(min-width: 1024px)").matches ? 24 : 8;
-        const bandTrigger = {
-          trigger: ".band-frame",
-          start: "top 88%",
-          end: "center 45%",
-          scrub: true,
-        };
-        gsap.fromTo(
-          ".band-frame",
-          { clipPath: `inset(0% ${side}% 0% ${side}% round 4px)` },
-          { clipPath: "inset(0% 0% 0% 0% round 0px)", ease: "none", scrollTrigger: bandTrigger }
-        );
-        gsap.fromTo(
-          ".band-img",
-          { scale: 1.25 },
-          { scale: 1, ease: "none", scrollTrigger: bandTrigger }
-        );
-
         // Line beside the deliverables fills as you read
         gsap.fromTo(
           ".del-fill",
@@ -672,7 +653,7 @@ export default function ServiceDetailPage({ service }: Props) {
         ref={heroRef}
         data-theme="dark"
         aria-labelledby="service-heading"
-        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 text-warm-ivory"
+        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
       >
         {/* Background Hero Image */}
         <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -685,9 +666,11 @@ export default function ServiceDetailPage({ service }: Props) {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Dark Luxury Overlay matching Home Page Hero */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+          {/* Minimal dark overlay matching home hero section */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-black/15"
+          />
         </div>
 
         <div className="mx-auto max-w-[1600px]">
@@ -775,46 +758,7 @@ export default function ServiceDetailPage({ service }: Props) {
         </div>
       </section>
 
-      {/* ============ 2. Photo band that opens to full width ============ */}
-      <section data-theme="light" aria-label="Featured project" className="bg-[#FAF8F5] pb-6">
-        <div className="band-frame relative h-[60vh] w-full overflow-hidden sm:h-[70vh] lg:h-[88vh]">
-          <div className="band-img absolute inset-0 will-change-transform">
-            <Image
-              src={service.heroImage}
-              alt={`${service.title} by RichMan Interiors`}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/80 via-deep-charcoal/10 to-transparent" />
-          <div className="absolute bottom-6 left-6 max-w-2xl text-white sm:bottom-10 sm:left-10 lg:bottom-14 lg:left-16">
-            <p className="font-sans text-sm text-white/75">Featured project</p>
-            <p className="mt-2 font-serif text-3xl font-light uppercase leading-[1.02] tracking-tight sm:text-5xl">
-              {service.featuredProject.title}
-            </p>
-            <p className="mt-3 flex flex-wrap items-center gap-x-3 font-sans text-sm text-white/80">
-              <span>{service.featuredProject.location}</span>
-              <span aria-hidden>·</span>
-              <span>{service.featuredProject.area}</span>
-              <span aria-hidden>·</span>
-              <span className="text-champagne-gold">{service.featuredProject.scope}</span>
-            </p>
-            <div className="mt-5">
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/40 px-5 py-2.5 font-sans text-xs uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors hover:border-champagne-gold hover:text-champagne-gold"
-              >
-                <span>View in Portfolio</span>
-                <span aria-hidden="true">&rarr;</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ 3. Deliverables (the line fills as you scroll) ============ */}
+      {/* ============ 2. Deliverables (the line fills as you scroll) ============ */}
       <section
         data-theme="light"
         aria-labelledby="deliverables-heading"

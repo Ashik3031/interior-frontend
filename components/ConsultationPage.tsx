@@ -18,8 +18,8 @@ const CONSULTATION_HERO_BG =
 // TODO: set this to your real endpoint, e.g. "/api/consultation".
 const SUBMIT_ENDPOINT = "";
 
-const PHONE_DISPLAY = "+971 4 321 8899"; // TODO
-const PHONE_LINK = "tel:+97143218899"; // TODO
+const PHONE_DISPLAY = "+971 52 193 4887";
+const PHONE_LINK = "tel:+971521934887";
 
 const PROPERTY_TYPES = [
   "Complete Turnkey Fit-Out",
@@ -45,7 +45,7 @@ const MEETING_FORMATS = [
   {
     id: "atelier",
     title: "At our office",
-    desc: "Al Quoz 3, with our material library, joinery samples and coffee.",
+    desc: "The Tower Plaza Hotel (Office 2004 & 2003A), Sheikh Zayed Rd, with our material library and samples.",
   },
   {
     id: "onsite",
@@ -435,7 +435,7 @@ export default function ConsultationPage() {
       date,
       time,
       "Design consultation with RichMan Interiors",
-      formatInfo.id === "atelier" ? "RichMan Interiors, Al Quoz Industrial Area 3, Dubai" : formatInfo.title
+      formatInfo.id === "atelier" ? "RichMan Interiors, The Tower Plaza Hotel - Office 2004 & 2003A, Sheikh Zayed Rd, Dubai" : formatInfo.title
     );
     const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
     const a = document.createElement("a");
@@ -466,7 +466,7 @@ export default function ConsultationPage() {
       <section
         data-theme="dark"
         aria-labelledby="consult-heading"
-        className="relative isolate overflow-hidden px-6 pb-16 pt-36 text-warm-ivory sm:px-10 lg:px-16 lg:pb-24 lg:pt-44"
+        className="relative isolate overflow-hidden px-6 pb-16 pt-36 text-warm-ivory sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
       >
         {/* Background Hero Image */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -479,9 +479,11 @@ export default function ConsultationPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#171816]/75 via-[#171816]/55 to-[#171816]/85" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(23,24,22,0.35)_100%)]" />
+          {/* Minimal dark overlay matching home hero section */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 bg-black/15"
+          />
         </div>
 
         <div className="relative z-10 mx-auto max-w-[1400px]">
@@ -1015,9 +1017,18 @@ export default function ConsultationPage() {
               <div>
                 <dt className="text-deep-charcoal/45">Studio</dt>
                 <dd className="mt-2 leading-relaxed text-deep-charcoal">
-                  Al Quoz Industrial Area 3, Dubai
+                  <a
+                    href="https://share.google/065EEIjbEAjtDciRe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-champagne-gold transition-colors"
+                  >
+                    The Tower Plaza Hotel - Office 2004 &amp; 2003A
+                    <br />
+                    Sheikh Zayed Rd, Trade Center First, Dubai
+                  </a>
                   <br />
-                  Sunday to Thursday, 9am – 6pm
+                  Monday to Saturday, 9am – 7pm
                 </dd>
               </div>
             </dl>

@@ -19,11 +19,11 @@ const prefersReduced = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const TOTAL_FRAMES = 358;
+const TOTAL_FRAMES = 115;
 
 const getFramePath = (index: number) => {
   const frameNumber = String(index + 1).padStart(4, "0");
-  return `/arch_frames/frame-${frameNumber}.webp`;
+  return `/Living_room_final_frames/frame-${frameNumber}.webp`;
 };
 
 /* ------------------------------------------------------------------ */
@@ -248,9 +248,9 @@ export default function Hero() {
     }
 
     // Progressive queue for remaining frames:
-    // Milestone anchor frames spaced across the 358 frames for instant scrub responsiveness
+    // Milestone anchor frames spaced across the frames for instant scrub responsiveness
     const priorityIndices: number[] = [];
-    const step = 15;
+    const step = 10;
     for (let i = step; i < TOTAL_FRAMES; i += step) {
       priorityIndices.push(i);
     }
@@ -495,8 +495,8 @@ export default function Hero() {
         {/* Instant Fallback Poster */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/arch_frames/frame-0001.webp"
-          alt="RichMan Interiors Villa Journey"
+          src="/Living_room_final_frames/frame-0001.webp"
+          alt="Cinematic Living Room Transformation by RichMan Interiors"
           className={`pointer-events-none absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-700 ${isFirstFrameLoaded ? "opacity-0" : "opacity-100"
             }`}
           loading="eager"
