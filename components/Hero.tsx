@@ -19,11 +19,11 @@ const prefersReduced = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const TOTAL_FRAMES = 115;
+const TOTAL_FRAMES = 94;
 
 const getFramePath = (index: number) => {
   const frameNumber = String(index + 1).padStart(4, "0");
-  return `/Living_room_final_frames/frame-${frameNumber}.webp`;
+  return `/top_frames_output/frame-${frameNumber}.webp`;
 };
 
 /* ------------------------------------------------------------------ */
@@ -484,7 +484,7 @@ export default function Hero() {
       ref={containerRef}
       id="home"
       data-theme="dark"
-      aria-label="Cinematic Living Room Experience"
+      aria-label="Cinematic Rooftop Experience"
       className="relative h-[280vh] w-full sm:h-[300vh] lg:h-[320vh]"
     >
       {/* STICKY VIEWPORT CONTAINER: Stays pinned while scrolling through the sequence */}
@@ -495,8 +495,8 @@ export default function Hero() {
         {/* Instant Fallback Poster */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/Living_room_final_frames/frame-0001.webp"
-          alt="Cinematic Living Room Transformation by RichMan Interiors"
+          src="/top_frames_output/frame-0001.webp"
+          alt="Cinematic Rooftop Experience by RichMan Interiors"
           className={`pointer-events-none absolute inset-0 z-0 h-full w-full object-cover transition-opacity duration-700 ${isFirstFrameLoaded ? "opacity-0" : "opacity-100"
             }`}
           loading="eager"

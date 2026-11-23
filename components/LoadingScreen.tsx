@@ -166,9 +166,9 @@ export default function LoadingScreen({
       aria-hidden="true"
       className="fixed inset-0 z-[100] pointer-events-none select-none overflow-hidden"
     >
-      {/* 1. Solid Warm Ivory Background Overlay (#F5F0E7) */}
+      {/* 1. Background Overlay (#d7b695) */}
       <div
-        className="absolute inset-0 bg-[#F5F0E7]"
+        className="absolute inset-0 bg-[#d7b695]"
         style={{
           opacity: isTraveling || isComplete ? 0 : 1,
           transition: isTraveling
@@ -199,7 +199,7 @@ export default function LoadingScreen({
             }`}
         >
           <Image
-            src="/images/RM Interior - Logo Icon .png"
+            src="/images/white_logo_icon.png"
             alt="RichMan Interiors Crown and Monogram Emblem"
             width={120}
             height={160}

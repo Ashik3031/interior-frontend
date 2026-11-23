@@ -73,10 +73,16 @@ export default function Navbar({
       const currentScrollY = window.scrollY;
       const scrollDiff = currentScrollY - lastScrollYRef.current;
 
-      // On the home page: only show at the starting of the hero section; do not show across the rest of the home page
+      // On the home page: navbar stays visible across all animation frames (frame 1 to last frame)
+      // and hides cleanly as soon as the frame sequence finishes and the hero unpins
       if (isHome) {
+        const heroEl = document.getElementById("home");
+        const isHeroFrameScrubbing = heroEl
+          ? heroEl.getBoundingClientRect().bottom >= window.innerHeight - 20
+          : currentScrollY < (window.innerHeight * 2.2);
+
         setIsScrolled(false);
-        setIsVisible(currentScrollY <= 80);
+        setIsVisible(isHeroFrameScrubbing);
         lastScrollYRef.current = currentScrollY;
         ticking = false;
         return;
@@ -180,13 +186,13 @@ export default function Navbar({
       <div
         data-navbar-logo="desktop"
         className={`hidden lg:block relative flex-shrink-0 transition-transform duration-300 group-hover:scale-105 ${isHomeActive
-            ? "w-[52px] h-[66px] xl:w-[60px] xl:h-[76px]"
-            : "w-[38px] h-[48px] xl:w-[44px] xl:h-[56px]"
+          ? "w-[52px] h-[66px] xl:w-[60px] xl:h-[76px]"
+          : "w-[38px] h-[48px] xl:w-[44px] xl:h-[56px]"
           }`}
         style={{ opacity: introStage === "complete" ? 1 : 0 }}
       >
         <Image
-          src="/images/RM Interior - Logo Icon .png"
+          src="/images/white_logo_icon.png"
           alt="RichMan Interiors Emblem"
           width={72}
           height={92}
@@ -199,8 +205,8 @@ export default function Navbar({
       <div
         data-navbar-logo="mobile"
         className={`block lg:hidden relative flex-shrink-0 ${isHomeActive
-            ? "w-[38px] h-[48px] sm:w-[42px] sm:h-[54px]"
-            : "w-8 h-10"
+          ? "w-[38px] h-[48px] sm:w-[42px] sm:h-[54px]"
+          : "w-8 h-10"
           }`}
         style={{ opacity: introStage === "complete" ? 1 : 0 }}
       >
@@ -209,7 +215,7 @@ export default function Navbar({
           alt="RichMan Interiors Emblem"
           width={50}
           height={64}
-          className="w-full h-full object-contain brightness-105"
+          className="w-full h-full object-contain brightness-105 bg-transparent"
           priority
         />
       </div>
@@ -217,8 +223,8 @@ export default function Navbar({
       {!isHomeActive && (
         <div
           className={`flex flex-col select-none transition-opacity duration-700 ${introStage === "traveling" || introStage === "complete"
-              ? "opacity-100"
-              : "opacity-0"
+            ? "opacity-100"
+            : "opacity-0"
             }`}
         >
           <span

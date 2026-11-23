@@ -23,9 +23,9 @@ const LEAF_BOTTOM_RIGHT =
 
 const BIG_WORD = "INTERIORS";
 const CAPTION =
-    "THE ARCHITECTURE OF OUR HOMES BALANCES CLEAN CONTEMPORARY LINES WITH GULF WARMTH AND TEXTURE";
-const CREDIT_BOLD = "BY LAYLA HADDAD";
-const CREDIT_LIGHT = "INTERIOR ARCHITECT, RICHMAN TEAM";
+    "WE DESIGN SPACES THAT REFLECT YOUR VISION, COMPLEMENT YOUR LIFESTYLE AND BRING TOGETHER TIMELESS AESTHETICS WITH EVERYDAY COMFORT.";
+const CREDIT_BOLD = "RICHMAN INTERIORS";
+const CREDIT_LIGHT = "THOUGHTFUL DESIGN. REFINED LIVING.";
 
 const NAVY = "#1b2540";
 const CREAM = "#f4f3ec";
@@ -263,28 +263,28 @@ export default function ScrollHero() {
                         }}
                     />
 
-                    {/* Soft shade so the caption reads on the bright render */}
+                    {/* Dark gradient shade so the caption, credit and button are clearly visible over the bright render */}
                     <div
                         data-shade
                         aria-hidden
-                        className="pointer-events-none absolute inset-0 z-[3] bg-[linear-gradient(to_top,rgba(16,24,28,.45),transparent_60%)] opacity-0"
+                        className="pointer-events-none absolute inset-0 z-[3] bg-[linear-gradient(to_top,rgba(0,0,0,0.85)_0%,rgba(0,0,0,0.45)_40%,transparent_75%)] opacity-0"
                     />
 
                     {/* ---------- Caption ---------- */}
                     <div
                         data-copy
-                        className="pointer-events-none absolute left-[12.5vw] top-[36vh] z-[6] w-[min(40vw,760px)] text-white opacity-0 max-sm:left-[6vw] max-sm:w-[88vw]"
+                        className="pointer-events-none absolute left-[12.5vw] top-[34vh] z-[6] w-[min(46vw,800px)] text-white opacity-0 max-sm:left-[6vw] max-sm:w-[88vw] [text-shadow:0_2px_24px_rgba(0,0,0,0.85)]"
                     >
-                        <h2 className="font-display text-[clamp(22px,2.1vw,40px)] font-normal uppercase leading-[1.08] [text-indent:9.5vw] max-sm:[text-indent:0]">
+                        <h2 className="font-display text-[clamp(22px,2.1vw,40px)] font-bold uppercase leading-[1.12] [text-indent:9.5vw] max-sm:[text-indent:0] text-white">
                             {CAPTION}
                         </h2>
                     </div>
                     <div
                         data-credit
-                        className="pointer-events-none absolute left-[22vw] top-[62vh] z-[6] text-[13px] uppercase leading-[1.45] tracking-[.02em] text-white opacity-0 max-sm:left-[6vw]"
+                        className="pointer-events-none absolute left-[22vw] top-[64vh] z-[6] text-[13px] uppercase leading-[1.5] tracking-[.04em] text-white opacity-0 max-sm:left-[6vw] [text-shadow:0_2px_16px_rgba(0,0,0,0.85)]"
                     >
-                        <b className="block font-bold">{CREDIT_BOLD}</b>
-                        <span className="block">{CREDIT_LIGHT}</span>
+                        <b className="block font-bold tracking-[.06em] text-white">{CREDIT_BOLD}</b>
+                        <span className="block font-medium text-white/95">{CREDIT_LIGHT}</span>
                     </div>
 
                     {/* Circular call-to-action */}
@@ -292,25 +292,24 @@ export default function ScrollHero() {
                         data-cta
                         type="button"
                         onClick={() => setOpen(true)}
-                        className="group absolute left-[62.7vw] top-[59.6vh] z-[7] aspect-square w-[clamp(150px,13.1vw,260px)] cursor-pointer rounded-full bg-black/20 text-left text-[13px] font-bold uppercase leading-[1.45] tracking-[.02em] text-white opacity-0 backdrop-blur-[3px] transition-colors [text-shadow:0_1px_10px_rgba(0,0,0,.5)] hover:bg-black/35 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white max-sm:bottom-[8vh] max-sm:left-auto max-sm:right-[6vw] max-sm:top-auto"
+                        className="group absolute left-[62.7vw] top-[59.6vh] z-[7] aspect-square w-[clamp(150px,13.1vw,260px)] cursor-pointer rounded-full bg-black/40 text-center text-[13px] font-bold uppercase leading-[1.35] tracking-[.04em] text-white opacity-0 backdrop-blur-[6px] transition-all [text-shadow:0_2px_14px_rgba(0,0,0,0.9)] hover:bg-black/60 hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white max-sm:bottom-[8vh] max-sm:left-auto max-sm:right-[6vw] max-sm:top-auto flex items-center justify-center border border-white/20"
                     >
                         {/* Thin ring that is strong at the top-left and bottom-right and fades out in between, like the reference */}
                         <svg viewBox="0 0 100 100" aria-hidden className="pointer-events-none absolute inset-0 h-full w-full">
                             <defs>
                                 <linearGradient id="ctaRing" x1="0" y1="0" x2="1" y2="1">
                                     <stop offset="0" stopColor="#fff" stopOpacity=".95" />
-                                    <stop offset=".3" stopColor="#fff" stopOpacity=".08" />
-                                    <stop offset=".7" stopColor="#fff" stopOpacity=".08" />
+                                    <stop offset=".3" stopColor="#fff" stopOpacity=".15" />
+                                    <stop offset=".7" stopColor="#fff" stopOpacity=".15" />
                                     <stop offset="1" stopColor="#fff" stopOpacity=".95" />
                                 </linearGradient>
                             </defs>
-                            <circle cx="50" cy="50" r="49.6" fill="none" stroke="url(#ctaRing)" strokeWidth=".35" />
+                            <circle cx="50" cy="50" r="49.6" fill="none" stroke="url(#ctaRing)" strokeWidth=".6" />
                         </svg>
-                        {/* Text is placed with % of the BUTTON (padding % would use the page width) */}
-                        <span className="absolute left-[22%] top-1/2 -translate-y-1/2">
-                            Book a call
-                            <br />
-                            now
+                        {/* Centered bold text in middle of circle */}
+                        <span className="relative z-10 flex flex-col items-center justify-center text-center font-bold text-white px-4">
+                            <span>Book a call</span>
+                            <span>now</span>
                         </span>
                     </button>
 
