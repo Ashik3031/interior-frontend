@@ -272,10 +272,10 @@ export default function CookiePolicyPage() {
                 <p className="text-deep-charcoal/70">
                   Email:{" "}
                   <a
-                    href="mailto:info@richmanassociate.ae"
+                    href="mailto:info@richmaninteriors.com"
                     className="text-deep-charcoal hover:text-champagne-gold"
                   >
-                    info@richmanassociate.ae
+                    info@richmaninteriors.com
                   </a>
                 </p>
               </div>

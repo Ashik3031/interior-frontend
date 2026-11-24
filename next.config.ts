@@ -35,6 +35,16 @@ const nextConfig: NextConfig = {
         destination: "/portfolio",
         permanent: true,
       },
+      {
+        source: "/privacy",
+        destination: "/cookie-policy",
+        permanent: true,
+      },
+      {
+        source: "/privacy-policy",
+        destination: "/cookie-policy",
+        permanent: true,
+      },
     ];
   },
   cacheComponents: true,

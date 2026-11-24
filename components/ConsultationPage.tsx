@@ -843,7 +843,7 @@ export default function ConsultationPage() {
                     <span>
                       I agree that RichMan Interiors may contact me about this request. Your
                       details are used only for this consultation (see our{" "}
-                      <Link href="/privacy" className="underline underline-offset-4">
+                      <Link href="/cookie-policy" className="underline underline-offset-4">
                         privacy policy
                       </Link>
                       ).

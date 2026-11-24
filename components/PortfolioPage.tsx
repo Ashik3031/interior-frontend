@@ -191,6 +191,7 @@ function ProjectCard({
           {/* Keyboard and screen-reader entry point. Its click bubbles up to the card. */}
           <button
             type="button"
+            onClick={onOpen}
             className="text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
           >
             <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">

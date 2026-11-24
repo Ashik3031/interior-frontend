@@ -87,7 +87,7 @@ export default function Footer() {
               </Link>
 
               <a
-                href="mailto:info@richmanassociate.ae"
+                href="mailto:info@richmaninteriors.com"
                 className="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-xs tracking-[0.18em] font-medium uppercase text-[#171816] hover:text-[#BE9B59] border border-[#171816]/20 hover:border-[#BE9B59]/60 hover:bg-[#BE9B59]/5 transition-all duration-300"
               >
                 Direct Concierge
@@ -105,9 +105,9 @@ export default function Footer() {
       >
         <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-16 pb-12 sm:pt-20 sm:pb-16">
           {/* Main Footer Links & Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 sm:pb-20 border-b border-[#171816]/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-16 sm:pb-20 border-b border-[#171816]/10">
             {/* Column 1: Brand & Atelier identity */}
-            <div className="lg:col-span-4 flex flex-col justify-between">
+            <div className="lg:col-span-5 flex flex-col justify-between">
               <div>
                 <Link
                   href="/"
@@ -216,45 +216,8 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Column 3: Studio & Navigation */}
-            <div className="lg:col-span-2">
-              <h3 className="text-xs tracking-[0.25em] uppercase font-sans font-semibold text-[#BE9B59] mb-5">
-                Studio
-              </h3>
-              <ul className="space-y-3.5 text-sm font-sans text-[#171816]/75">
-                <li>
-                  <Link href="/About" className="hover:text-[#BE9B59] transition-colors inline-block">
-                    About the Atelier
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#process" className="hover:text-[#BE9B59] transition-colors inline-block">
-                    Design Process
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/portfolio" className="hover:text-[#BE9B59] transition-colors inline-block">
-                    Selected Works
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/#faq" className="hover:text-[#BE9B59] transition-colors inline-block">
-                    Frequently Asked
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/consultation"
-                    className="hover:text-[#BE9B59] transition-colors inline-block"
-                  >
-                    Book a Consultation
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 4: Private Lookbook & Atelier Address */}
-            <div className="lg:col-span-3">
+            {/* Column 3: Private Gazette & Atelier Address */}
+            <div className="md:col-span-2 lg:col-span-4">
               <h3 className="text-xs tracking-[0.25em] uppercase font-sans font-semibold text-[#BE9B59] mb-5">
                 Private Gazette
               </h3>
@@ -308,10 +271,10 @@ export default function Footer() {
                     +971 52 193 4887
                   </a>
                   <a
-                    href="mailto:info@richmanassociate.ae"
+                    href="mailto:info@richmaninteriors.com"
                     className="hover:text-[#BE9B59] transition-colors"
                   >
-                    info@richmanassociate.ae
+                    info@richmaninteriors.com
                   </a>
                 </p>
               </div>

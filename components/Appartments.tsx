@@ -247,7 +247,7 @@ function BookModal({ open, onClose }: { open: boolean; onClose: () => void }) {
                         <label className="block"><span className="era-eyebrow">Phone:</span><input required type="tel" name="phone" className={f} /></label>
                         <label className="block"><span className="era-eyebrow">Message:</span><textarea name="message" rows={3} className={f} /></label>
                         <p className="text-xs opacity-60">By submitting, you agree to our <Link className="era-link" href="/cookie-policy">Privacy &amp; Cookie policy</Link>,</p>
-                        <button disabled={status === "sending"} className="w-full bg-[#1D1B18] py-4 text-sm text-[#FAF8F5] transition-opacity hover:opacity-85 disabled:opacity-50">
+                        <button type="submit" disabled={status === "sending"} className="w-full bg-[#1D1B18] py-4 text-sm text-[#FAF8F5] transition-opacity hover:opacity-85 disabled:opacity-50">
                             {status === "sending" ? "Sending…" : "Submit"}
                         </button>
                         {status === "error" && <p className="text-sm text-red-700">Oops! Something went wrong while submitting the form.</p>}
@@ -364,23 +364,23 @@ export default function Apartments() {
                 <footer className="mx-auto max-w-[1600px] px-5 py-16 md:px-10">
                     <div className="grid gap-12 md:grid-cols-3">
                         <div>
-                            <a href="tel:+34655408648" className={`era-link ${SERIF} text-3xl`}>+34 (655) 408-648</a>
+                            <a href="tel:+971521934887" className={`era-link ${SERIF} text-3xl`}>+971 52 193 4887</a>
                             <div className="mt-6 flex gap-5 text-sm">
-                                <a className="era-link" href="https://www.linkedin.com/company/eraresidenceestepona/">LinkedIn</a>
-                                <a className="era-link" href="https://www.facebook.com/era.residence.estepona">Facebook</a>
-                                <a className="era-link" href="https://www.instagram.com/era.residence.estepona">Instagram</a>
+                                <a className="era-link" href="https://linkedin.com">LinkedIn</a>
+                                <a className="era-link" href="https://instagram.com">Instagram</a>
+                                <a className="era-link" href="mailto:info@richmaninteriors.com">Email</a>
                             </div>
                         </div>
                         <div>
-                            <p className="era-eyebrow">Sales Office</p>
-                            <a className="era-link mt-3 text-sm" href="https://maps.app.goo.gl/EzyfT2M6vR5aBdMu9">Avenida Litoral, 29680 Estepona, Málaga, Spain</a>
+                            <p className="era-eyebrow">Studio &amp; Office</p>
+                            <a className="era-link mt-3 text-sm" href="https://share.google/065EEIjbEAjtDciRe">The Tower Plaza Hotel - Office 2004 &amp; 2003A - Sheikh Zayed Rd - Trade Center First - Dubai - United Arab Emirates</a>
                         </div>
-                        <div className={`${SERIF} text-6xl font-light md:text-right`}>Era Residence.</div>
+                        <div className={`${SERIF} text-6xl font-light md:text-right`}>RichMan Interiors.</div>
                     </div>
                     <div className="mt-16 flex flex-wrap justify-between gap-4 border-t border-[#1D1B18]/15 pt-6 text-xs opacity-70">
-                        <span>©2026 All rights reserved</span>
+                        <span>©2026 RichMan Interiors. All rights reserved</span>
                         <span className="flex gap-3"><Link className="era-link" href="/cookie-policy">Privacy &amp; Cookie policy</Link></span>
-                        <span>Made by <a className="era-link" href="https://thefirstthelast.agency/">Thefirstthelast</a></span>
+                        <span>Dubai, UAE</span>
                     </div>
                 </footer>
             </div>

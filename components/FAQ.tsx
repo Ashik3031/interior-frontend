@@ -16,7 +16,7 @@ const FAQ_ITEMS: FAQItem[] = [
     no: "01",
     question: "How long does a complete home transformation take?",
     answer:
-      "Most projects take 4 to 9 months, depending on size and complexity. Concept planning and 3D visuals usually take 4 to 6 weeks. Custom joinery, material orders and on-site work follow.",
+      "Most projects take 4 to 6 months, depending on size and complexity. Concept planning and 3D visuals usually take 3 to 4 weeks. Custom joinery, material orders and on-site work follow.",
   },
   {
     id: "turnkey",

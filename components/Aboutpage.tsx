@@ -38,13 +38,13 @@ const HERO_LINES = [
 ];
 
 const FACTS = [
-    { label: "Founded", value: "2012" },
     { label: "Studio", value: "Dubai, UAE" },
-    { label: "Team", value: "24 people" },
+    { label: "Practice", value: "Turnkey Interiors" },
+    { label: "Team", value: "24 Specialists" },
 ];
 
 const STATS = [
-    { value: 12, suffix: "+", label: "Years designing in the UAE" },
+    { value: 100, suffix: "%", label: "Turnkey delivery & bespoke craft" },
     { value: 250, suffix: "+", label: "Homes and spaces delivered" },
     { value: 24, suffix: "", label: "Designers, makers and site managers" },
     { value: 2, suffix: "", label: "Emirates: Dubai and Abu Dhabi" },
@@ -82,21 +82,21 @@ const PROJECTS = [
         img: IMG.p1,
         place: "Emirates Hills",
         title: "The Courtyard Villa",
-        meta: "Residential, 2025",
+        meta: "Private Villa",
         offset: "",
     },
     {
         img: IMG.p2,
         place: "Palm Jumeirah",
         title: "Sandstone Residence",
-        meta: "Residential, 2024",
+        meta: "Beachfront Residence",
         offset: "lg:mt-20",
     },
     {
         img: IMG.p3,
         place: "Downtown Dubai",
         title: "Skyline Penthouse",
-        meta: "Residential, 2024",
+        meta: "Skyline Penthouse",
         offset: "lg:mt-8",
     },
 ];
@@ -114,10 +114,10 @@ const PLACES = [
 const STUDIO = { x: 385, y: 292 };
 
 const TEAM = [
-    { name: "Layla Haddad", role: "Founder & Principal Designer", initials: "LH" },
-    { name: "Omar Al Suwaidi", role: "Design Director", initials: "OS" },
-    { name: "Priya Nair", role: "Head of Fit-Out", initials: "PN" },
-    { name: "Daniel Moreau", role: "Joinery & Procurement Lead", initials: "DM" },
+    { name: "Founder", role: "Principal Designer", initials: "RM" },
+    { name: "Design Director", role: "Architecture & Concept", initials: "DD" },
+    { name: "Head of Fit-Out", role: "Site & MEP Execution", initials: "HF" },
+    { name: "Procurement Lead", role: "Joinery & Curated Stone", initials: "PL" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -678,7 +678,7 @@ export default function AboutPage() {
 
                     <div className="lg:col-span-7 lg:col-start-6">
                         <p className="font-serif text-2xl font-light leading-snug sm:text-3xl lg:text-4xl">
-                            RichMan Interiors began in 2012 with a single villa in Jumeirah and a
+                            RichMan Interiors began with a single villa in Jumeirah and a
                             simple idea: a home should feel like the person who lives in it.
                         </p>
 
@@ -709,9 +709,9 @@ export default function AboutPage() {
                         </div>
 
                         <p className="mt-8 font-sans text-sm text-deep-charcoal/60">
-                            <span className="font-serif text-lg text-deep-charcoal">Layla Haddad</span>
+                            <span className="font-serif text-lg text-deep-charcoal">Founder</span>
                             <span className="mx-3">/</span>
-                            Founder and Principal Designer
+                            Principal Designer
                         </p>
                     </div>
                 </div>
@@ -795,48 +795,7 @@ export default function AboutPage() {
             {/* ============ 7. Where we work ============ */}
             <WhereWeWork />
 
-            {/* ============ 8. Team ============ */}
-            <section
-                data-theme="light"
-                aria-labelledby="team-heading"
-                className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
-            >
-                <div className="mx-auto max-w-[1600px]">
-                    <div className="grid gap-10 lg:grid-cols-12">
-                        <div className="lg:col-span-6">
-                            <Label>The team</Label>
-                            <h2
-                                id="team-heading"
-                                className="mt-6 font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl"
-                            >
-                                The people behind the work
-                            </h2>
-                        </div>
-                        <p className="max-w-sm self-end font-sans text-base leading-relaxed text-deep-charcoal/70 lg:col-span-4 lg:col-start-9">
-                            Designers, makers and site managers who have worked together for
-                            years, so each project starts with a team that already trusts one
-                            another.
-                        </p>
-                    </div>
-
-                    {/* TODO: replace the monogram blocks with real portraits */}
-                    <ul className="mt-16 grid grid-cols-2 gap-x-4 gap-y-12 lg:mt-24 lg:grid-cols-4 lg:gap-x-6">
-                        {TEAM.map((m) => (
-                            <li key={m.name} className="group">
-                                <div className="flex aspect-[3/4] items-center justify-center rounded-[4px] bg-[#FAF8F5] border border-deep-charcoal/10 transition-colors duration-500 group-hover:bg-champagne-gold/25">
-                                    <span className="font-serif text-6xl font-light text-deep-charcoal/60 sm:text-7xl lg:text-8xl">
-                                        {m.initials}
-                                    </span>
-                                </div>
-                                <p className="mt-5 font-serif text-xl sm:text-2xl">{m.name}</p>
-                                <p className="mt-1 font-sans text-sm text-deep-charcoal/60">
-                                    {m.role}
-                                </p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </section>
+            {/* ============ 8. Team (Hidden per request) ============ */}
 
             {/* ============ 9. Closing call to action ============ */}
             <section
@@ -862,12 +821,10 @@ export default function AboutPage() {
                                     href={l.href}
                                     className="group flex items-center justify-between gap-6 py-8 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold lg:py-12"
                                 >
-                                    <span className="font-serif text-3xl font-light uppercase tracking-tight transition-colors duration-500 group-hover:text-champagne-gold sm:text-5xl lg:text-[5vw] text-deep-charcoal">
+                                    <span className="font-serif text-3xl font-light sm:text-4xl lg:text-5xl group-hover:text-champagne-gold transition-colors">
                                         {l.label}
                                     </span>
-                                    <span className="text-champagne-gold transition-transform duration-500 group-hover:translate-x-3">
-                                        <Arrow large />
-                                    </span>
+                                    <Arrow large />
                                 </Link>
                             </li>
                         ))}
@@ -899,8 +856,8 @@ export default function AboutPage() {
                         <div>
                             <dt className="text-deep-charcoal/45">Email</dt>
                             <dd className="mt-2 text-deep-charcoal">
-                                <a href="mailto:info@richmanassociate.ae" className="hover:text-champagne-gold transition-colors">
-                                    info@richmanassociate.ae
+                                <a href="mailto:info@richmaninteriors.com" className="hover:text-champagne-gold transition-colors">
+                                    info@richmaninteriors.com
                                 </a>
                             </dd>
                         </div>

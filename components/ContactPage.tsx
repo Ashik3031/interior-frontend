@@ -14,8 +14,8 @@ const CONTACT_HERO_BG =
 
 const PHONE_DISPLAY = "+971 52 193 4887";
 const PHONE_LINK = "tel:+971521934887";
-const EMAIL_CONCIERGE = "info@richmanassociate.ae";
-const EMAIL_LINK = "mailto:info@richmanassociate.ae";
+const EMAIL_CONCIERGE = "info@richmaninteriors.com";
+const EMAIL_LINK = "mailto:info@richmaninteriors.com";
 
 interface StudioLocation {
   id: string;
@@ -39,12 +39,13 @@ const STUDIOS: StudioLocation[] = [
     id: "tower-plaza",
     name: "The Tower Plaza Hotel Atelier",
     tagline: "Primary Design Studio, Executive Suites & Material Atelier",
-    address: "The Tower Plaza Hotel - Office 2004 & 2003A, Sheikh Zayed Rd, Trade Center First",
+    address:
+      "The Tower Plaza Hotel - Office 2004 & 2003A - Sheikh Zayed Rd - Trade Center First - Dubai - United Arab Emirates",
     district: "Trade Center First, Sheikh Zayed Rd",
     city: "Dubai, United Arab Emirates",
     hours: "Monday – Saturday: 9:00 AM – 7:00 PM (By appointment)",
     phone: "+971 52 193 4887",
-    email: "info@richmanassociate.ae",
+    email: "info@richmaninteriors.com",
     valet: "The Tower Plaza Hotel VIP Valet & dedicated parking",
     mapQuery: "The+Tower+Plaza+Hotel+Dubai",
     mapUrl: "https://share.google/065EEIjbEAjtDciRe",
@@ -52,44 +53,12 @@ const STUDIOS: StudioLocation[] = [
       "https://res.cloudinary.com/dugtxybef/image/upload/v1791982249/pexels-david-vinicius-562259225-28652353_ynv2xo.jpg",
     badge: "Primary Atelier & Suites",
   },
-  {
-    id: "downtown",
-    name: "Downtown Private Client Suite",
-    tagline: "Private Salon for Villa & Penthouse Investors",
-    address: "Level 42, Boulevard Plaza Tower 1, Sheikh Mohammed bin Rashid Blvd",
-    district: "Downtown Dubai",
-    city: "Dubai, United Arab Emirates",
-    hours: "Monday – Friday: 10:00 AM – 8:00 PM (Strictly by appointment)",
-    phone: "+971 4 321 8890",
-    email: "info@richmanassociate.ae",
-    valet: "Tower 1 VIP Valet with dedicated concierge escort",
-    mapQuery: "Boulevard+Plaza+Tower+1+Downtown+Dubai",
-    image:
-      "https://res.cloudinary.com/dugtxybef/image/upload/v1791961973/pexels-rashed-hossain-1520582336-38033547_tdf40v.jpg",
-    badge: "Investor & VIP Suite",
-  },
-  {
-    id: "abu-dhabi",
-    name: "Abu Dhabi Client Suite",
-    tagline: "Private Advisory for Capital Estates & Palaces",
-    address: "Al Khatem Tower, Level 28, ADGM Square, Al Maryah Island",
-    district: "Al Maryah Island",
-    city: "Abu Dhabi, United Arab Emirates",
-    hours: "Tuesday – Saturday: 10:00 AM – 6:00 PM (By appointment)",
-    phone: "+971 2 642 7700",
-    email: "abudhabi@richmaninteriors.ae",
-    valet: "ADGM Square North VIP Parking & Valet",
-    mapQuery: "Al+Khatem+Tower+ADGM+Square+Abu+Dhabi",
-    image:
-      "https://res.cloudinary.com/dugtxybef/image/upload/v1791979419/pexels-shkrabaanthony-6322363_gbwg6f.jpg",
-    badge: "Capital Advisory",
-  },
 ];
 
 const HERO_FACTS = [
   { label: "Response", value: "Within 4 business hours" },
   { label: "Privacy", value: "Strict NDA guaranteed" },
-  { label: "Locations", value: "Dubai · Abu Dhabi · Global" },
+  { label: "Location", value: "Dubai, UAE" },
 ];
 
 const DIRECT_CHANNELS = [
@@ -97,29 +66,29 @@ const DIRECT_CHANNELS = [
     role: "Private Client Director",
     scope: "Villa Estates, Penthouses & Private Residences",
     desc: "Direct partner oversight for signature residential commissions, turnkey renovations, and bespoke architectural interior architecture.",
-    email: "info@richmanassociate.ae",
+    email: "info@richmaninteriors.com",
     phone: "+971 52 193 4887",
   },
   {
     role: "Technical & Fit-Out Director",
     scope: "MEP Execution, Municipality & Approvals",
     desc: "In-house engineering, Dubai Municipality / DDA / Civil Defence permit coordination, structural fit-out, and site execution.",
-    email: "technical@richmaninteriors.ae",
-    phone: "+971 4 321 8891",
+    email: "info@richmaninteriors.com",
+    phone: "+971 52 193 4887",
   },
   {
     role: "Material & Joinery Procurement",
     scope: "Stone Quarries, French Oak & Bespoke Brass",
     desc: "Direct quarry sourcing in Carrara and Tivoli, European millwork, custom bronze casting, and master artisan trade partnerships.",
-    email: "procurement@richmaninteriors.ae",
-    phone: "+971 4 321 8892",
+    email: "info@richmaninteriors.com",
+    phone: "+971 52 193 4887",
   },
   {
     role: "Press & Communications",
     scope: "Monograph Publications & Media Inquiries",
     desc: "High-resolution architectural photography, press dossiers, editorial interviews, and design monograph features.",
-    email: "press@richmaninteriors.ae",
-    phone: "+971 4 321 8895",
+    email: "info@richmaninteriors.com",
+    phone: "+971 52 193 4887",
   },
 ];
 
@@ -572,22 +541,24 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  {/* Studio Switcher Tabs */}
-                  <div className="mt-6 flex gap-1.5 border-b border-deep-charcoal/15 pb-4 overflow-x-auto">
-                    {STUDIOS.map((s) => (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => setActiveStudio(s.id)}
-                        className={`rounded-full px-3.5 py-1.5 font-sans text-xs transition-colors duration-200 cursor-pointer whitespace-nowrap ${s.id === activeStudio
-                          ? "bg-deep-charcoal text-warm-ivory"
-                          : "bg-white/80 text-deep-charcoal/70 hover:bg-white hover:text-deep-charcoal"
-                          }`}
-                      >
-                        {s.district}
-                      </button>
-                    ))}
-                  </div>
+                  {/* Studio Switcher Tabs - only if multiple studios */}
+                  {STUDIOS.length > 1 && (
+                    <div className="mt-6 flex gap-1.5 border-b border-deep-charcoal/15 pb-4 overflow-x-auto">
+                      {STUDIOS.map((s) => (
+                        <button
+                          key={s.id}
+                          type="button"
+                          onClick={() => setActiveStudio(s.id)}
+                          className={`rounded-full px-3.5 py-1.5 font-sans text-xs transition-colors duration-200 cursor-pointer whitespace-nowrap ${s.id === activeStudio
+                            ? "bg-deep-charcoal text-warm-ivory"
+                            : "bg-white/80 text-deep-charcoal/70 hover:bg-white hover:text-deep-charcoal"
+                            }`}
+                        >
+                          {s.district}
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Active Studio Details */}
                   <div className="mt-6 space-y-4 font-sans text-sm text-deep-charcoal/80">

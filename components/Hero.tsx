@@ -577,7 +577,7 @@ export default function Hero() {
           <p className="font-serif text-[clamp(2.25rem,6vw,6.5rem)] font-light uppercase leading-[0.98] tracking-tight">
             Designed around you.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 [text-shadow:none]">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 [text-shadow:none] pointer-events-auto">
             <Link
               href="/portfolio"
               className="group inline-flex items-center gap-3 rounded-full bg-warm-ivory px-8 py-4 font-sans text-sm font-medium text-deep-charcoal transition-colors duration-300 hover:bg-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"

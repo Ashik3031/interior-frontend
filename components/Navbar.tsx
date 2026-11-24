@@ -64,10 +64,7 @@ export default function Navbar({
     let ticking = false;
 
     const lower = pathname?.toLowerCase() || "";
-    const isHome =
-      lower === "/" ||
-      lower === "" ||
-      activeSection === "home";
+    const isHome = lower === "/" || lower === "";
 
     const updateNavbar = () => {
       const currentScrollY = window.scrollY;
@@ -161,7 +158,7 @@ export default function Navbar({
 
   const menuItems: StaggeredMenuItem[] = [
     { label: "Home", ariaLabel: "Go to home page", link: "/#home", active: isHomeActive },
-    { label: "About Us", ariaLabel: "Learn about us", link: "/About", active: isAboutActive },
+    { label: "About Us", ariaLabel: "Learn about us", link: "/about", active: isAboutActive },
     {
       label: "Services",
       ariaLabel: "View our services",
