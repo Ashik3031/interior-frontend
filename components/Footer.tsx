@@ -305,7 +305,7 @@ export default function Footer() {
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-4 text-[#171816]/70">
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/richmaninteriorsuae/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#BE9B59] transition-colors tracking-widest text-[11px] uppercase font-medium"
@@ -314,21 +314,21 @@ export default function Footer() {
                 </a>
                 <span className="text-[#171816]/20">/</span>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.facebook.com/richmaninterior/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#BE9B59] transition-colors tracking-widest text-[11px] uppercase font-medium"
                 >
-                  LinkedIn
+                  Facebook
                 </a>
                 <span className="text-[#171816]/20">/</span>
                 <a
-                  href="https://pinterest.com"
+                  href="https://www.youtube.com/@RichmanInterior"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#BE9B59] transition-colors tracking-widest text-[11px] uppercase font-medium"
                 >
-                  Pinterest
+                  YouTube
                 </a>
               </div>
 

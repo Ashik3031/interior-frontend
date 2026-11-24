@@ -365,9 +365,10 @@ export default function Apartments() {
                     <div className="grid gap-12 md:grid-cols-3">
                         <div>
                             <a href="tel:+971521934887" className={`era-link ${SERIF} text-3xl`}>+971 52 193 4887</a>
-                            <div className="mt-6 flex gap-5 text-sm">
-                                <a className="era-link" href="https://linkedin.com">LinkedIn</a>
-                                <a className="era-link" href="https://instagram.com">Instagram</a>
+                            <div className="mt-6 flex flex-wrap gap-4 text-sm">
+                                <a className="era-link" href="https://www.instagram.com/richmaninteriorsuae/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                                <a className="era-link" href="https://www.facebook.com/richmaninterior/" target="_blank" rel="noopener noreferrer">Facebook</a>
+                                <a className="era-link" href="https://www.youtube.com/@RichmanInterior" target="_blank" rel="noopener noreferrer">YouTube</a>
                                 <a className="era-link" href="mailto:info@richmaninteriors.com">Email</a>
                             </div>
                         </div>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useNavigation, type IntroStage } from "@/context/NavigationContext";
-import StaggeredMenu, { type StaggeredMenuItem } from "./StaggeredMenu";
+import StaggeredMenu, { type StaggeredMenuItem, type StaggeredMenuSocial } from "./StaggeredMenu";
 
 export type { IntroStage };
 
@@ -254,11 +254,18 @@ export default function Navbar({
     </div>
   );
 
+  const socialItems: StaggeredMenuSocial[] = [
+    { label: "Instagram", link: "https://www.instagram.com/richmaninteriorsuae/" },
+    { label: "Facebook", link: "https://www.facebook.com/richmaninterior/" },
+    { label: "YouTube", link: "https://www.youtube.com/@RichmanInterior" },
+  ];
+
   return (
     <StaggeredMenu
       position="right"
       items={menuItems}
-      displaySocials={false}
+      socialItems={socialItems}
+      displaySocials
       displayItemNumbering
       menuButtonColor={menuButtonColor}
       openMenuButtonColor="#171816"

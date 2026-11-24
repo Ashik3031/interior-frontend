@@ -599,6 +599,39 @@ export default function ContactPage() {
                     </div>
                   </div>
 
+                  {/* Digital & Social Channels */}
+                  <div className="mt-6 pt-6 border-t border-deep-charcoal/15">
+                    <span className="block font-sans text-xs uppercase tracking-wider text-deep-charcoal/50 mb-3">
+                      Follow our Atelier
+                    </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <a
+                        href="https://www.instagram.com/richmaninteriorsuae/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-deep-charcoal/20 bg-white/60 px-3 py-1.5 font-sans text-xs font-medium text-deep-charcoal transition-colors hover:border-champagne-gold hover:text-champagne-gold hover:bg-white"
+                      >
+                        Instagram &rarr;
+                      </a>
+                      <a
+                        href="https://www.facebook.com/richmaninterior/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-deep-charcoal/20 bg-white/60 px-3 py-1.5 font-sans text-xs font-medium text-deep-charcoal transition-colors hover:border-champagne-gold hover:text-champagne-gold hover:bg-white"
+                      >
+                        Facebook &rarr;
+                      </a>
+                      <a
+                        href="https://www.youtube.com/@RichmanInterior"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-deep-charcoal/20 bg-white/60 px-3 py-1.5 font-sans text-xs font-medium text-deep-charcoal transition-colors hover:border-champagne-gold hover:text-champagne-gold hover:bg-white"
+                      >
+                        YouTube &rarr;
+                      </a>
+                    </div>
+                  </div>
+
                   {/* Quick consultation promo */}
                   <div className="mt-8 rounded-xl bg-white p-5 border border-deep-charcoal/10 flex items-center justify-between">
                     <div>
@@ -714,7 +747,7 @@ export default function ContactPage() {
       </section>
 
       {/* ============ 4. DIRECT CHANNELS (White) ============ */}
-      <section
+      {/* <section
         data-theme="light"
         aria-labelledby="channels-heading"
         className="bg-white px-6 py-24 text-deep-charcoal sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
@@ -807,7 +840,7 @@ export default function ContactPage() {
             </dl>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ============ 5. VISITING PROTOCOLS & FAQ (Off-White) ============ */}
       <section
