@@ -614,10 +614,10 @@ export default function AboutPage() {
                         sizes="100vw"
                         className="object-cover object-center"
                     />
-                    {/* Minimal dark overlay matching home hero section */}
+                    {/* Dark overlay for optimal text contrast */}
                     <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-black/15"
+                        className="pointer-events-none absolute inset-0 bg-black/55"
                     />
                 </div>
 
@@ -637,19 +637,27 @@ export default function AboutPage() {
                             </span>
                         ))}
                     </h1>
+                </div>
+            </section>
 
-                    <div className="mt-14 grid gap-10 lg:mt-24 lg:grid-cols-12">
-                        <p className="hero-fade max-w-md font-sans text-base leading-relaxed text-warm-ivory/85 lg:col-span-5 lg:text-lg">
+            {/* ============ Overview (Just Below Hero) ============ */}
+            <section
+                data-theme="light"
+                className="bg-[#FAF8F5] px-6 py-16 sm:px-10 lg:px-16 lg:py-24 text-deep-charcoal border-b border-deep-charcoal/10"
+            >
+                <div className="mx-auto max-w-[1600px]">
+                    <div className="grid gap-10 lg:grid-cols-12">
+                        <p className="max-w-md font-sans text-base leading-relaxed text-deep-charcoal/80 lg:col-span-5 lg:text-lg">
                             We are a Dubai design and fit-out studio. We create calm, personal
                             homes and workplaces across the UAE, and we look after every step
                             from the first sketch to the final styling.
                         </p>
 
-                        <dl className="hero-fade grid grid-cols-3 gap-6 border-t border-white/15 pt-6 lg:col-span-6 lg:col-start-7">
+                        <dl className="grid grid-cols-1 gap-6 border-t border-deep-charcoal/15 pt-6 sm:grid-cols-3 lg:col-span-6 lg:col-start-7 lg:border-t-0 lg:pt-0">
                             {FACTS.map((f) => (
                                 <div key={f.label}>
-                                    <dt className="font-sans text-sm text-warm-ivory/60">{f.label}</dt>
-                                    <dd className="mt-2 font-serif text-xl sm:text-2xl text-warm-ivory">{f.value}</dd>
+                                    <dt className="font-sans text-sm text-deep-charcoal/50">{f.label}</dt>
+                                    <dd className="mt-2 font-serif text-xl sm:text-2xl text-deep-charcoal">{f.value}</dd>
                                 </div>
                             ))}
                         </dl>

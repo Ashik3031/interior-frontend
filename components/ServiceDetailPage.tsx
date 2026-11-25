@@ -653,7 +653,7 @@ export default function ServiceDetailPage({ service }: Props) {
         ref={heroRef}
         data-theme="dark"
         aria-labelledby="service-heading"
-        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
+        className="relative isolate overflow-hidden px-6 pb-24 pt-36 sm:px-10 sm:pb-32 sm:pt-44 lg:px-16 lg:pb-40 lg:pt-52 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
       >
         {/* Background Hero Image */}
         <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -666,17 +666,17 @@ export default function ServiceDetailPage({ service }: Props) {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Minimal dark overlay matching home hero section */}
+          {/* Dark overlay for optimal text contrast */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-black/15"
+            className="pointer-events-none absolute inset-0 bg-black/55"
           />
         </div>
 
         <div className="mx-auto max-w-[1600px]">
           <nav
             aria-label="Breadcrumb"
-            className="dt-fade flex items-center gap-2 font-sans text-sm text-warm-ivory/60"
+            className="dt-fade flex items-center gap-2 font-sans text-sm text-warm-ivory/70"
           >
             <Link href="/" className="transition-colors hover:text-champagne-gold">
               Home
@@ -708,18 +708,26 @@ export default function ServiceDetailPage({ service }: Props) {
               </span>
             ))}
           </h1>
+        </div>
+      </section>
 
-          <div className="mt-14 grid gap-12 lg:mt-24 lg:grid-cols-12">
-            <p className="dt-fade font-serif text-2xl font-light leading-snug sm:text-3xl text-warm-ivory lg:col-span-7 lg:text-4xl">
+      {/* ============ Service Overview (Just Below Hero) ============ */}
+      <section
+        data-theme="light"
+        className="bg-[#FAF8F5] px-6 py-20 sm:px-10 lg:px-16 lg:py-28 text-deep-charcoal border-b border-deep-charcoal/10"
+      >
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <p className="dt-fade font-serif text-2xl font-light leading-snug sm:text-3xl text-deep-charcoal lg:col-span-7 lg:text-4xl">
               {service.leadParagraph}
             </p>
 
-            <div className="lg:col-span-4 lg:col-start-9">
-              <p className="dt-fade font-sans text-base leading-relaxed text-warm-ivory/80">
+            <div className="lg:col-span-5">
+              <p className="dt-fade font-sans text-base leading-relaxed text-deep-charcoal/80">
                 {service.description}
               </p>
 
-              <ul className="dt-fade mt-8 space-y-2 border-t border-white/15 pt-6 font-sans text-sm text-warm-ivory/85">
+              <ul className="dt-fade mt-8 space-y-2.5 border-t border-deep-charcoal/15 pt-6 font-sans text-sm text-deep-charcoal/85">
                 {(service.features || FEATURES).map((f) => (
                   <li key={f} className="flex items-center gap-3">
                     <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-champagne-gold" />
@@ -731,14 +739,14 @@ export default function ServiceDetailPage({ service }: Props) {
               <div className="dt-fade mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
                 <Link
                   href="/consultation"
-                  className="inline-flex items-center gap-3 rounded-full bg-champagne-gold px-8 py-4 font-sans text-sm font-medium text-deep-charcoal transition-colors duration-300 hover:bg-warm-ivory hover:text-deep-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+                  className="inline-flex items-center gap-3 rounded-full bg-[#BE9B59] px-8 py-4 font-sans text-sm font-medium text-deep-charcoal transition-all duration-300 hover:bg-[#d3b06e] shadow-md shadow-[#BE9B59]/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
                 >
                   Book a consultation
                   <Arrow />
                 </Link>
                 <Link
                   href="/services"
-                  className="border-b border-champagne-gold pb-1 font-sans text-sm font-medium text-warm-ivory transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+                  className="border-b border-champagne-gold pb-1 font-sans text-sm font-medium text-deep-charcoal transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
                 >
                   All services
                 </Link>
@@ -747,11 +755,11 @@ export default function ServiceDetailPage({ service }: Props) {
           </div>
 
           {/* Stats */}
-          <dl className="dt-fade mt-16 grid grid-cols-2 border-t border-white/15 sm:grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] lg:mt-24">
+          <dl className="dt-fade mt-16 grid grid-cols-2 border-t border-deep-charcoal/15 pt-8 sm:grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] lg:mt-24">
             {service.stats.map((s) => (
-              <div key={s.label} className="py-6 pr-6">
-                <dt className="font-sans text-sm text-warm-ivory/60">{s.label}</dt>
-                <dd className="mt-2 font-serif text-2xl font-light text-warm-ivory sm:text-3xl">{s.value}</dd>
+              <div key={s.label} className="py-4 pr-6">
+                <dt className="font-sans text-sm text-deep-charcoal/60">{s.label}</dt>
+                <dd className="mt-2 font-serif text-2xl font-light text-deep-charcoal sm:text-3xl">{s.value}</dd>
               </div>
             ))}
           </dl>

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -63,16 +63,43 @@ const STAGES = [
 /**
  * Looping leaf video used as a corner decoration.
  *
- * - Plays only while on screen, and stays paused for reduced-motion users.
- * - `mix-blend-multiply` makes the video's WHITE background disappear against
- *   the ivory page (an MP4 has no real transparency). The small brightness /
- *   contrast filter pushes the light-grey checkerboard squares baked into the
- *   current clips up to white so they vanish too.
- *   This only works because the track below has its own background colour
- *   (the blend needs something to blend with inside the same layer).
- *   If you switch to true-alpha WebM files, delete the two blend classes.
+ * An MP4 has no transparency, so the white background (and the checkerboard
+ * baked into the clips) has to be hidden at render time:
+ *
+ * - Chrome / Firefox: `mix-blend-multiply` on the <video> (original approach,
+ *   full quality). The filter pushes the light-grey squares up to white.
+ * - Safari / every iOS browser: they ignore blend modes on <video>, so the
+ *   video is drawn to a <canvas> and every NEUTRAL (white / grey) pixel is
+ *   made transparent. Leaves are green, so they keep their alpha; the
+ *   checkerboard has no colour, so it disappears.
+ *
+ * Both paths only play while on screen and respect reduced motion.
+ * If you switch to true-alpha WebM / HEVC files, replace all of this with a
+ * plain <video>.
  */
-function LeafVideo({ src, className = "" }: { src: string; className?: string }) {
+
+// Canvas keying tuning (Safari / iOS path only)
+const DARK_KEEP = 170; // pixels darker than this are always kept (leaf shadows)
+const CHROMA_MIN = 10; // colourfulness at or below this -> fully transparent
+const CHROMA_MAX = 34; // colourfulness at or above this -> fully opaque
+
+function useNeedsCanvas() {
+    // null until we know (avoids a flash of the wrong version on first paint)
+    const [needs, setNeeds] = useState<boolean | null>(null);
+    useEffect(() => {
+        const ua = navigator.userAgent;
+        const isIOS =
+            /iP(hone|ad|od)/.test(ua) ||
+            (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+        const isSafari =
+            /Safari/.test(ua) && !/Chrome|Chromium|Android|Edg|OPR/.test(ua);
+        setNeeds(isIOS || isSafari);
+    }, []);
+    return needs;
+}
+
+/** Original approach: blend the video's white away against the ivory page. */
+function LeafVideoBlend({ src, className = "" }: { src: string; className?: string }) {
     const ref = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
@@ -106,6 +133,126 @@ function LeafVideo({ src, className = "" }: { src: string; className?: string })
             disablePictureInPicture
             className={`pointer-events-none absolute select-none mix-blend-multiply [filter:brightness(1.12)_contrast(1.1)] ${className}`}
         />
+    );
+}
+
+/** Safari / iOS: draw to canvas and remove neutral (white / grey) pixels. */
+function LeafVideoCanvas({ src, className = "" }: { src: string; className?: string }) {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        const canvas = canvasRef.current;
+        if (!video || !canvas) return;
+
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        if (!ctx) return;
+
+        const reduce = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        // Sharp enough for retina, light enough for phones.
+        const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+        const maxWidth = isCoarse ? 1000 : 1600;
+
+        let raf = 0;
+        let visible = false;
+
+        const setup = () => {
+            if (!video.videoWidth) return;
+            const scale = Math.min(1, maxWidth / video.videoWidth);
+            canvas.width = Math.round(video.videoWidth * scale);
+            canvas.height = Math.round(video.videoHeight * scale);
+        };
+
+        const draw = () => {
+            if (video.readyState >= 2 && canvas.width) {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const d = img.data;
+                for (let i = 0; i < d.length; i += 4) {
+                    const r = d[i];
+                    const g = d[i + 1];
+                    const b = d[i + 2];
+                    const max = r > g ? (r > b ? r : b) : g > b ? g : b;
+                    const min = r < g ? (r < b ? r : b) : g < b ? g : b;
+                    if (min < DARK_KEEP) continue; // dark = leaf, keep as is
+                    const chroma = max - min;
+                    if (chroma <= CHROMA_MIN) {
+                        d[i + 3] = 0; // neutral white / grey -> clear
+                    } else if (chroma < CHROMA_MAX) {
+                        d[i + 3] =
+                            ((chroma - CHROMA_MIN) / (CHROMA_MAX - CHROMA_MIN)) * 255;
+                    }
+                }
+                ctx.putImageData(img, 0, 0);
+            }
+            if (visible && !reduce) raf = requestAnimationFrame(draw);
+        };
+
+        const onReady = () => {
+            setup();
+            draw(); // paint a frame so reduced-motion users still see leaves
+        };
+
+        if (video.readyState >= 1) onReady();
+        video.addEventListener("loadedmetadata", onReady);
+        video.addEventListener("loadeddata", onReady);
+
+        const io = new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting;
+            if (visible && !reduce) {
+                video.play().catch(() => { });
+                cancelAnimationFrame(raf);
+                raf = requestAnimationFrame(draw);
+            } else {
+                video.pause();
+            }
+        });
+        io.observe(canvas);
+
+        return () => {
+            cancelAnimationFrame(raf);
+            io.disconnect();
+            video.removeEventListener("loadedmetadata", onReady);
+            video.removeEventListener("loadeddata", onReady);
+        };
+    }, []);
+
+    return (
+        <>
+            {/* Source video: in the DOM (so iOS decodes it) but invisible */}
+            <video
+                ref={videoRef}
+                src={src}
+                crossOrigin="anonymous"
+                loop
+                muted
+                playsInline
+                preload="auto"
+                aria-hidden
+                tabIndex={-1}
+                disablePictureInPicture
+                className="pointer-events-none absolute h-px w-px opacity-0"
+            />
+            <canvas
+                ref={canvasRef}
+                aria-hidden
+                className={`pointer-events-none absolute select-none ${className}`}
+            />
+        </>
+    );
+}
+
+function LeafVideo(props: { src: string; className?: string }) {
+    const needsCanvas = useNeedsCanvas();
+    if (needsCanvas === null) return null;
+    return needsCanvas ? (
+        <LeafVideoCanvas {...props} />
+    ) : (
+        <LeafVideoBlend {...props} />
     );
 }
 
@@ -292,8 +439,7 @@ export default function DesignProcess() {
                 ref={pinRef}
                 className="relative [.hs-on_&]:h-screen [.hs-on_&]:overflow-hidden"
             >
-                {/* Track: vertical stack by default, horizontal row when pinned.
-                    It has its own background so the leaf videos can blend with it. */}
+                {/* Track: vertical stack by default, horizontal row when pinned. */}
                 <div
                     ref={trackRef}
                     className="flex flex-col gap-24 bg-[#FAF8F5] px-6 py-24 sm:px-10 md:gap-32 md:py-32 [.hs-on_&]:h-full [.hs-on_&]:w-max [.hs-on_&]:flex-row [.hs-on_&]:items-center [.hs-on_&]:gap-0 [.hs-on_&]:p-0 will-change-transform"
@@ -303,12 +449,12 @@ export default function DesignProcess() {
                         {/* Leaves hanging from the top-left corner flush to screen edges */}
                         <LeafVideo
                             src={LEAF_TOP_LEFT}
-                            className="-top-24 -left-6 sm:-top-24 sm:-left-10 md:-top-32 [.hs-on_&]:top-0 [.hs-on_&]:left-0 w-[85vw] sm:w-[66vw] max-w-none"
+                            className="-top-24 -left-6 sm:-top-24 sm:-left-10 md:-top-32 [.hs-on_&]:top-0 [.hs-on_&]:left-0 w-[85vw] sm:w-[66vw] max-w-none h-auto"
                         />
                         {/* Leaves rising from the bottom - hidden on mobile, shown on desktop horizontal scroll */}
                         <LeafVideo
                             src={LEAF_BOTTOM_CENTER}
-                            className="hidden [.hs-on_&]:block bottom-0 z-[5] [.hs-on_&]:left-auto [.hs-on_&]:right-0 [.hs-on_&]:w-[50vw] [.hs-on_&]:translate-x-1/2"
+                            className="hidden [.hs-on_&]:block bottom-0 z-[5] [.hs-on_&]:left-auto [.hs-on_&]:right-0 [.hs-on_&]:w-[50vw] [.hs-on_&]:translate-x-1/2 h-auto"
                         />
 
                         <p className="relative z-10 font-sans text-sm text-champagne-gold">
@@ -391,7 +537,7 @@ export default function DesignProcess() {
                         {/* Leaves rising from the bottom-right corner flush to screen edges */}
                         <LeafVideo
                             src={LEAF_BOTTOM_RIGHT}
-                            className="-right-6 -bottom-24 sm:-right-10 md:-bottom-32 [.hs-on_&]:right-0 [.hs-on_&]:bottom-0 w-[85vw] sm:w-[53vw] max-w-none"
+                            className="-right-6 -bottom-24 sm:-right-10 md:-bottom-32 [.hs-on_&]:right-0 [.hs-on_&]:bottom-0 w-[85vw] sm:w-[53vw] max-w-none h-auto"
                         />
 
                         <p className="relative z-10 max-w-xl font-serif text-4xl font-light uppercase leading-tight tracking-tight sm:text-5xl [.hs-on_&]:text-[4.5vw]">

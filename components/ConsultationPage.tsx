@@ -466,7 +466,7 @@ export default function ConsultationPage() {
       <section
         data-theme="dark"
         aria-labelledby="consult-heading"
-        className="relative isolate overflow-hidden px-6 pb-16 pt-36 text-warm-ivory sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
+        className="relative isolate overflow-hidden px-6 pb-20 pt-36 text-warm-ivory sm:px-10 sm:pb-28 sm:pt-44 lg:px-16 lg:pb-36 lg:pt-52 [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
       >
         {/* Background Hero Image */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -479,10 +479,10 @@ export default function ConsultationPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Minimal dark overlay matching home hero section */}
+          {/* Dark overlay for optimal text contrast */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-black/15"
+            className="pointer-events-none absolute inset-0 bg-black/55"
           />
         </div>
 
@@ -511,20 +511,28 @@ export default function ConsultationPage() {
               </span>
             ))}
           </h1>
+        </div>
+      </section>
 
-          <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12">
-            <p className="max-w-md font-sans text-base leading-relaxed text-warm-ivory/85 lg:col-span-5 lg:text-lg">
+      {/* ============ Consultation Overview (Just Below Hero) ============ */}
+      <section
+        data-theme="light"
+        className="bg-[#FAF8F5] px-6 py-16 sm:px-10 lg:px-16 lg:py-20 text-deep-charcoal border-b border-deep-charcoal/10"
+      >
+        <div className="mx-auto max-w-[1400px]">
+          <div className="grid gap-10 lg:grid-cols-12">
+            <p className="max-w-md font-sans text-base leading-relaxed text-deep-charcoal/80 lg:col-span-5 lg:text-lg">
               A free 45-minute session with a senior designer. Bring your plans or
               just your ideas. We will review the space, look at materials together
               and talk honestly about budget and timing. Everything you share stays
               in confidence.
             </p>
 
-            <dl className="grid grid-cols-1 gap-6 border-t border-white/15 pt-6 sm:grid-cols-3 lg:col-span-6 lg:col-start-7">
+            <dl className="grid grid-cols-1 gap-6 border-t border-deep-charcoal/15 pt-6 sm:grid-cols-3 lg:col-span-6 lg:col-start-7 lg:border-t-0 lg:pt-0">
               {HERO_FACTS.map((f) => (
                 <div key={f.label}>
-                  <dt className="font-sans text-sm text-warm-ivory/60">{f.label}</dt>
-                  <dd className="mt-2 font-serif text-xl text-warm-ivory sm:text-2xl">{f.value}</dd>
+                  <dt className="font-sans text-sm text-deep-charcoal/50">{f.label}</dt>
+                  <dd className="mt-2 font-serif text-xl text-deep-charcoal sm:text-2xl">{f.value}</dd>
                 </div>
               ))}
             </dl>

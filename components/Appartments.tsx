@@ -307,10 +307,10 @@ export default function Apartments() {
                         sizes="100vw"
                         className="object-cover object-center"
                     />
-                    {/* Minimal dark overlay matching home hero section */}
+                    {/* Dark overlay for optimal text contrast */}
                     <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-black/15"
+                        className="pointer-events-none absolute inset-0 bg-black/55"
                     />
                 </div>
                 <nav className="era-eyebrow mb-8 flex gap-2 text-[#EFEAE1]/75"><Link href="/" className="era-link !text-[#EFEAE1]">Home</Link> / <span>Select an Apartment</span></nav>

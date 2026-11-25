@@ -664,10 +664,10 @@ export default function PortfolioPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Minimal dark overlay matching home hero section */}
+          {/* Dark overlay for optimal text contrast */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-black/15"
+            className="pointer-events-none absolute inset-0 bg-black/55"
           />
         </div>
 
@@ -693,11 +693,6 @@ export default function PortfolioPage() {
               </span>
             </span>
           </h1>
-
-          <p className="pf-fade mt-10 max-w-lg font-sans text-base leading-relaxed text-warm-ivory/85 lg:mt-14 lg:text-lg">
-            Villas, penthouses and renovations designed and delivered across Dubai
-            and Abu Dhabi, from the first sketch to the final styling.
-          </p>
         </div>
 
         {/* Photo strip: decorative, slides sideways on scroll */}
@@ -721,6 +716,19 @@ export default function PortfolioPage() {
             </div>
           </div>
         )}
+      </section>
+
+      {/* ============ Portfolio Intro ============ */}
+      <section
+        data-theme="light"
+        className="bg-[#FAF8F5] px-6 py-10 sm:px-10 lg:px-16 text-deep-charcoal border-b border-deep-charcoal/10"
+      >
+        <div className="mx-auto max-w-[1600px]">
+          <p className="max-w-2xl font-sans text-base leading-relaxed text-deep-charcoal/80 lg:text-lg">
+            Villas, penthouses and renovations designed and delivered across Dubai
+            and Abu Dhabi, from the first sketch to the final styling.
+          </p>
+        </div>
       </section>
 
       {/* ============ 2. Filters (static: scrolls away with the page) ============ */}

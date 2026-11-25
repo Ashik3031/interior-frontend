@@ -577,12 +577,12 @@ export default function Hero() {
           <p className="font-serif text-[clamp(2.25rem,6vw,6.5rem)] font-light uppercase leading-[0.98] tracking-tight">
             Designed around you.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 [text-shadow:none] pointer-events-auto">
+          <div className="mt-8 flex items-center justify-center [text-shadow:none] pointer-events-auto">
             <Link
-              href="/portfolio"
-              className="group inline-flex items-center gap-3 rounded-full bg-warm-ivory px-8 py-4 font-sans text-sm font-medium text-deep-charcoal transition-colors duration-300 hover:bg-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+              href="/consultation"
+              className="group inline-flex items-center gap-3 rounded-full bg-[#BE9B59] px-8 py-4 font-sans text-sm font-medium uppercase tracking-wider text-deep-charcoal transition-all duration-300 hover:bg-[#d3b06e] shadow-lg shadow-[#BE9B59]/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
             >
-              Explore our portfolio
+              Book a consultation
               <svg
                 aria-hidden
                 viewBox="0 0 60 20"
@@ -593,12 +593,6 @@ export default function Hero() {
               >
                 <path d="M0 10h56M47 1l9 9-9 9" />
               </svg>
-            </Link>
-            <Link
-              href="/consultation"
-              className="border-b border-champagne-gold pb-1 font-sans text-sm font-medium text-warm-ivory transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
-            >
-              Book a consultation
             </Link>
           </div>
         </div>

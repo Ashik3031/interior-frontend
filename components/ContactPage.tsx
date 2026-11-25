@@ -238,7 +238,7 @@ export default function ContactPage() {
       <section
         data-theme="dark"
         aria-labelledby="contact-heading"
-        className="relative isolate overflow-hidden px-6 pb-16 pt-36 sm:px-10 lg:px-16 lg:pb-24 lg:pt-44 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
+        className="relative isolate overflow-hidden px-6 pb-20 pt-36 sm:px-10 sm:pb-28 sm:pt-44 lg:px-16 lg:pb-36 lg:pt-52 text-warm-ivory [text-shadow:0_2px_28px_rgba(0,0,0,0.4)]"
       >
         {/* Background Hero Image */}
         <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -251,10 +251,10 @@ export default function ContactPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Minimal dark overlay matching home hero section */}
+          {/* Dark overlay for optimal text contrast */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-black/15"
+            className="pointer-events-none absolute inset-0 bg-black/55"
           />
         </div>
 
@@ -283,34 +283,42 @@ export default function ContactPage() {
               </span>
             ))}
           </h1>
+        </div>
+      </section>
 
-          <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12">
-            <div className="max-w-xl font-sans text-base leading-relaxed text-warm-ivory/85 lg:col-span-5 lg:text-lg">
+      {/* ============ Contact Overview (Just Below Hero) ============ */}
+      <section
+        data-theme="light"
+        className="bg-[#FAF8F5] px-6 py-16 sm:px-10 lg:px-16 lg:py-20 text-deep-charcoal border-b border-deep-charcoal/10"
+      >
+        <div className="mx-auto max-w-[1400px]">
+          <div className="grid gap-10 lg:grid-cols-12">
+            <div className="max-w-xl font-sans text-base leading-relaxed text-deep-charcoal/80 lg:col-span-5 lg:text-lg">
               <p>
                 Whether planning a bespoke private residence, exploring a turnkey villa renovation or arranging a private material library consultation, our team is ready to guide you through every stage with personalised attention and complete discretion.
               </p>
 
               {/* Direct channels */}
-              <div className="mt-8 flex flex-wrap items-center gap-6 pt-6 border-t border-white/15 text-sm">
+              <div className="mt-8 flex flex-wrap items-center gap-6 pt-6 border-t border-deep-charcoal/15 text-sm">
                 <div>
-                  <span className="block text-xs uppercase tracking-wider text-warm-ivory/60">
+                  <span className="block text-xs uppercase tracking-wider text-deep-charcoal/50">
                     Direct Client Desk
                   </span>
                   <a
                     href={PHONE_LINK}
-                    className="font-serif text-xl text-warm-ivory hover:text-champagne-gold transition-colors"
+                    className="font-serif text-xl text-deep-charcoal hover:text-champagne-gold transition-colors"
                   >
                     {PHONE_DISPLAY}
                   </a>
                 </div>
-                <div className="h-8 w-px bg-white/15 hidden sm:block" />
+                <div className="h-8 w-px bg-deep-charcoal/15 hidden sm:block" />
                 <div>
-                  <span className="block text-xs uppercase tracking-wider text-warm-ivory/60">
+                  <span className="block text-xs uppercase tracking-wider text-deep-charcoal/50">
                     Confidential Concierge
                   </span>
                   <a
                     href={EMAIL_LINK}
-                    className="font-serif text-xl text-warm-ivory hover:text-champagne-gold transition-colors"
+                    className="font-serif text-xl text-deep-charcoal hover:text-champagne-gold transition-colors"
                   >
                     {EMAIL_CONCIERGE}
                   </a>
@@ -318,11 +326,11 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <dl className="grid grid-cols-1 gap-6 border-t border-white/15 pt-6 sm:grid-cols-3 lg:col-span-6 lg:col-start-7">
+            <dl className="grid grid-cols-1 gap-6 border-t border-deep-charcoal/15 pt-6 sm:grid-cols-3 lg:col-span-6 lg:col-start-7 lg:border-t-0 lg:pt-0">
               {HERO_FACTS.map((f) => (
                 <div key={f.label}>
-                  <dt className="font-sans text-sm text-warm-ivory/60">{f.label}</dt>
-                  <dd className="mt-2 font-serif text-xl sm:text-2xl text-warm-ivory">{f.value}</dd>
+                  <dt className="font-sans text-sm text-deep-charcoal/50">{f.label}</dt>
+                  <dd className="mt-2 font-serif text-xl sm:text-2xl text-deep-charcoal">{f.value}</dd>
                 </div>
               ))}
             </dl>

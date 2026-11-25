@@ -284,7 +284,7 @@ export default function Footer() {
           {/* Bottom Bar: Copyright, Socials, Back to Top */}
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs font-sans text-[#171816]/60">
             <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-center sm:text-left">
-              <span>&copy; 2026 RichMan Interiors FZ-LLC.</span>
+              <span>&copy; 2026 RichMan Interiors </span>
               <span className="hidden sm:inline text-[#171816]/20">•</span>
               <Link href="/cookie-policy" className="hover:text-[#BE9B59] transition-colors">
                 Cookie Policy
