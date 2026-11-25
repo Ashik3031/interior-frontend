@@ -369,7 +369,7 @@ export default function Apartments() {
                                 <a className="era-link" href="https://www.instagram.com/richmaninteriorsuae/" target="_blank" rel="noopener noreferrer">Instagram</a>
                                 <a className="era-link" href="https://www.facebook.com/richmaninterior/" target="_blank" rel="noopener noreferrer">Facebook</a>
                                 <a className="era-link" href="https://www.youtube.com/@RichmanInterior" target="_blank" rel="noopener noreferrer">YouTube</a>
-                                <a className="era-link" href="mailto:info@richmaninteriors.com">Email</a>
+                                <a className="era-link" href="mailto:info@richmaninteriors.ae">Email</a>
                             </div>
                         </div>
                         <div>

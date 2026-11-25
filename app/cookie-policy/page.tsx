@@ -98,7 +98,7 @@ export default function CookiePolicyPage() {
                 practice. This Cookie Policy explains how and why cookies, pixel tags, local storage,
                 and similar tracking technologies are used when you visit our website (
                 <Link href="/" className="underline text-deep-charcoal hover:text-champagne-gold">
-                  richmaninteriors.com
+                  richmaninterior.ae
                 </Link>
                 ) or interact with our digital atelier.
               </p>
@@ -272,10 +272,10 @@ export default function CookiePolicyPage() {
                 <p className="text-deep-charcoal/70">
                   Email:{" "}
                   <a
-                    href="mailto:info@richmaninteriors.com"
+                    href="mailto:info@richmaninteriors.ae"
                     className="text-deep-charcoal hover:text-champagne-gold"
                   >
-                    info@richmaninteriors.com
+                    info@richmaninteriors.ae
                   </a>
                 </p>
               </div>

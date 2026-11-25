@@ -87,7 +87,7 @@ export default function Footer() {
               </Link>
 
               <a
-                href="mailto:info@richmaninteriors.com"
+                href="mailto:info@richmaninteriors.ae"
                 className="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-xs tracking-[0.18em] font-medium uppercase text-[#171816] hover:text-[#BE9B59] border border-[#171816]/20 hover:border-[#BE9B59]/60 hover:bg-[#BE9B59]/5 transition-all duration-300"
               >
                 Direct Concierge
@@ -271,10 +271,10 @@ export default function Footer() {
                     +971 52 193 4887
                   </a>
                   <a
-                    href="mailto:info@richmaninteriors.com"
+                    href="mailto:info@richmaninteriors.ae"
                     className="hover:text-[#BE9B59] transition-colors"
                   >
-                    info@richmaninteriors.com
+                    info@richmaninteriors.ae
                   </a>
                 </p>
               </div>

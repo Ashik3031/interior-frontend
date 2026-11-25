@@ -864,8 +864,8 @@ export default function AboutPage() {
                         <div>
                             <dt className="text-deep-charcoal/45">Email</dt>
                             <dd className="mt-2 text-deep-charcoal">
-                                <a href="mailto:info@richmaninteriors.com" className="hover:text-champagne-gold transition-colors">
-                                    info@richmaninteriors.com
+                                <a href="mailto:info@richmaninteriors.ae" className="hover:text-champagne-gold transition-colors">
+                                    info@richmaninteriors.ae
                                 </a>
                             </dd>
                         </div>
