@@ -1,0 +1,40 @@
+
+name: Deploy Richman Interior to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy through SSH
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+
+            cd /var/www/interior-frontend
+
+            echo "Pulling latest code..."
+            git pull origin main
+
+            echo "Installing dependencies..."
+            npm ci
+
+            echo "Building Next.js application..."
+            npm run build
+
+            echo "Restarting Interior website..."
+            pm2 restart interior-web --update-env
+
+            echo "Deployment completed successfully!"
