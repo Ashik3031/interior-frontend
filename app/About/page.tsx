@@ -5,7 +5,7 @@ import AboutPage from "@/components/Aboutpage";
 export const metadata: Metadata = {
     title: "About | RichMan Interiors, Interior Design & Fit-Out Studio in Dubai",
     description:
-        "RichMan Interiors is a Dubai design and fit-out studio creating calm, personal homes and workplaces across the UAE, from the first sketch to the final styling.",
+        "RichMan Interiors is a Dubai design and fit-out studio creating calm, personal homes and workplaces across the UAE.",
 };
 
 export default function Page() {
