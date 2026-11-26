@@ -4,9 +4,6 @@ import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 import { NavigationProvider } from "@/context/NavigationContext";
-import { CookieConsentProvider } from "@/context/CookieConsentContext";
-import CookieConsentBanner from "@/components/cookie-consent/CookieConsentBanner";
-import CookiePreferencesModal from "@/components/cookie-consent/CookiePreferencesModal";
 import LiveChatConcierge from "@/components/LiveChatConcierge";
 import "./globals.css";
 
@@ -65,15 +62,11 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-white text-[#171816] font-sans antialiased selection:bg-[#BE9B59] selection:text-[#171816] overflow-x-hidden">
         <NavigationProvider>
-          <CookieConsentProvider>
-            <Navbar />
-            <ScrollProgress />
-            {children}
-            <Footer />
-            <LiveChatConcierge />
-            <CookieConsentBanner />
-            <CookiePreferencesModal />
-          </CookieConsentProvider>
+          <Navbar />
+          <ScrollProgress />
+          {children}
+          <Footer />
+          <LiveChatConcierge />
         </NavigationProvider>
       </body>
     </html>

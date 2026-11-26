@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { COOKIE_CATEGORIES } from "@/data/cookieData";
-import CookieSettingsButton from "@/components/cookie-consent/CookieSettingsButton";
 
 // Hero background image (Unsplash link - replace later with architectural photography)
 const COOKIE_HERO_BG =
@@ -68,13 +67,6 @@ export default function CookiePolicyPage() {
                 Jurisdiction
               </span>
               <span className="font-medium text-warm-ivory">Dubai, UAE &amp; Global Compliance</span>
-            </div>
-
-            <div>
-              <CookieSettingsButton className="inline-flex items-center gap-2 rounded-full bg-champagne-gold px-5 py-2 font-sans text-xs uppercase tracking-[0.16em] font-medium text-deep-charcoal transition-colors hover:bg-warm-ivory">
-                <span>Manage Preferences</span>
-                <span aria-hidden="true">&rarr;</span>
-              </CookieSettingsButton>
             </div>
           </div>
         </div>
@@ -205,16 +197,8 @@ export default function CookiePolicyPage() {
             <div className="space-y-4 text-base leading-relaxed text-deep-charcoal/80 font-light">
               <p>
                 You hold the right to decide whether to accept or reject non-essential cookies. You can
-                access and modify your consent parameters at any time using our dedicated preferences
-                console:
+                manage your cookie choices directly in your browser settings at any time.
               </p>
-
-              <div className="pt-2 pb-4">
-                <CookieSettingsButton className="inline-flex items-center gap-2 rounded-full bg-deep-charcoal px-7 py-3 font-sans text-xs uppercase tracking-[0.18em] font-medium text-warm-ivory hover:bg-champagne-gold hover:text-deep-charcoal transition-colors">
-                  <span>Open Cookie Preferences Panel</span>
-                  <span aria-hidden="true">&rarr;</span>
-                </CookieSettingsButton>
-              </div>
 
               <p>
                 Additionally, most modern browsers allow you to control cookies through browser settings.
@@ -272,10 +256,10 @@ export default function CookiePolicyPage() {
                 <p className="text-deep-charcoal/70">
                   Email:{" "}
                   <a
-                    href="mailto:info@richmaninteriors.ae"
+                    href="mailto:info@richmaninterior.ae"
                     className="text-deep-charcoal hover:text-champagne-gold"
                   >
-                    info@richmaninteriors.ae
+                    info@richmaninterior.ae
                   </a>
                 </p>
               </div>

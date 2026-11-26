@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ConsultationDialog from "./Consultationdialog";
-import CookieSettingsButton from "@/components/cookie-consent/CookieSettingsButton";
 
 export default function Footer() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -294,10 +293,10 @@ export default function Footer() {
                     +971 52 193 4887
                   </a>
                   <a
-                    href="mailto:info@richmaninteriors.ae"
+                    href="mailto:info@richmaninterior.ae"
                     className="hover:text-[#BE9B59] transition-colors"
                   >
-                    info@richmaninteriors.ae
+                    info@richmaninterior.ae
                   </a>
                 </p>
               </div>
@@ -312,8 +311,6 @@ export default function Footer() {
               <Link href="/cookie-policy" className="hover:text-[#BE9B59] transition-colors">
                 Cookie Policy
               </Link>
-              <span className="hidden sm:inline text-[#171816]/20">•</span>
-              <CookieSettingsButton />
               <span className="hidden sm:inline text-[#171816]/20">•</span>
               <span className="hover:text-[#BE9B59] transition-colors cursor-pointer">
                 Terms of Commission

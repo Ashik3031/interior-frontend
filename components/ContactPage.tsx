@@ -14,8 +14,8 @@ const CONTACT_HERO_BG =
 
 const PHONE_DISPLAY = "+971 52 193 4887";
 const PHONE_LINK = "tel:+971521934887";
-const EMAIL_CONCIERGE = "info@richmaninteriors.ae";
-const EMAIL_LINK = "mailto:info@richmaninteriors.ae";
+const EMAIL_CONCIERGE = "info@richmaninterior.ae";
+const EMAIL_LINK = "mailto:info@richmaninterior.ae";
 
 interface StudioLocation {
   id: string;
@@ -45,7 +45,7 @@ const STUDIOS: StudioLocation[] = [
     city: "Dubai, United Arab Emirates",
     hours: "Monday – Saturday: 9:00 AM – 7:00 PM (By appointment)",
     phone: "+971 52 193 4887",
-    email: "info@richmaninteriors.ae",
+    email: "info@richmaninterior.ae",
     valet: "The Tower Plaza Hotel VIP Valet & dedicated parking",
     mapQuery: "The+Tower+Plaza+Hotel+Dubai",
     mapUrl: "https://share.google/065EEIjbEAjtDciRe",
@@ -66,28 +66,28 @@ const DIRECT_CHANNELS = [
     role: "Private Client Director",
     scope: "Villa Estates, Penthouses & Private Residences",
     desc: "Direct partner oversight for signature residential commissions, turnkey renovations, and bespoke architectural interior architecture.",
-    email: "info@richmaninteriors.ae",
+    email: "info@richmaninterior.ae",
     phone: "+971 52 193 4887",
   },
   {
     role: "Technical & Fit-Out Director",
     scope: "MEP Execution, Municipality & Approvals",
     desc: "In-house engineering, Dubai Municipality / DDA / Civil Defence permit coordination, structural fit-out, and site execution.",
-    email: "info@richmaninteriors.ae",
+    email: "info@richmaninterior.ae",
     phone: "+971 52 193 4887",
   },
   {
     role: "Material & Joinery Procurement",
     scope: "Stone Quarries, French Oak & Bespoke Brass",
     desc: "Direct quarry sourcing in Carrara and Tivoli, European millwork, custom bronze casting, and master artisan trade partnerships.",
-    email: "info@richmaninteriors.ae",
+    email: "info@richmaninterior.ae",
     phone: "+971 52 193 4887",
   },
   {
     role: "Press & Communications",
     scope: "Monograph Publications & Media Inquiries",
     desc: "High-resolution architectural photography, press dossiers, editorial interviews, and design monograph features.",
-    email: "info@richmaninteriors.ae",
+    email: "info@richmaninterior.ae",
     phone: "+971 52 193 4887",
   },
 ];
