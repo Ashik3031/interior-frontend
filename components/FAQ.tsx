@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 interface FAQItem {
   id: string;
@@ -37,7 +38,7 @@ const FAQ_ITEMS: FAQItem[] = [
     no: "04",
     question: "What happens in the first consultation?",
     answer:
-      "It is a relaxed conversation, at your home or in our studio. We talk about how you live, what you want and a rough budget, then outline a scope for the project before any commitment.",
+      "It is a relaxed conversation, at your home or at our atelier. We talk about how you live, what you want and a rough budget, then outline a scope for the project before any commitment.",
   },
   {
     id: "international",
@@ -170,8 +171,8 @@ export default function FAQ() {
 
 function ContactLink() {
   return (
-    <a
-      href="#contact"
+    <Link
+      href="/contact"
       className="group mt-3 inline-flex items-center gap-3 border-b border-champagne-gold pb-1 font-sans text-sm text-deep-charcoal transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
     >
       Talk to us
@@ -185,6 +186,6 @@ function ContactLink() {
       >
         <path d="M1 6h13M10 1l5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-    </a>
+    </Link>
   );
 }

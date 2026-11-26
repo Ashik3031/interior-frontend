@@ -65,7 +65,6 @@ const LOCATIONS_OPTIONS = [
   "Downtown Dubai / DIFC",
   "Jumeirah Bay Island",
   "Al Barari",
-  "Abu Dhabi (Saadiyat / Al Maryah)",
   "Other UAE / International",
 ];
 
@@ -83,7 +82,7 @@ const WHATSAPP_NUMBER = "971521934887";
 /*  Calendar Slot Engine (Matches Consultation Page)                  */
 /* ------------------------------------------------------------------ */
 
-const OPEN_DAYS = [0, 1, 2, 3, 4]; // Sunday to Thursday (0 = Sunday)
+const OPEN_DAYS = [0, 1, 2, 3, 4, 5, 6]; // Sunday to Saturday (all 7 days open)
 const DAYS_AHEAD = 14;
 const LEAD_MINUTES = 120; // earliest bookable time today is now + 2 hours
 const SLOT_TIMES = Array.from({ length: 16 }, (_, i) => {

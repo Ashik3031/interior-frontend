@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import ConsultationDialog from "./Consultationdialog";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -73,7 +73,6 @@ const WIN_CLASS = {
 export default function ScrollHero() {
     const track = useRef<HTMLElement>(null);
     const wordRef = useRef<HTMLSpanElement>(null);
-    const [open, setOpen] = useState(false);
 
     // Fit the big word to ~94% of the viewport width, whatever font you use.
     useEffect(() => {
@@ -338,10 +337,9 @@ export default function ScrollHero() {
                     </div>
 
                     {/* Circular call-to-action */}
-                    <button
+                        <Link
+                        href="/consultation"
                         data-cta
-                        type="button"
-                        onClick={() => setOpen(true)}
                         className="group absolute left-[62.7vw] top-[59.6svh] z-[7] flex aspect-square w-[clamp(150px,13.1vw,260px)] cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/40 text-center text-[13px] font-bold uppercase leading-[1.35] tracking-[.04em] text-white opacity-0 backdrop-blur-[6px] transition-all [text-shadow:0_2px_14px_rgba(0,0,0,0.9)] hover:scale-105 hover:bg-black/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white max-sm:bottom-[12dvh] max-sm:left-auto max-sm:right-[6vw] max-sm:top-auto max-sm:w-[clamp(110px,34vw,140px)] max-sm:text-[11px]"
                     >
                         {/* Thin ring, strong at top-left and bottom-right, fading in between */}
@@ -360,11 +358,9 @@ export default function ScrollHero() {
                             <span>Book a call</span>
                             <span>now</span>
                         </span>
-                    </button>
-                </div>
-            </section>
-
-            <ConsultationDialog open={open} onClose={() => setOpen(false)} />
+                </Link>
+            </div>
+        </section >
         </>
     );
 }

@@ -27,7 +27,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "RichMan Interiors | Bespoke Luxury Interior Design & Renovation Dubai",
   description:
-    "RichMan Interiors is a premier luxury interior design and renovation studio based in Dubai, UAE. Thoughtfully designed interiors, timeless materials, and exceptional spaces.",
+    "RichMan Interiors is a premier luxury interior design and turnkey fit-out company based in Dubai, UAE. Thoughtfully designed interiors, timeless materials, and exceptional spaces.",
   keywords: [
     "RichMan Interiors",
     "Luxury Interior Design Dubai",

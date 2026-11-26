@@ -373,7 +373,7 @@ export default function Apartments() {
                             </div>
                         </div>
                         <div>
-                            <p className="era-eyebrow">Studio &amp; Office</p>
+                            <p className="era-eyebrow">Atelier &amp; Office</p>
                             <a className="era-link mt-3 text-sm" href="https://share.google/065EEIjbEAjtDciRe">The Tower Plaza Hotel - Office 2004 &amp; 2003A - Sheikh Zayed Rd - Trade Center First - Dubai - United Arab Emirates</a>
                         </div>
                         <div className={`${SERIF} text-6xl font-light md:text-right`}>RichMan Interiors.</div>

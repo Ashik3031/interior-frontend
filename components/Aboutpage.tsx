@@ -19,7 +19,7 @@ const useIsoLayoutEffect =
 
 // Hero background image (Unsplash link - replace later with studio photography)
 const ABOUT_HERO_BG =
-    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=85";
+    "https://res.cloudinary.com/dugtxybef/image/upload/v1795689156/Sunlit_Coastal_Cream_Bedroom_pxlcg5.png";
 
 const IMG = {
     wide: "https://res.cloudinary.com/dugtxybef/image/upload/v1791982249/pexels-david-vinicius-562259225-28652353_ynv2xo.jpg",
@@ -38,7 +38,7 @@ const HERO_LINES = [
 ];
 
 const FACTS = [
-    { label: "Studio", value: "Dubai, UAE" },
+    { label: "Atelier", value: "Dubai, UAE" },
     { label: "Practice", value: "Turnkey Interiors" },
     { label: "Team", value: "24 Specialists" },
 ];
@@ -47,7 +47,7 @@ const STATS = [
     { value: 100, suffix: "%", label: "Turnkey delivery & bespoke craft" },
     { value: 250, suffix: "+", label: "Homes and spaces delivered" },
     { value: 24, suffix: "", label: "Designers, makers and site managers" },
-    { value: 2, suffix: "", label: "Emirates: Dubai and Abu Dhabi" },
+    { value: 12, suffix: "+", label: "Prime Dubai communities served" },
 ];
 
 const BELIEFS = [
@@ -77,41 +77,20 @@ const BELIEFS = [
     },
 ];
 
-const PROJECTS = [
-    {
-        img: IMG.p1,
-        place: "Emirates Hills",
-        title: "The Courtyard Villa",
-        meta: "Private Villa",
-        offset: "",
-    },
-    {
-        img: IMG.p2,
-        place: "Palm Jumeirah",
-        title: "Sandstone Residence",
-        meta: "Beachfront Residence",
-        offset: "lg:mt-20",
-    },
-    {
-        img: IMG.p3,
-        place: "Downtown Dubai",
-        title: "Skyline Penthouse",
-        meta: "Skyline Penthouse",
-        offset: "lg:mt-8",
-    },
-];
-
-// Dummy distances from the studio. `x`/`y` place the dot on the schematic map (600 x 520);
+// Dummy distances from our atelier. `x`/`y` place the dot on the schematic map (600 x 520);
 // `lx`/`ly`/`anchor` position its label.
 const PLACES = [
-    { name: "Palm Jumeirah", area: "Dubai", min: "25 min", x: 215, y: 335, lx: -14, ly: 4, anchor: "end" },
-    { name: "Emirates Hills", area: "Dubai", min: "20 min", x: 285, y: 415, lx: 14, ly: 4, anchor: "start" },
-    { name: "Dubai Hills", area: "Dubai", min: "15 min", x: 400, y: 335, lx: 14, ly: 20, anchor: "start" },
-    { name: "Jumeirah Bay", area: "Dubai", min: "15 min", x: 345, y: 270, lx: -14, ly: 4, anchor: "end" },
-    { name: "Downtown", area: "Dubai", min: "10 min", x: 440, y: 255, lx: 14, ly: -8, anchor: "start" },
-    { name: "Saadiyat Island", area: "Abu Dhabi", min: "80 min", x: 70, y: 455, lx: 12, ly: -12, anchor: "start" },
+    { name: "Jumeirah Park", area: "Dubai", min: "22 min", x: 185, y: 410, lx: -14, ly: 4, anchor: "end" },
+    { name: "Arabian Ranches", area: "Dubai", min: "25 min", x: 430, y: 435, lx: 14, ly: 4, anchor: "start" },
+    { name: "The Meadows", area: "Dubai", min: "20 min", x: 250, y: 440, lx: -14, ly: 4, anchor: "end" },
+    { name: "The Lakes", area: "Dubai", min: "18 min", x: 285, y: 385, lx: 14, ly: -6, anchor: "start" },
+    { name: "The Springs", area: "Dubai", min: "22 min", x: 290, y: 475, lx: 14, ly: 4, anchor: "start" },
+    { name: "Jumeirah Islands", area: "Dubai", min: "20 min", x: 215, y: 360, lx: -14, ly: 4, anchor: "end" },
+    { name: "Dubai Hills Estate", area: "Dubai", min: "15 min", x: 420, y: 350, lx: 14, ly: 4, anchor: "start" },
+    { name: "Palm Jumeirah", area: "Dubai", min: "25 min", x: 190, y: 280, lx: -12, ly: -4, anchor: "end" },
+    { name: "Emirates Hills", area: "Dubai", min: "20 min", x: 310, y: 420, lx: 14, ly: 4, anchor: "start" },
 ];
-const STUDIO = { x: 385, y: 292 };
+const ATELIER = { x: 385, y: 292 };
 
 const TEAM = [
     { name: "Founder", role: "Principal Designer", initials: "RM" },
@@ -358,11 +337,11 @@ function WhereWeWork() {
                         id="where-heading"
                         className="mt-6 font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl"
                     >
-                        Across Dubai and Abu Dhabi
+                        Across Dubai
                     </h2>
                     {/* TODO: confirm the studio location and the travel times */}
                     <p className="mt-8 max-w-sm font-sans text-base leading-relaxed text-deep-charcoal/70">
-                        Our studio sits at The Tower Plaza Hotel on Sheikh Zayed Road (Trade Center First), connected to Dubai&apos;s prime design hubs, workshops and prestigious communities. Most of our projects are within easy reach.
+                        Our atelier sits at The Tower Plaza Hotel on Sheikh Zayed Road (Trade Center First), connected to Dubai&apos;s prime design hubs, workshops and prestigious communities. Most of our projects are within easy reach.
                     </p>
 
                     <ul
@@ -378,19 +357,19 @@ function WhereWeWork() {
                                     onMouseEnter={() => setActive(i)}
                                     onFocus={() => setActive(i)}
                                     onBlur={() => setActive(null)}
-                                    className="flex cursor-default items-baseline justify-between gap-6 border-b border-deep-charcoal/15 py-5 outline-none focus-visible:bg-deep-charcoal/[0.03]"
+                                    className="flex cursor-default items-baseline justify-between gap-4 border-b border-deep-charcoal/15 py-3.5 outline-none focus-visible:bg-deep-charcoal/[0.03]"
                                 >
                                     <span
-                                        className={`font-serif text-2xl font-light transition-all duration-500 sm:text-3xl ${dim ? "text-deep-charcoal/30" : "text-deep-charcoal"
+                                        className={`font-serif text-xl font-light transition-all duration-500 sm:text-2xl ${dim ? "text-deep-charcoal/30" : "text-deep-charcoal"
                                             } ${active === i ? "translate-x-2" : ""}`}
                                     >
                                         {pl.name}
-                                        <span className="ml-3 font-sans text-sm text-deep-charcoal/45">
+                                        <span className="ml-2.5 font-sans text-xs text-deep-charcoal/45">
                                             {pl.area}
                                         </span>
                                     </span>
                                     <span
-                                        className={`font-sans text-sm tabular-nums transition-colors duration-500 ${dim ? "text-deep-charcoal/25" : "text-deep-charcoal/60"
+                                        className={`font-sans text-xs tabular-nums transition-colors duration-500 ${dim ? "text-deep-charcoal/25" : "text-deep-charcoal/60"
                                             }`}
                                     >
                                         {pl.min}
@@ -407,7 +386,7 @@ function WhereWeWork() {
                         <svg
                             viewBox="0 0 600 520"
                             role="img"
-                            aria-label="Schematic map of the Dubai and Abu Dhabi coast with our project areas"
+                            aria-label="Schematic map of the Dubai coast with our project areas"
                             className="h-auto w-full text-deep-charcoal"
                         >
                             {/* Sea label */}
@@ -435,11 +414,11 @@ function WhereWeWork() {
                                 className="motion-reduce:!transition-none"
                             />
 
-                            {/* Route from the studio to the hovered area */}
+                            {/* Route from the atelier to the hovered area */}
                             {target && (
                                 <line
-                                    x1={STUDIO.x}
-                                    y1={STUDIO.y}
+                                    x1={ATELIER.x}
+                                    y1={ATELIER.y}
                                     x2={target.x}
                                     y2={target.y}
                                     stroke="#BE9B59"
@@ -485,7 +464,7 @@ function WhereWeWork() {
                                             y={pl.y + pl.ly}
                                             textAnchor={pl.anchor as "start" | "end"}
                                             className="fill-current font-sans"
-                                            fontSize="15"
+                                            fontSize="13"
                                             fontWeight={on ? 600 : 400}
                                         >
                                             {pl.name}
@@ -494,26 +473,26 @@ function WhereWeWork() {
                                 );
                             })}
 
-                            {/* Studio marker */}
+                            {/* Atelier marker */}
                             <g>
                                 <circle
-                                    cx={STUDIO.x}
-                                    cy={STUDIO.y}
+                                    cx={ATELIER.x}
+                                    cy={ATELIER.y}
                                     r="11"
                                     fill="none"
                                     stroke="currentColor"
                                     strokeWidth="1.5"
                                 />
-                                <circle cx={STUDIO.x} cy={STUDIO.y} r="4" fill="#BE9B59" />
+                                <circle cx={ATELIER.x} cy={ATELIER.y} r="4" fill="#BE9B59" />
                                 <text
-                                    x={STUDIO.x - 18}
-                                    y={STUDIO.y + 26}
+                                    x={ATELIER.x - 18}
+                                    y={ATELIER.y + 26}
                                     textAnchor="end"
                                     className="fill-current font-sans"
                                     fontSize="14"
                                     fontWeight={600}
                                 >
-                                    Our studio, Sheikh Zayed Rd
+                                    RichMan Interiors, Sheikh Zayed Rd
                                 </text>
                             </g>
                         </svg>
@@ -648,9 +627,9 @@ export default function AboutPage() {
                 <div className="mx-auto max-w-[1600px]">
                     <div className="grid gap-10 lg:grid-cols-12">
                         <p className="max-w-md font-sans text-base leading-relaxed text-deep-charcoal/80 lg:col-span-5 lg:text-lg">
-                            We are a Dubai design and fit-out studio. We create calm, personal
-                            homes and workplaces across the UAE, and we look after every step
-                            from the first sketch to the final styling.
+                            We are a premier luxury interior design company in Dubai. We craft bespoke,
+                            refined residences and exceptional living spaces, managing every step from
+                            architectural concept to turnkey execution and white-glove styling.
                         </p>
 
                         <dl className="grid grid-cols-1 gap-6 border-t border-deep-charcoal/15 pt-6 sm:grid-cols-3 lg:col-span-6 lg:col-start-7 lg:border-t-0 lg:pt-0">
@@ -693,14 +672,14 @@ export default function AboutPage() {
                         <div className="mt-12 max-w-xl space-y-6 font-sans text-base leading-relaxed text-deep-charcoal/75">
                             <p>
                                 Dubai moves fast. Briefs change, skylines shift and many clients
-                                split their lives between two countries. We built the studio
+                                split their lives between two countries. We built our practice
                                 around that reality, with one team that handles design, approvals,
                                 joinery and installation, so projects stay calm even when the city
                                 is not.
                             </p>
                             <p>
-                                Today we work across Dubai and Abu Dhabi on villas, penthouses and
-                                a small number of commercial spaces. Every project still starts
+                                Today we work across Dubai on private villas, penthouses and
+                                curated commercial spaces. Every project still starts
                                 the same way: we sit in the space, watch how the light moves and
                                 listen before we draw.
                             </p>
@@ -744,62 +723,6 @@ export default function AboutPage() {
             {/* ============ 5. Beliefs (dark) ============ */}
             <Beliefs />
 
-            {/* ============ 6. Selected work ============ */}
-            <section
-                data-theme="light"
-                aria-labelledby="work-heading"
-                className="bg-white px-6 py-24 sm:px-10 lg:px-16 lg:py-40"
-            >
-                <div className="mx-auto max-w-[1600px]">
-                    <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
-                        <div>
-                            <Label>Selected work</Label>
-                            <h2
-                                id="work-heading"
-                                className="mt-6 font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
-                            >
-                                Recent homes
-                                <sup className="ml-2 align-super font-sans text-[.2em] tracking-normal text-deep-charcoal/50">
-                                    (0{PROJECTS.length})
-                                </sup>
-                            </h2>
-                        </div>
-                        <Link
-                            href="/portfolio"
-                            className="group inline-flex w-fit items-center gap-3 border-b border-champagne-gold pb-1 font-sans text-sm font-medium transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
-                        >
-                            See all work
-                            <Arrow />
-                        </Link>
-                    </div>
-
-                    <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:mt-24 lg:grid-cols-3 lg:gap-8">
-                        {PROJECTS.map((p) => (
-                            <article key={p.title} className={`group ${p.offset}`}>
-                                <div className="relative aspect-[4/5] overflow-hidden rounded-[4px] bg-sand-beige">
-                                    <Image
-                                        src={p.img}
-                                        alt={`${p.title}, ${p.place}`}
-                                        fill
-                                        sizes="(min-width:1024px) 32vw, (min-width:640px) 50vw, 100vw"
-                                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                    />
-                                </div>
-                                <p className="mt-5 font-sans text-sm text-deep-charcoal/55">
-                                    {p.place}
-                                </p>
-                                <h3 className="mt-1 font-serif text-2xl font-light sm:text-3xl">
-                                    {p.title}
-                                </h3>
-                                <p className="mt-1 font-sans text-sm text-deep-charcoal/55">
-                                    {p.meta}
-                                </p>
-                            </article>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* ============ 7. Where we work ============ */}
             <WhereWeWork />
 
@@ -838,10 +761,10 @@ export default function AboutPage() {
                         ))}
                     </ul>
 
-                    {/* Studio details */}
+                    {/* Atelier details */}
                     <dl className="mt-16 grid gap-8 font-sans text-sm text-deep-charcoal/70 sm:grid-cols-3">
                         <div>
-                            <dt className="text-deep-charcoal/45">Studio</dt>
+                            <dt className="text-deep-charcoal/45">Atelier</dt>
                             <dd className="mt-2 text-deep-charcoal">
                                 <a
                                     href="https://share.google/065EEIjbEAjtDciRe"

@@ -236,7 +236,7 @@ export default function About() {
                     <div className="mt-10 flex max-w-xl flex-col items-start gap-6 sm:mt-12 sm:flex-row sm:items-center sm:gap-9 lg:mt-20">
                         <Badge />
                         <p className="font-sans text-base leading-relaxed text-deep-charcoal/75">
-                            RichMan Interiors is a Dubai design and fit-out studio. We pair
+                            RichMan Interiors is a Dubai luxury interior design and fit-out company. We pair
                             considered design with exceptional craftsmanship, so each home
                             or workplace feels calm, personal and finished to the last
                             detail.

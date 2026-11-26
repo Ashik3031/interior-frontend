@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import AboutPage from "@/components/Aboutpage";
 
 export const metadata: Metadata = {
-    title: "About | RichMan Interiors, Interior Design & Fit-Out Studio in Dubai",
+    title: "About | RichMan Interiors, Luxury Interior Design & Fit-Out in Dubai",
     description:
-        "RichMan Interiors is a Dubai design and fit-out studio creating calm, personal homes and workplaces across the UAE.",
+        "RichMan Interiors is a Dubai luxury interior design and fit-out company creating calm, personal homes and exceptional spaces across Dubai.",
 };
 
 export default function Page() {

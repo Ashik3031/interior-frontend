@@ -10,7 +10,7 @@ import Link from "next/link";
 
 // Hero background image (Unsplash link - replace later with atelier photography)
 const CONTACT_HERO_BG =
-  "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2400&q=85";
+  "https://res.cloudinary.com/dugtxybef/image/upload/v1795689477/Sunlit_Coastal_Marble_Kitchen_lkprf8.png";
 
 const PHONE_DISPLAY = "+971 52 193 4887";
 const PHONE_LINK = "tel:+971521934887";
@@ -38,7 +38,7 @@ const STUDIOS: StudioLocation[] = [
   {
     id: "tower-plaza",
     name: "The Tower Plaza Hotel Atelier",
-    tagline: "Primary Design Studio, Executive Suites & Material Atelier",
+    tagline: "Primary Design Atelier, Executive Suites & Material Library",
     address:
       "The Tower Plaza Hotel - Office 2004 & 2003A - Sheikh Zayed Rd - Trade Center First - Dubai - United Arab Emirates",
     district: "Trade Center First, Sheikh Zayed Rd",
@@ -101,12 +101,12 @@ const FAQS = [
   {
     question: "Do you undertake residential commissions outside Dubai?",
     answer:
-      "Yes. While Dubai and Abu Dhabi represent the core of our turnkey fit-out commissions, our design and project management teams regularly steward private villas, estates, and penthouses in Riyadh, Doha, London, and Southern Europe.",
+      "Yes. While Dubai represents the core of our turnkey fit-out commissions, our design and project management teams regularly steward private villas, estates, and penthouses across prestigious destinations.",
   },
   {
     question: "How quickly can an initial on-site walkthrough be scheduled?",
     answer:
-      "Following your introductory consultation or inquiry review, an on-site walkthrough with a Design Director is typically scheduled within 48 to 72 hours across Dubai and Abu Dhabi.",
+      "Following your introductory consultation or inquiry review, an on-site walkthrough with a Design Director is typically scheduled within 48 to 72 hours across Dubai.",
   },
   {
     question: "How do you handle confidential projects and non-disclosure agreements?",
@@ -664,10 +664,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ============ 3. PHYSICAL STUDIOS & WORKSHOPS (Off-White) ============ */}
+      {/* ============ 3. PHYSICAL ATELIER & WORKSHOPS (Off-White) ============ */}
       <section
         data-theme="light"
-        aria-labelledby="studios-heading"
+        aria-labelledby="ateliers-heading"
         className="bg-[#FAF8F5] px-6 py-24 sm:px-10 lg:px-16 lg:py-40 border-t border-deep-charcoal/10"
       >
         <div className="mx-auto max-w-[1400px]">
@@ -676,10 +676,10 @@ export default function ContactPage() {
             Physical presence
           </p>
           <h2
-            id="studios-heading"
+            id="ateliers-heading"
             className="mt-6 max-w-4xl font-serif text-5xl font-light uppercase leading-[0.98] tracking-tight sm:text-6xl lg:text-8xl"
           >
-            Our studios, workshops &amp; suites
+            Our atelier, workshops &amp; suites
           </h2>
           <p className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-deep-charcoal/75 lg:text-lg">
             Experience our material library firsthand and review architectural drawings with our partners in environments conceived for clarity and contemplation.

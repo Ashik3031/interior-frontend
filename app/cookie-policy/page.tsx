@@ -119,8 +119,8 @@ export default function CookiePolicyPage() {
               <p>
                 Cookies are small alphanumeric text files stored on your computer, tablet, or mobile device
                 by web browsers when you visit a website. They serve as reliable digital memory: recognizing
-                your browser across visits, authenticating secure sessions, preserving language and studio
-                location preferences, and assessing website performance without accessing personal documents.
+                your browser across visits, authenticating secure sessions, preserving language and appointment
+                venue preferences, and assessing website performance without accessing personal documents.
               </p>
               <p>
                 Cookies set by the website owner (RichMan Interiors) are called &ldquo;first-party cookies&rdquo;.

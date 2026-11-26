@@ -51,12 +51,12 @@ export const COOKIE_CATEGORIES: CookieCategoryDetail[] = [
     badge: "Optional",
     required: false,
     description:
-      "Functional cookies enable enriched capabilities and bespoke personalization, such as remembering your preferred studio location (Al Quoz Atelier vs Downtown Suite), preserving consultation form drafts, and maintaining video stream preferences.",
+      "Functional cookies enable enriched capabilities and bespoke personalization, such as remembering your preferred appointment venue, preserving consultation form drafts, and maintaining video stream preferences.",
     examples: [
       {
-        name: "richman_studio_pref",
+        name: "richman_venue_pref",
         provider: "RichMan Interiors",
-        purpose: "Remembers your preferred studio location and appointment venue preferences.",
+        purpose: "Remembers your preferred appointment venue and consultation preferences.",
         retention: "6 months",
       },
       {

@@ -628,8 +628,7 @@ export default function PortfolioPage() {
       >
         <div className="mx-auto max-w-[1600px]">
           <p className="max-w-2xl font-sans text-base leading-relaxed text-deep-charcoal/80 lg:text-lg">
-            Villas, penthouses and renovations designed and delivered across Dubai
-            and Abu Dhabi, from the first sketch to the final styling.
+            Villas, penthouses and renovations designed and delivered across Dubai, from the first sketch to the final styling.
           </p>
         </div>
       </section>
@@ -740,7 +739,7 @@ export default function PortfolioPage() {
           <ul className="mt-16 border-t border-deep-charcoal/15 lg:mt-24">
             {[
               { label: "Book a consultation", href: "/consultation" },
-              { label: "Contact the studio", href: "/contact" },
+              { label: "Contact our team", href: "/contact" },
             ].map((l) => (
               <li key={l.href} className="border-b border-deep-charcoal/15">
                 <Link

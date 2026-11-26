@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -543,12 +544,12 @@ export default function DesignProcess() {
                         <p className="relative z-10 max-w-xl font-serif text-4xl font-light uppercase leading-tight tracking-tight sm:text-5xl [.hs-on_&]:text-[4.5vw]">
                             A short conversation is enough to start with step one.
                         </p>
-                        <a
-                            href="#contact"
+                        <Link
+                            href="/consultation"
                             className="relative z-10 flex h-56 w-56 shrink-0 items-center justify-center rounded-full border border-deep-charcoal/20 p-8 text-center font-sans text-sm font-medium text-deep-charcoal transition-colors duration-300 hover:bg-deep-charcoal hover:text-warm-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold [.hs-on_&]:h-64 [.hs-on_&]:w-64"
                         >
                             Schedule a consultation
-                        </a>
+                        </Link>
                     </div>
                 </div>
 

@@ -37,7 +37,6 @@ const LOCATIONS = [
   "Jumeirah Bay Island",
   "Downtown Dubai / DIFC",
   "Al Barari",
-  "Abu Dhabi (Al Maryah / Saadiyat)",
   "Other UAE / international",
 ];
 
@@ -50,7 +49,7 @@ const MEETING_FORMATS = [
   {
     id: "onsite",
     title: "At your property",
-    desc: "Our Design Director visits you anywhere in Dubai or Abu Dhabi.",
+    desc: "Our Design Director visits you anywhere in Dubai.",
   },
   {
     id: "virtual",
@@ -62,7 +61,7 @@ const MEETING_FORMATS = [
 /* ---- Booking calendar ----
    TODO: connect to your real calendar. `isBooked` below is demo data only. */
 const SESSION_MINUTES = 45;
-const OPEN_DAYS = [0, 1, 2, 3, 4]; // Sunday to Thursday (0 = Sunday)
+const OPEN_DAYS = [0, 1, 2, 3, 4, 5, 6]; // Sunday to Saturday (all 7 days open)
 const DAYS_AHEAD = 14;
 const LEAD_MINUTES = 120; // earliest bookable time today is now + 2 hours
 const SLOT_TIMES = Array.from({ length: 16 }, (_, i) => {
@@ -709,8 +708,7 @@ export default function ConsultationPage() {
                       </div>
                     )}
                     <p className="mt-2 font-sans text-xs text-deep-charcoal/60">
-                      {/* TODO: confirm opening days */}
-                      Open Sunday to Thursday.
+                      Available 7 days a week, Sunday to Saturday.
                     </p>
                   </div>
 
@@ -975,7 +973,7 @@ export default function ConsultationPage() {
         <div className="mx-auto max-w-[1400px]">
           <p className="flex items-center gap-2.5 font-sans text-sm text-deep-charcoal/70">
             <span className="h-2 w-2 rounded-full bg-champagne-gold" />
-            In the studio
+            At our atelier
           </p>
           <h2
             id="materials-heading"
@@ -1023,7 +1021,7 @@ export default function ConsultationPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-deep-charcoal/45">Studio</dt>
+                <dt className="text-deep-charcoal/45">Atelier</dt>
                 <dd className="mt-2 leading-relaxed text-deep-charcoal">
                   <a
                     href="https://share.google/065EEIjbEAjtDciRe"

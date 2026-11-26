@@ -66,7 +66,7 @@ export default function Footer() {
                 Commissions &amp; Inquiries
               </span>
               <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-light text-[#171816] leading-[1.15] max-w-2xl">
-                Ready to craft a home that reflects quiet distinction?
+                Ready to craft a luxury interior that reflects quiet distinction?
               </h2>
             </div>
             <div className="lg:col-span-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 lg:justify-end">
@@ -87,10 +87,15 @@ export default function Footer() {
               </Link>
 
               <a
-                href="mailto:info@richmaninteriors.ae"
-                className="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-xs tracking-[0.18em] font-medium uppercase text-[#171816] hover:text-[#BE9B59] border border-[#171816]/20 hover:border-[#BE9B59]/60 hover:bg-[#BE9B59]/5 transition-all duration-300"
+                href="https://wa.me/971521934887"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-xs tracking-[0.18em] font-medium uppercase text-[#171816] hover:text-[#BE9B59] border border-[#171816]/20 hover:border-[#BE9B59]/60 hover:bg-[#BE9B59]/5 transition-all duration-300"
               >
-                Direct Concierge
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.697c1.004.551 1.766.818 2.806.818 3.18 0 5.767-2.587 5.767-5.766.001-3.182-2.585-5.768-5.767-5.768zm0-1.745c4.148 0 7.513 3.364 7.513 7.513 0 4.149-3.365 7.514-7.513 7.514-1.229 0-2.383-.306-3.411-.861l-4.62 1.212 1.233-4.502c-.657-1.077-1.015-2.316-1.015-3.613 0-4.149 3.365-7.513 7.513-7.513zm-1.848 4.298c-.144-.32-.296-.327-.433-.332-.112-.005-.24-.005-.368-.005s-.336.048-.512.24-.672.656-.672 1.6c0 .944.688 1.856.784 1.984.096.128 1.328 2.08 3.264 2.88 1.609.664 1.936.532 2.288.499.352-.032 1.136-.464 1.296-.912.16-.448.16-.832.112-.912-.048-.08-.176-.128-.368-.224s-1.136-.56-1.312-.624-.304-.096-.432.096c-.128.192-.496.624-.608.752s-.224.144-.416.048c-.192-.096-.811-.299-1.545-.953-.571-.51-1.004-1.144-1.116-1.336s-.012-.297.084-.393c.087-.086.192-.224.288-.336.096-.112.128-.192.192-.32.064-.128.032-.24-.016-.336-.048-.096-.426-1.047-.6-1.442z" />
+                </svg>
+                <span>WhatsApp</span>
               </a>
             </div>
           </div>
@@ -134,9 +139,27 @@ export default function Footer() {
                 </Link>
 
                 <p className="text-sm font-sans text-[#171816]/70 leading-relaxed max-w-sm">
-                  Premier interior architecture and turnkey renovation studio based in Dubai.
+                  Premier interior architecture and turnkey fit-out company based in Dubai.
                   Creating timeless, considered sanctuaries for villas, penthouses, and private estates.
                 </p>
+
+                <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-sans text-[#171816]/75">
+                  <Link href="/about" className="hover:text-[#BE9B59] transition-colors font-medium">
+                    About
+                  </Link>
+                  <span className="text-[#171816]/30">•</span>
+                  <Link href="/portfolio" className="hover:text-[#BE9B59] transition-colors font-medium">
+                    Portfolio
+                  </Link>
+                  <span className="text-[#171816]/30">•</span>
+                  <Link href="/consultation" className="hover:text-[#BE9B59] transition-colors font-medium">
+                    Consultation
+                  </Link>
+                  <span className="text-[#171816]/30">•</span>
+                  <Link href="/contact" className="hover:text-[#BE9B59] transition-colors font-medium">
+                    Contact
+                  </Link>
+                </div>
               </div>
 
               {/* Atelier Status & Time */}
@@ -146,7 +169,7 @@ export default function Footer() {
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#BE9B59]" />
                 </span>
                 <span>
-                  Dubai Studio • <span className="text-[#171816] font-medium">{currentTime || "GST"}</span> (GMT+4)
+                  Dubai Atelier • <span className="text-[#171816] font-medium">{currentTime || "GST"}</span> (GMT+4)
                 </span>
               </div>
             </div>
@@ -251,7 +274,7 @@ export default function Footer() {
                 </p>
               )}
 
-              {/* Studio Contact */}
+              {/* Atelier Contact */}
               <div className="space-y-1.5 text-xs font-sans text-[#171816]/60 pt-2 border-t border-[#171816]/10">
                 <a
                   href="https://share.google/065EEIjbEAjtDciRe"
@@ -291,10 +314,6 @@ export default function Footer() {
               </Link>
               <span className="hidden sm:inline text-[#171816]/20">•</span>
               <CookieSettingsButton />
-              <span className="hidden sm:inline text-[#171816]/20">•</span>
-              <span className="hover:text-[#BE9B59] transition-colors cursor-pointer">
-                Privacy &amp; Data Policy
-              </span>
               <span className="hidden sm:inline text-[#171816]/20">•</span>
               <span className="hover:text-[#BE9B59] transition-colors cursor-pointer">
                 Terms of Commission

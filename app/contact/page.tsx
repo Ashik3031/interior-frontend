@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Connect with RichMan Interiors at The Tower Plaza Hotel, Sheikh Zayed Road, Dubai. Start your private villa, penthouse, or turnkey renovation commission.",
   keywords: [
     "Contact RichMan Interiors",
-    "Dubai Interior Design Studio Address",
+    "Dubai Interior Design Atelier Address",
     "Sheikh Zayed Road Interior Design Atelier",
     "The Tower Plaza Hotel Office Dubai",
     "Private Client Concierge Interior Design",

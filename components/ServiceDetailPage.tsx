@@ -968,7 +968,7 @@ export default function ServiceDetailPage({ service }: Props) {
 
                   <div className="mt-10 flex flex-wrap items-center justify-between gap-6">
                     <p className="max-w-xs font-sans text-sm text-warm-ivory/55">
-                      Physical samples are available at your studio consultation.
+                      Physical samples are available at your consultation.
                     </p>
                     <Link
                       href="/consultation"
