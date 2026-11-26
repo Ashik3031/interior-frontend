@@ -323,8 +323,12 @@ export default function Hero() {
     };
 
     window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("orientationchange", handleResize, { passive: true });
+    window.visualViewport?.addEventListener("resize", handleResize, { passive: true });
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+      window.visualViewport?.removeEventListener("resize", handleResize);
       clearTimeout(timeoutId);
     };
   }, [resizeCanvas]);
@@ -353,7 +357,7 @@ export default function Hero() {
           // Static fallback: show the final frame and the closing message, no scroll scrub
           targetFrameRef.current = TOTAL_FRAMES - 1;
           requestRender();
-          gsap.set(container, { height: "100svh" });
+          gsap.set(container, { height: "100dvh" });
           if (finalRef.current) {
             finalRef.current.style.opacity = "1";
             finalRef.current.style.pointerEvents = "auto";
@@ -366,6 +370,7 @@ export default function Hero() {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.5,
+          invalidateOnRefresh: true,
           onUpdate: (self) => {
             const progress = self.progress;
 
@@ -485,12 +490,12 @@ export default function Hero() {
       id="home"
       data-theme="dark"
       aria-label="Coastal Luxury Living Room Experience"
-      className="relative h-[280vh] w-full sm:h-[300vh] lg:h-[320vh]"
+      className="relative h-[280dvh] w-full bg-[#121312] sm:h-[300vh] lg:h-[320vh]"
     >
       {/* STICKY VIEWPORT CONTAINER: Stays pinned while scrolling through the sequence */}
       <div
         ref={pinRef}
-        className="sticky top-0 flex h-screen h-svh w-full select-none flex-col justify-between overflow-hidden bg-white"
+        className="sticky top-0 flex h-screen h-[100dvh] min-h-[100dvh] w-full select-none flex-col justify-between overflow-hidden bg-[#121312]"
       >
         {/* Instant Fallback Poster */}
         {/* eslint-disable-next-line @next/next/no-img-element */}

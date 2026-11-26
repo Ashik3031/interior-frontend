@@ -93,7 +93,7 @@ export default function CookiePolicyPage() {
             </h2>
             <div className="space-y-4 text-base leading-relaxed text-deep-charcoal/80 font-light">
               <p>
-                At <strong>RichMan Interiors FZ-LLC</strong> (&ldquo;RichMan Interiors&rdquo;, &ldquo;we&rdquo;,
+                At <strong>RichMan Interiors</strong> (&ldquo;RichMan Interiors&rdquo;, &ldquo;we&rdquo;,
                 &ldquo;our&rdquo;, or &ldquo;us&rdquo;), discretion and uncompromising quality define our
                 practice. This Cookie Policy explains how and why cookies, pixel tags, local storage,
                 and similar tracking technologies are used when you visit our website (

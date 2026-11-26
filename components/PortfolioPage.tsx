@@ -79,10 +79,25 @@ function CursorBubble({ active }: { active: boolean }) {
       className="pointer-events-none fixed left-0 top-0 z-[55] hidden [@media(pointer:fine)]:block"
     >
       <div
-        className={`flex h-24 w-24 items-center justify-center rounded-full bg-deep-charcoal font-sans text-sm font-medium text-warm-ivory transition-[opacity,transform] duration-300 ${active ? "scale-100 opacity-100" : "scale-50 opacity-0"
+        className={`flex h-20 w-20 flex-col items-center justify-center gap-1 rounded-full bg-deep-charcoal font-sans text-xs font-medium uppercase tracking-wider text-warm-ivory shadow-xl transition-[opacity,transform] duration-300 ${active ? "scale-100 opacity-100" : "scale-50 opacity-0"
           }`}
       >
-        View
+        <svg
+          aria-hidden
+          viewBox="0 0 24 24"
+          className="h-4 w-4 text-champagne-gold"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          <line x1="11" y1="8" x2="11" y2="14" />
+          <line x1="8" y1="11" x2="14" y2="11" />
+        </svg>
+        <span>Zoom</span>
       </div>
     </div>
   );
@@ -130,11 +145,10 @@ function ProjectCard({
         }
       );
       gsap.from(text, {
-        y: 24,
+        y: 20,
         opacity: 0,
         duration: 0.9,
         ease: "power3.out",
-        stagger: 0.08,
         scrollTrigger: { trigger: el, start: "top 80%", once: true },
       });
       gsap.fromTo(
@@ -170,45 +184,39 @@ function ProjectCard({
         <div className="pc-img absolute inset-0 will-change-transform">
           <Image
             src={project.coverImage}
-            alt=""
+            alt={project.excerpt || "RichMan Interiors portfolio project"}
             fill
             sizes="(min-width:1024px) 55vw, 100vw"
             priority={index < 2}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         </div>
+
+        {/* Zoom button on card */}
+        <div className="absolute bottom-4 right-4 z-10 flex items-center gap-1.5 rounded-full bg-deep-charcoal/80 px-3 py-1.5 font-sans text-xs font-medium text-warm-ivory backdrop-blur-sm transition-all duration-300 group-hover:bg-champagne-gold group-hover:text-deep-charcoal">
+          <svg
+            aria-hidden
+            viewBox="0 0 24 24"
+            className="h-3.5 w-3.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            <line x1="11" y1="8" x2="11" y2="14" />
+            <line x1="8" y1="11" x2="14" y2="11" />
+          </svg>
+          <span>Zoom</span>
+        </div>
       </div>
 
-      <div className="pc-text mt-6">
-        <div className="flex items-baseline justify-between gap-4 font-sans text-sm text-deep-charcoal/55">
-          <span>
-            {project.location.split(",")[0]} · {project.year}
-          </span>
-          <span className="tabular-nums">({pad(index + 1)})</span>
-        </div>
-
-        <h3 className="mt-2 font-serif text-3xl font-light leading-tight sm:text-4xl">
-          {/* Keyboard and screen-reader entry point. Its click bubbles up to the card. */}
-          <button
-            type="button"
-            onClick={onOpen}
-            className="text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
-          >
-            <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">
-              {project.title}
-            </span>
-          </button>
-        </h3>
-
-        <p className="mt-3 max-w-md line-clamp-2 font-sans text-base leading-relaxed text-deep-charcoal/65">
+      {/* Short description on bottom of image */}
+      <div className="pc-text mt-5">
+        <p className="max-w-xl font-sans text-sm leading-relaxed text-deep-charcoal/75 sm:text-[15px]">
           {project.excerpt}
-        </p>
-
-        <p className="mt-4 flex items-center gap-3 font-sans text-sm text-deep-charcoal/55 transition-colors group-hover:text-deep-charcoal">
-          <span className="text-champagne-gold">{project.category}</span>
-          <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1.5">
-            &rarr;
-          </span>
         </p>
       </div>
     </article>
@@ -216,15 +224,13 @@ function ProjectCard({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Project modal                                                      */
+/*  Image Zoom Modal (Lightbox - without project details)             */
 /* ------------------------------------------------------------------ */
 
-function ProjectModal({
+function ImageZoomModal({
   project,
   index,
   total,
-  prev,
-  next,
   onClose,
   onPrev,
   onNext,
@@ -232,13 +238,10 @@ function ProjectModal({
   project: PortfolioProject;
   index: number;
   total: number;
-  prev: PortfolioProject;
-  next: PortfolioProject;
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
 }) {
-  const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
   // Lock page scroll, focus the dialog, and give focus back when it closes.
@@ -252,222 +255,122 @@ function ProjectModal({
     };
   }, []);
 
-  // Start at the top whenever the project changes.
-  useEffect(() => {
-    panelRef.current?.scrollTo({ top: 0 });
-  }, [project.id]);
-
-  // Keyboard: Esc closes, arrows move between projects, Tab stays inside.
+  // Keyboard: Esc closes, arrows move between images.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       else if (e.key === "ArrowRight") onNext();
       else if (e.key === "ArrowLeft") onPrev();
-      else if (e.key === "Tab") {
-        const f = panelRef.current?.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled])'
-        );
-        if (!f || f.length === 0) return;
-        const first = f[0];
-        const last = f[f.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose, onNext, onPrev]);
 
-  const stats = [
-    { label: "Location", value: project.location.split(",")[0] },
-    { label: "Total area", value: project.area },
-    { label: "Build time", value: project.duration },
-    { label: "Handover", value: String(project.year) },
-  ];
-
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Zoomed project view"
       onClick={onClose}
-      className="modal-overlay fixed inset-0 z-[60] flex items-center justify-center bg-deep-charcoal/70 p-3 backdrop-blur-sm sm:p-6 lg:p-10"
+      className="modal-overlay fixed inset-0 z-[60] flex flex-col justify-between bg-black/92 p-4 select-none backdrop-blur-md sm:p-6 lg:p-8"
     >
+      {/* Top bar: counter + close button */}
       <div
-        ref={panelRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="project-title"
         onClick={(e) => e.stopPropagation()}
-        className="modal-panel relative max-h-[94vh] w-full max-w-6xl overflow-y-auto rounded-[4px] bg-warm-ivory text-deep-charcoal shadow-2xl"
+        className="flex items-center justify-between text-white/80"
       >
-        {/* Top bar */}
-        <div className="sticky top-0 z-20 flex items-center justify-between border-b border-deep-charcoal/10 bg-warm-ivory/90 px-6 py-4 backdrop-blur-md sm:px-10">
-          <p className="font-sans text-sm text-deep-charcoal/60">
-            <span className="tabular-nums text-deep-charcoal">
-              ({pad(index + 1)} / {pad(total)})
-            </span>
-            <span className="mx-3">/</span>
-            {project.category}
-          </p>
-          <button
-            ref={closeRef}
-            type="button"
-            onClick={onClose}
-            className="inline-flex items-center gap-3 font-sans text-sm transition-colors hover:text-champagne-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
+        <span className="font-sans text-sm tracking-widest text-champagne-gold">
+          ({pad(index + 1)} / {pad(total)})
+        </span>
+        <button
+          ref={closeRef}
+          type="button"
+          onClick={onClose}
+          aria-label="Close zoom"
+          className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 font-sans text-xs uppercase tracking-widest text-white transition-colors duration-300 hover:border-champagne-gold hover:bg-champagne-gold hover:text-deep-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne-gold"
+        >
+          <span>Close</span>
+          <svg
+            aria-hidden
+            viewBox="0 0 14 14"
+            className="h-3 w-3 stroke-current transition-transform duration-300 group-hover:rotate-90"
+            fill="none"
+            strokeWidth="1.75"
           >
-            Close
-            <svg aria-hidden viewBox="0 0 14 14" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M1 1l12 12M13 1L1 13" strokeLinecap="round" />
-            </svg>
-          </button>
-        </div>
+            <path d="M1 1l12 12M13 1L1 13" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
 
-        {/* Hero image */}
-        <div className="relative h-[42vh] w-full overflow-hidden sm:h-[56vh]">
+      {/* Main image presentation + previous/next buttons */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative my-auto flex h-[72vh] w-full items-center justify-center sm:h-[78vh]"
+      >
+        {/* Previous button */}
+        <button
+          type="button"
+          onClick={onPrev}
+          aria-label="Previous image"
+          className="absolute left-2 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-champagne-gold hover:bg-champagne-gold hover:text-deep-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne-gold sm:left-4 sm:h-14 sm:w-14"
+        >
+          <svg
+            aria-hidden
+            viewBox="0 0 24 24"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+
+        {/* High-res Image */}
+        <div className="relative h-full w-full max-w-5xl">
           <Image
             key={project.id}
-            src={project.heroImage}
-            alt={project.title}
+            src={project.coverImage || project.heroImage}
+            alt={project.excerpt || "Zoomed project photograph"}
             fill
-            sizes="(min-width:1024px) 72rem, 100vw"
-            className="object-cover"
+            priority
+            sizes="(min-width: 1024px) 80vw, 95vw"
+            className="object-contain"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-deep-charcoal/75 via-deep-charcoal/10 to-transparent" />
-          <div className="absolute bottom-6 left-6 max-w-3xl text-white sm:bottom-10 sm:left-10">
-            <p className="font-sans text-sm text-white/80">{project.location}</p>
-            <h2
-              id="project-title"
-              className="mt-2 font-serif text-4xl font-light uppercase leading-[1] tracking-tight sm:text-6xl"
-            >
-              {project.title}
-            </h2>
-            <p className="mt-3 max-w-xl font-sans text-sm text-white/80 sm:text-base">
-              {project.subtitle}
-            </p>
-          </div>
         </div>
 
-        <div className="space-y-16 px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
-          {/* Stats */}
-          <dl className="grid grid-cols-2 border-y border-deep-charcoal/15 sm:grid-cols-4 sm:divide-x sm:divide-deep-charcoal/15">
-            {stats.map((s) => (
-              <div key={s.label} className="px-0 py-6 sm:px-6 sm:first:pl-0">
-                <dt className="font-sans text-sm text-deep-charcoal/50">{s.label}</dt>
-                <dd className="mt-2 font-serif text-2xl font-light">{s.value}</dd>
-              </div>
-            ))}
-          </dl>
+        {/* Next button */}
+        <button
+          type="button"
+          onClick={onNext}
+          aria-label="Next image"
+          className="absolute right-2 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-black/50 text-white backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-champagne-gold hover:bg-champagne-gold hover:text-deep-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne-gold sm:right-4 sm:h-14 sm:w-14"
+        >
+          <svg
+            aria-hidden
+            viewBox="0 0 24 24"
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+      </div>
 
-          {/* Story + lists */}
-          <div className="grid gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <h3 className="font-serif text-3xl font-light sm:text-4xl">The brief</h3>
-              <p className="mt-6 max-w-xl font-sans text-base leading-relaxed text-deep-charcoal/75">
-                {project.story}
-              </p>
-            </div>
-
-            <div className="grid gap-10 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
-              <div>
-                <h4 className="font-sans text-sm text-deep-charcoal/50">Materials</h4>
-                <ul className="mt-4 space-y-2 border-t border-deep-charcoal/15 pt-4 font-sans text-sm text-deep-charcoal/80">
-                  {project.materials.map((m) => (
-                    <li key={m} className="flex items-center gap-3">
-                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-champagne-gold" />
-                      {m}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-sans text-sm text-deep-charcoal/50">What we delivered</h4>
-                <ul className="mt-4 space-y-2 border-t border-deep-charcoal/15 pt-4 font-sans text-sm text-deep-charcoal/80">
-                  {project.deliverables.map((d) => (
-                    <li key={d} className="flex items-center gap-3">
-                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-champagne-gold" />
-                      {d}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Gallery */}
-          {project.galleryImages.length > 0 && (
-            <div>
-              <h3 className="font-serif text-3xl font-light sm:text-4xl">In detail</h3>
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                {project.galleryImages.map((img, i) => (
-                  <div
-                    key={img + i}
-                    className="group relative aspect-[4/3] overflow-hidden rounded-[4px] bg-sand-beige"
-                  >
-                    <Image
-                      src={img}
-                      alt={`${project.title}, detail ${i + 1}`}
-                      fill
-                      sizes="(min-width:640px) 30vw, 100vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Previous / next + CTA */}
-          <div className="border-t border-deep-charcoal/15 pt-10">
-            <div className="grid gap-6 sm:grid-cols-2">
-              <button
-                type="button"
-                onClick={onPrev}
-                className="group text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
-              >
-                <span className="font-sans text-sm text-deep-charcoal/50">
-                  <span aria-hidden className="mr-2 inline-block transition-transform duration-500 group-hover:-translate-x-1.5">
-                    &larr;
-                  </span>
-                  Previous
-                </span>
-                <span className="mt-1 block font-serif text-2xl font-light transition-colors group-hover:text-champagne-gold">
-                  {prev.title}
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={onNext}
-                className="group text-left sm:text-right focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
-              >
-                <span className="font-sans text-sm text-deep-charcoal/50">
-                  Next
-                  <span aria-hidden className="ml-2 inline-block transition-transform duration-500 group-hover:translate-x-1.5">
-                    &rarr;
-                  </span>
-                </span>
-                <span className="mt-1 block font-serif text-2xl font-light transition-colors group-hover:text-champagne-gold">
-                  {next.title}
-                </span>
-              </button>
-            </div>
-
-            <div className="mt-12 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-              <p className="font-sans text-sm text-deep-charcoal/60">
-                Planning a home with similar standards?
-              </p>
-              <Link
-                href="/consultation"
-                onClick={onClose}
-                className="inline-flex items-center gap-3 rounded-full bg-deep-charcoal px-8 py-4 font-sans text-sm font-medium text-warm-ivory transition-colors duration-300 hover:bg-champagne-gold hover:text-deep-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-champagne-gold"
-              >
-                Start a similar project
-              </Link>
-            </div>
-          </div>
-        </div>
+      {/* Bottom caption: short description only */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="mx-auto max-w-2xl px-4 text-center"
+      >
+        <p className="font-sans text-xs leading-relaxed text-white/75 sm:text-sm">
+          {project.excerpt}
+        </p>
       </div>
     </div>
   );
@@ -864,18 +767,12 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* ============ Project modal ============ */}
+      {/* ============ Image Zoom Modal ============ */}
       {activeProject && activeIndex !== null && (
-        <ProjectModal
+        <ImageZoomModal
           project={activeProject}
           index={activeIndex}
           total={filteredProjects.length}
-          prev={
-            filteredProjects[
-            (activeIndex - 1 + filteredProjects.length) % filteredProjects.length
-            ]
-          }
-          next={filteredProjects[(activeIndex + 1) % filteredProjects.length]}
           onClose={close}
           onPrev={goPrev}
           onNext={goNext}

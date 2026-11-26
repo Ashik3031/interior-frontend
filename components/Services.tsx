@@ -240,8 +240,8 @@ export default function Services() {
       const st = stickyRef.current;
       if (!st) return;
       const a = st.getBoundingClientRect();
-      const vw = a.width;
-      const vh = a.height;
+      const vw = a.width || window.innerWidth;
+      const vh = Math.max(a.height, window.innerHeight);
       const m = vw < 768;
 
       const centered = (w: number, h: number, r: number, dy = 0): Box => ({
@@ -294,6 +294,10 @@ export default function Services() {
       const light = P < 3.9;
       if (sectionRef.current) {
         sectionRef.current.setAttribute("data-theme", light ? "light" : "dark");
+        sectionRef.current.style.backgroundColor = light ? BG : "#0c0d0b";
+      }
+      if (stickyRef.current) {
+        stickyRef.current.style.backgroundColor = light ? BG : "#0c0d0b";
       }
       const g = clamp((P - 3.8) / 0.6);
       if (gradBottomRef.current) gradBottomRef.current.style.opacity = String(g);
@@ -520,6 +524,8 @@ export default function Services() {
 
     window.addEventListener("scroll", kick, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("orientationchange", onResize, { passive: true });
+    window.visualViewport?.addEventListener("resize", onResize, { passive: true });
     window.addEventListener("mousemove", onMove, { passive: true });
 
     layout();
@@ -537,6 +543,8 @@ export default function Services() {
     return () => {
       window.removeEventListener("scroll", kick);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+      window.visualViewport?.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMove);
       if (raf) cancelAnimationFrame(raf);
     };
@@ -562,7 +570,7 @@ export default function Services() {
       id="services"
       data-theme="light"
       aria-label="Our services"
-      className="relative text-[#F5F0E7]"
+      className="relative text-[#F5F0E7] transition-colors duration-500"
       style={{ backgroundColor: BG }}
     >
       <style>{`
@@ -578,11 +586,11 @@ export default function Services() {
       <div
         ref={containerRef}
         className="relative"
-        style={{ height: `calc(100svh + ${U * VH_PER_UNIT}svh)` }}
+        style={{ height: `calc(100dvh + ${U * VH_PER_UNIT}dvh)` }}
       >
         <div
           ref={stickyRef}
-          className="sticky top-0 h-[100svh] w-full overflow-hidden"
+          className="sticky top-0 h-screen h-[100dvh] min-h-[100dvh] w-full overflow-hidden transition-colors duration-500"
           style={{ backgroundColor: BG }}
         >
           {/* ======================= SCENE 3: marquee (behind media) ======================= */}

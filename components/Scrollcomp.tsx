@@ -8,10 +8,6 @@ import ConsultationDialog from "./Consultationdialog";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-// Mobile browsers resize the viewport when the address bar hides/shows.
-// Without this, ScrollTrigger recalculates mid-scroll and the animation jumps.
-ScrollTrigger.config({ ignoreMobileResize: true });
-
 /* ------------------------------------------------------------------ */
 /*  ONE long image for the whole sequence. Hosted on Cloudinary        */
 /* ------------------------------------------------------------------ */
@@ -39,13 +35,11 @@ const MOBILE_QUERY = "(max-width: 639px)";
  * Mobile gets a slightly shorter intro so it doesn't feel endless on touch.
  */
 const INTRO_SCREENS = 3.2;
-const INTRO_SCREENS_MOBILE = 2.6;
-const TAIL_SCREENS = 1.6;
+const INTRO_SCREENS_MOBILE = 2.0;
+const TAIL_SCREENS = 1.2;
 
 /**
  * Window shapes. clip-path inset order: top right bottom left.
- * Heights use `svh` (small viewport height) so they stay stable when the
- * mobile address bar collapses.
  *
  * DESKTOP: two wide windows side by side, staggered.
  * MOBILE:  two tall, narrow windows (portrait-friendly), staggered.
@@ -58,13 +52,13 @@ const WIN = {
         alignR: "inset(18.05svh 22.25vw 18.55svh 50vw)",
     },
     mobile: {
-        l: "inset(24svh 51vw 10svh 8vw)",
-        r: "inset(10svh 8vw 24svh 51vw)",
-        alignL: "inset(17svh 50vw 17svh 8vw)",
-        alignR: "inset(17svh 8vw 17svh 50vw)",
+        l: "inset(14dvh 51vw 8dvh 6vw)",
+        r: "inset(8dvh 6vw 14dvh 51vw)",
+        alignL: "inset(11dvh 50.5vw 11dvh 6vw)",
+        alignR: "inset(11dvh 6vw 11dvh 50.5vw)",
     },
 };
-const FULL = "inset(0svh 0vw 0svh 0vw)";
+const FULL = "inset(0 0 0 0)";
 
 /**
  * Initial clip-paths as CSS classes (not inline styles) so the correct
@@ -72,8 +66,8 @@ const FULL = "inset(0svh 0vw 0svh 0vw)";
  * before GSAP runs. Written out in full so Tailwind can see them.
  */
 const WIN_CLASS = {
-    l: "[clip-path:inset(23.1svh_50.5vw_13.5svh_22.25vw)] max-sm:[clip-path:inset(24svh_51vw_10svh_8vw)]",
-    r: "[clip-path:inset(13svh_22.25vw_23.65svh_50.55vw)] max-sm:[clip-path:inset(10svh_8vw_24svh_51vw)]",
+    l: "[clip-path:inset(23.1svh_50.5vw_13.5svh_22.25vw)] max-sm:[clip-path:inset(14dvh_51vw_8dvh_6vw)]",
+    r: "[clip-path:inset(13svh_22.25vw_23.65svh_50.55vw)] max-sm:[clip-path:inset(8dvh_6vw_14dvh_51vw)]",
 };
 
 export default function ScrollHero() {
@@ -93,7 +87,13 @@ export default function ScrollHero() {
         fit();
         document.fonts?.ready.then(fit);
         window.addEventListener("resize", fit);
-        return () => window.removeEventListener("resize", fit);
+        window.addEventListener("orientationchange", fit);
+        window.visualViewport?.addEventListener("resize", fit);
+        return () => {
+            window.removeEventListener("resize", fit);
+            window.removeEventListener("orientationchange", fit);
+            window.visualViewport?.removeEventListener("resize", fit);
+        };
     }, []);
 
     // Re-measure scroll positions when layout above the section shifts.
@@ -106,11 +106,17 @@ export default function ScrollHero() {
         const ro = new ResizeObserver(refresh);
         ro.observe(document.body);
         window.addEventListener("load", refresh);
+        window.addEventListener("resize", refresh);
+        window.addEventListener("orientationchange", refresh);
+        window.visualViewport?.addEventListener("resize", refresh);
         document.fonts?.ready.then(refresh);
         return () => {
             clearTimeout(t);
             ro.disconnect();
             window.removeEventListener("load", refresh);
+            window.removeEventListener("resize", refresh);
+            window.removeEventListener("orientationchange", refresh);
+            window.visualViewport?.removeEventListener("resize", refresh);
         };
     }, []);
 
@@ -129,7 +135,7 @@ export default function ScrollHero() {
 
             const sizeTrack = () => {
                 if (track.current)
-                    track.current.style.height = `${introPx() + panPx() + tailPx() + window.innerHeight}px`;
+                    track.current.style.height = `${Math.round(introPx() + panPx() + tailPx() + window.innerHeight)}px`;
             };
 
             // Re-runs automatically when the breakpoint or motion preference changes
@@ -155,7 +161,7 @@ export default function ScrollHero() {
                         gsap.set("[data-bgwrap]", { y: () => -panPx() });
                         gsap.set("[data-shade],[data-copy],[data-credit],[data-cta]", { opacity: 1 });
                         gsap.set("[data-chrome]", { color: "#ffffff" });
-                        gsap.set(track.current, { height: "100svh" });
+                        gsap.set(track.current, { height: "100dvh" });
                         return;
                     }
 
@@ -232,9 +238,9 @@ export default function ScrollHero() {
     return (
         <>
             {/* Height is set by script; this is just a fallback */}
-            <section ref={track} className="relative h-[900svh]">
+            <section ref={track} className="relative min-h-[100dvh] h-[450dvh]" style={{ background: CREAM }}>
                 <div
-                    className="sticky top-0 h-screen overflow-hidden supports-[height:100svh]:h-[100svh]"
+                    className="sticky top-0 h-screen h-[100dvh] min-h-[100dvh] w-full overflow-hidden"
                     style={{ background: CREAM }}
                 >
                     {/* ---------- One long photo, seen through two windows ---------- */}
@@ -255,13 +261,13 @@ export default function ScrollHero() {
                                     decoding="async"
                                     fetchPriority="high"
                                     onLoad={() => ScrollTrigger.refresh()}
-                                    className="block h-auto min-h-[100svh] w-full max-w-none select-none object-cover"
+                                    className="block h-auto min-h-[100dvh] w-full max-w-none select-none object-cover"
                                     draggable={false}
                                 />
 
                                 {/* Giant headline: lives ON the image and scrolls away with it */}
                                 {side === "r" && (
-                                    <div className="pointer-events-none absolute inset-x-0 top-[6svh] z-10 flex justify-center max-sm:top-[12svh]">
+                                    <div className="pointer-events-none absolute inset-x-0 top-[6svh] z-10 flex justify-center max-sm:top-[10dvh]">
                                         <span
                                             ref={wordRef}
                                             data-word
@@ -275,7 +281,7 @@ export default function ScrollHero() {
                         </div>
                     ))}
 
-                    {/* Foreground leaf videos, top-left and bottom-right of the start screen. */}
+                    {/* Foreground leaf videos, top-left and bottom-right of the start screen. Hidden on small screens. */}
                     <video
                         data-leaf-tl
                         src={LEAF_TOP_LEFT}
@@ -285,7 +291,7 @@ export default function ScrollHero() {
                         playsInline
                         preload="auto"
                         aria-hidden
-                        className="pointer-events-none absolute left-0 top-0 z-[5] h-[55svh] w-[36vw] object-cover mix-blend-multiply [filter:brightness(1.12)_contrast(1.1)] will-change-transform max-sm:h-[34svh] max-sm:w-[58vw]"
+                        className="pointer-events-none absolute left-0 top-0 z-[5] hidden sm:block h-[55svh] w-[36vw] object-cover mix-blend-multiply [filter:brightness(1.12)_contrast(1.1)] will-change-transform"
                         style={{
                             WebkitMaskImage: "radial-gradient(ellipse at 0% 0%, #000 50%, transparent 82%)",
                             maskImage: "radial-gradient(ellipse at 0% 0%, #000 50%, transparent 82%)",
@@ -300,7 +306,7 @@ export default function ScrollHero() {
                         playsInline
                         preload="auto"
                         aria-hidden
-                        className="pointer-events-none absolute bottom-0 right-0 z-[5] h-[60svh] w-[34vw] object-cover mix-blend-multiply [filter:brightness(1.12)_contrast(1.1)] will-change-transform max-sm:h-[36svh] max-sm:w-[56vw]"
+                        className="pointer-events-none absolute bottom-0 right-0 z-[5] hidden sm:block h-[60svh] w-[34vw] object-cover mix-blend-multiply [filter:brightness(1.12)_contrast(1.1)] will-change-transform"
                         style={{
                             WebkitMaskImage: "radial-gradient(ellipse at 100% 100%, #000 50%, transparent 82%)",
                             maskImage: "radial-gradient(ellipse at 100% 100%, #000 50%, transparent 82%)",
@@ -317,7 +323,7 @@ export default function ScrollHero() {
                     {/* ---------- Caption ---------- */}
                     <div
                         data-copy
-                        className="pointer-events-none absolute left-[12.5vw] top-[34svh] z-[6] w-[min(46vw,800px)] text-white opacity-0 [text-shadow:0_2px_24px_rgba(0,0,0,0.85)] max-sm:left-[6vw] max-sm:top-[26svh] max-sm:w-[88vw]"
+                        className="pointer-events-none absolute left-[12.5vw] top-[34svh] z-[6] w-[min(46vw,800px)] text-white opacity-0 [text-shadow:0_2px_24px_rgba(0,0,0,0.85)] max-sm:left-[6vw] max-sm:top-[24dvh] max-sm:w-[88vw]"
                     >
                         <h2 className="font-display text-[clamp(22px,2.1vw,40px)] font-bold uppercase leading-[1.12] text-white [text-indent:9.5vw] max-sm:text-[clamp(16px,5vw,22px)] max-sm:leading-[1.2] max-sm:[text-indent:0]">
                             {CAPTION}
@@ -325,7 +331,7 @@ export default function ScrollHero() {
                     </div>
                     <div
                         data-credit
-                        className="pointer-events-none absolute left-[22vw] top-[64svh] z-[6] text-[13px] uppercase leading-[1.5] tracking-[.04em] text-white opacity-0 [text-shadow:0_2px_16px_rgba(0,0,0,0.85)] max-sm:bottom-[16svh] max-sm:left-[6vw] max-sm:top-auto max-sm:max-w-[52vw] max-sm:text-[11px]"
+                        className="pointer-events-none absolute left-[22vw] top-[64svh] z-[6] text-[13px] uppercase leading-[1.5] tracking-[.04em] text-white opacity-0 [text-shadow:0_2px_16px_rgba(0,0,0,0.85)] max-sm:bottom-[14dvh] max-sm:left-[6vw] max-sm:top-auto max-sm:max-w-[52vw] max-sm:text-[11px]"
                     >
                         <b className="block font-bold tracking-[.06em] text-white">{CREDIT_BOLD}</b>
                         <span className="block font-medium text-white/95">{CREDIT_LIGHT}</span>
@@ -336,7 +342,7 @@ export default function ScrollHero() {
                         data-cta
                         type="button"
                         onClick={() => setOpen(true)}
-                        className="group absolute left-[62.7vw] top-[59.6svh] z-[7] flex aspect-square w-[clamp(150px,13.1vw,260px)] cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/40 text-center text-[13px] font-bold uppercase leading-[1.35] tracking-[.04em] text-white opacity-0 backdrop-blur-[6px] transition-all [text-shadow:0_2px_14px_rgba(0,0,0,0.9)] hover:scale-105 hover:bg-black/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white max-sm:bottom-[14svh] max-sm:left-auto max-sm:right-[6vw] max-sm:top-auto max-sm:w-[clamp(110px,34vw,140px)] max-sm:text-[11px]"
+                        className="group absolute left-[62.7vw] top-[59.6svh] z-[7] flex aspect-square w-[clamp(150px,13.1vw,260px)] cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/40 text-center text-[13px] font-bold uppercase leading-[1.35] tracking-[.04em] text-white opacity-0 backdrop-blur-[6px] transition-all [text-shadow:0_2px_14px_rgba(0,0,0,0.9)] hover:scale-105 hover:bg-black/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white max-sm:bottom-[12dvh] max-sm:left-auto max-sm:right-[6vw] max-sm:top-auto max-sm:w-[clamp(110px,34vw,140px)] max-sm:text-[11px]"
                     >
                         {/* Thin ring, strong at top-left and bottom-right, fading in between */}
                         <svg viewBox="0 0 100 100" aria-hidden className="pointer-events-none absolute inset-0 h-full w-full">
